@@ -49,6 +49,9 @@ header label{
     color: #fff;
     text-decoration: none;
 }
+#logout{
+    color: black;
+}
 .menu  a:hover{
 	background: rgba(0, 0,0, 0.3)
 }

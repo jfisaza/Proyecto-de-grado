@@ -1,0 +1,146 @@
+*{
+	margin:0px ;
+	padding: 0px;
+	box-sizing:border-box;
+}
+
+.pagina{
+	box-sizing: border-box;
+	background-image: url(../img/fondo3.jpg);
+	background-size:cover;
+	background-attachment: fixed;
+	display: flex;
+	min-height: 100vh;
+	overflow: hidden;
+	height: 800px;
+	box-sizing: border-box;
+}
+.pagina:before{
+	content:"";
+	width: 100%;
+	height:800px;
+	background-color:black;
+	position: absolute;
+	opacity: 0.5;
+
+}
+
+
+h1{
+	font-family: 'Leckerli One', cursive;
+	font-size: 70px;
+	color: #15D7A9;
+	margin: 40px ;
+	text-align: center;
+}
+
+.formulario{
+	width: 50%;
+	min-width: 400px;
+	height: 750px;
+	box-sizing: border-box;
+	/* background-image: url(../img/fondo.jpg); */
+	background-size: cover;
+	background-color: rgba(255, 255, 255, 0.555);
+    text-align: center;
+    position: relative;
+    padding: 30px;
+	margin: auto;
+	border-radius: 10px;
+	align-content: center;
+	opacity: 1 !important;
+}
+.formulario h2,p{
+	padding: 10px;
+	
+	font-family: 'Bitter', serif;
+	/* font-family: 'Oswald', sans-serif; */
+	font-size: 20px;
+	margin-bottom: 20px;
+	color: rgba(3, 2, 1, 0.75);
+
+}
+
+.formulario h2{
+	font-size: 40px;
+}
+form {
+	margin: 50px;
+	margin-top: 0px;
+}
+.names{
+	display: flex;
+	flex-direction:row; 
+	justify-content: space-between;
+	margin: auto;
+	margin-top: 10px;
+	width: 80%;
+}
+
+.names input {
+	margin: 0px 20px;
+	display: flex;
+	justify-content: space-around;
+
+}
+::placeholder { color: rgba(0, 0, 0, 0.835); }
+input, select{
+	padding: 1em;
+	text-align: center;
+	font-family: 'Didact Gothic', sans-serif;
+	box-sizing: border-box;
+	width: 80%;
+	margin: auto;
+      background :transparent;
+	  border-width :0 0 0.1em;
+	  border-color: #fff;
+	  color: rgb(44, 42, 42);
+	  margin-top: 16px;
+}
+
+select {
+	border: 0px solid #fff;
+    outline: none;
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-weight: normal;
+
+}
+#registrar{
+	background: rgba(48, 135, 175, 0.9);
+	color: white;
+	cursor: pointer;
+	display: block;
+	border-radius: 5px;
+	text-align: center;
+	font-family: 'Didact Gothic', sans-serif;
+	margin: auto;
+}
+
+.botom{
+	padding-top: 16px;
+}
+input[type="submit"]:hover{
+	opacity: 0.80;
+}
+
+input[type="submit"]:active{
+	transform: scale(0.95);
+}
+
+@media(max-width:768px){
+	.formulario{
+		width: 75%;
+	}
+
+}
+@media(max-width:480px){
+	.formulario{
+		width: 90%;
+	}
+
+}
+strong{
+	font-family: 'Bitter', serif;
+	color: red;
+}

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'documento','nombres','apellidos','telefono','ciudad','programa','email', 'password'
     ];
 
     /**
@@ -36,4 +36,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    
+    public function roles(){
+        return $this->belongsToMany('App\Roles');
+    }
+    public function hasRole($rol){
+        if( $this->roles()->where('rol_nombre',$rol)->first() ){
+            return true;
+        }
+        return false;
+    }
+    public function hasAnyRole($roles){
+        if(is_array($roles)){
+            foreach($roles as $rol){
+                if($this->hasRole($rol)){
+                    return true;
+                }
+            }
+        }else{
+            if($this->hasRole($roles)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public function authorizeRoles($rol){
+        if($this->hasAnyRole($rol)){
+            return true;
+        }
+        abort(401,'Página no autorizada');
+    }
 }
