@@ -22,3 +22,7 @@ Route::resource('/usuarios','UsuariosController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/estudiantes','EstudiantesController');
+Route::resource('/docentes','DocentesController');
+Route::resource('/administrativos','AdministrativosController');

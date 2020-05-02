@@ -26,10 +26,10 @@
         <nav class="menu">
             <ul>
                 <li><a href="{{ url('/') }}">Inicio</a></li>
-                <li><a href="#">Banco De Ideas</a></li>
-                <li><a href="#">Estudiantes</a></li>
-                <li><a href="#">Docentes</a></li>
-                <li><a href="">Administrativos</a></li>
+                <li><a href="{{ action('BancoController@index') }}">Banco De Ideas</a></li>
+                <li><a href="{{ action('EstudiantesController@index') }}">Estudiantes</a></li>
+                <li><a href="{{ action('DocentesController@index') }}">Docentes</a></li>
+                <li><a href="{{ action('AdministrativosController@index') }}">Administrativos</a></li>
                 @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

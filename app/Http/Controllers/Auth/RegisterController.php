@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use App\Roles;
 class RegisterController extends Controller
 {
     /*
@@ -69,7 +69,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        //guarda el rol en una variable
+        $role=Roles::where('rol_nombre','estudiante')->first();
+        //crea el usuario
+        $user = User::create([
             'documento' => $data['documento'],
             'nombres' => $data['nombres'],
             'apellidos' => $data['apellidos'],
@@ -79,5 +82,9 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        //asigna el rol al usuario
+        $user->roles()->attach($role);
+        return $user;
+
     }
 }
