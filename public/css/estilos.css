@@ -169,5 +169,23 @@ header section label:hover{
     font-size: 0.9rem;
     line-height: 1.6;
 }
-
+#error{
+    margin: auto;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 50px;
+    width: 70%;
+    display: flex;
+}
+#error article{
+    display: block;
+    width: 50%;
+    padding: 5%;
+    margin: auto;
+}
+#error article img{
+    position: relative;
+    margin: auto;
+    width: 100%;
+}
 

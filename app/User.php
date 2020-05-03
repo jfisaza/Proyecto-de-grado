@@ -37,16 +37,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+    //relacion con la tabla de roles
     public function roles(){
         return $this->belongsToMany('App\Roles');
     }
+
+    //funcion para validar si un usuario tiene un rol
     public function hasRole($rol){
         if( $this->roles()->where('rol_nombre',$rol)->first() ){
             return true;
         }
         return false;
     }
+
+    //funcion para validar si un usuario tiene varios roles
     public function hasAnyRole($roles){
         if(is_array($roles)){
             foreach($roles as $rol){
@@ -61,6 +65,8 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    //funcion que autoriza la entrada a paginas dependiendo del rol de usuario
     public function authorizeRoles($rol){
         if($this->hasAnyRole($rol)){
             return true;
