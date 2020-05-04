@@ -73,4 +73,12 @@ class User extends Authenticatable
         }
         abort(401,'Página no autorizada');
     }
+
+    public function programas(){
+        return $this->belongsTo(Programas::class, 'programa');
+    }
+    public function trabajo(){
+        return $this->belongsTo('App\Trabajos');
+    }
+    
 }

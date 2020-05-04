@@ -13,12 +13,12 @@ class CreateTbUsuariosTrabajo extends Migration
      */
     public function up()
     {
-        Schema::create('usuarios_trabajo', function (Blueprint $table) {
+        Schema::create('trabajos_user', function (Blueprint $table) {
             $table->bigIncrements('ut_id')->unique();
-            $table->Integer('ut_usu_id')->unsigned();
-            $table->foreign('ut_usu_id')->references('id')->on('users');
-            $table->Integer('ut_tra_codigo')->unsigned();
-            $table->foreign('ut_tra_codigo')->references('tra_codigo')->on('trabajos');
+            $table->Integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->Integer('trabajos_tra_id')->unsigned();
+            $table->foreign('trabajos_tra_id')->references('tra_id')->on('trabajos');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateTbUsuariosTrabajo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usuarios_trabajo');
+        Schema::dropIfExists('trabajos_user');
     }
 }

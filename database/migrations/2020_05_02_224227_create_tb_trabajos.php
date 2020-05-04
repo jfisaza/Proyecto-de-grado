@@ -14,7 +14,7 @@ class CreateTbTrabajos extends Migration
     public function up()
     {
         Schema::create('trabajos', function (Blueprint $table) {
-            $table->bigIncrements('tra_codigo')->unique();
+            $table->bigIncrements('tra_id')->unique();
             $table->string('tra_titulo');
             $table->Integer('tra_fac_id')->unsigned();
             $table->foreign('tra_fac_id')->references('fac_id')->on('facultades');

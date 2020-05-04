@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>asdf</td>
+                <td>{{ auth()->user()->trabajo->tra_id }}</td>
                 <td>asdf</td>
                 <td>asdf</td>
                 <td>asdf</td>

@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/banco','BancoController');
-Route::resource('/usuarios','UsuariosController');
+Route::resource('/usuarios','UsersController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
