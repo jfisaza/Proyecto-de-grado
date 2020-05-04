@@ -73,53 +73,6 @@ img{
 .login span:hover {
     opacity: 1;
 }
-@media(max-width:978px){
-    header label{
-        display: block;
-        margin-right: 10px;
-    }
-    .menu{
-        position: absolute;
-        top:60px;
-        left:10;
-        width: 100%;
-        transform: translateX(-100%);
-        transition: all 0.3s;
-    }
-    .menu ul{
-        display: block;
-        background: #555;
-    }
-
-    .menu ul li:hover ul{
-        display:none;
-        position: absolute;
-    }
-
-    .menu a span{
-        position: absolute;
-        right: 5px;
-    }
-
-    .login a{
-        padding: 35px;
-    }
-
-    #btn-menu:checked ~ .menu{
-        transform: translateX(0%);
-    }
-
-    .menu ul ul{
-        background:rgba(0,0,0,0.4) ;
-    }
-    .menu ul ul a {
-        padding: 20px 40px;
-    }
-    #btn-menu:checked ~ #filtro{
-        display: none;
-    }
-}
-
 
 
 header section label{
@@ -169,23 +122,57 @@ header section label:hover{
     font-size: 0.9rem;
     line-height: 1.6;
 }
-#error{
-    margin: auto;
-    border: 1px solid grey;
-    border-radius: 20px;
-    padding: 50px;
-    width: 70%;
-    display: flex;
+
+
+
+@media(max-width:978px){
+
+    header label{
+        display: block;
+        margin-right: 10px;
+    }
+    .menu{
+        position: absolute;
+        top:60px;
+        left:10;
+        width: 100%;
+        transform: translateX(-100%);
+        transition: all 0.3s;
+    }
+    .menu ul{
+        display: block;
+        background: #555;
+    }
+
+    .menu ul li:hover ul{
+        display:none;
+        position: absolute;
+    }
+
+    .menu a span{
+        position: absolute;
+        right: 5px;
+    }
+
+    .login a{
+        padding: 35px;
+    }
+
+    #btn-menu:checked ~ .menu{
+        transform: translateX(0%);
+    }
+
+    .menu ul ul{
+        background:rgba(0,0,0,0.4) ;
+    }
+    .menu ul ul a {
+        padding: 20px 40px;
+    }
+    #btn-menu:checked ~ #filtro{
+        display: none;
+    }
+
 }
-#error article{
-    display: block;
-    width: 50%;
-    padding: 5%;
-    margin: auto;
-}
-#error article img{
-    position: relative;
-    margin: auto;
-    width: 100%;
-}
+
+
 

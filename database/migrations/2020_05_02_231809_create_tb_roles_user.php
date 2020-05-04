@@ -17,8 +17,8 @@ class CreateTbRolesUser extends Migration
             $table->increments('ur_id')->unique();
             $table->Integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->Integer('roler_rol_id')->unsigned();
-            $table->foreign('roler_rol_id')->references('rol_id')->on('roles');
+            $table->Integer('roles_rol_id')->unsigned();
+            $table->foreign('roles_rol_id')->references('rol_id')->on('roles');
             $table->timestamps();
         });
     }

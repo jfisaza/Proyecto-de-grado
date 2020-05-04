@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
+
     <title>Trabajo de grado - Unidades Tecnológicas de Santander</title>
 
     <!-- CSRF Token -->
@@ -30,6 +31,7 @@
                 <li><a href="{{ action('EstudiantesController@index') }}">Estudiantes</a></li>
                 <li><a href="{{ action('DocentesController@index') }}">Docentes</a></li>
                 <li><a href="{{ action('AdministrativosController@index') }}">Administrativos</a></li>
+
                 @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

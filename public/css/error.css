@@ -1,0 +1,34 @@
+#error{
+    margin: auto;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 50px;
+    width: 72%;
+    display: flex;
+}
+#error article{
+    display: block;
+    width: 50%;
+    padding: 5%;
+    margin: auto;
+}
+#error article img{
+    position: relative !important;
+    margin: auto;
+    width: 100%;
+}
+@media(max-width:978px){
+#error{
+    margin: auto;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 50px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+#error h1,#error h3{
+    font-size: 3vw;
+}
+}
