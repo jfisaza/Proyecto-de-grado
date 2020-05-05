@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Trabajos;
 
 class EstudiantesController extends Controller
 {
@@ -11,8 +13,6 @@ class EstudiantesController extends Controller
             return view("auth.login");
         }
         $request->user()->authorizeRoles('estudiante');
-
-        
         return view("estudiantes.index");
     }
 }

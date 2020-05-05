@@ -34,9 +34,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ auth()->user()->trabajo->tra_id }}</td>
-                <td>asdf</td>
-                <td>asdf</td>
+                <td>{{ auth()->user()->trabajos->tra_id }}</td>
+                <td>{{ auth()->user()->trabajos->tra_titulo }}</td>
+                <td>{{ auth()->user()->trabajos->tra_mod_id }}</td>
                 <td>asdf</td>
                 <td>
                     <table class="table-bordered table-hover">

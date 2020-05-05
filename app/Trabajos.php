@@ -12,6 +12,6 @@ class Trabajos extends Model
                             'tra_codir_usu_id','tra_mod_id','tra_citacion','tra_emp_id'];
 
     public function estudiante(){
-        return $this->hasMany('App\User');
+        return $this->belongsToMany('App\User');
     }
 }

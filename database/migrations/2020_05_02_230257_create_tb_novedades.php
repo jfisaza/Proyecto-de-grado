@@ -15,8 +15,8 @@ class CreateTbNovedades extends Migration
     {
         Schema::create('novedades', function (Blueprint $table) {
             $table->bigIncrements('nov_id')->unique();
-            $table->Integer('nov_tra_codigo')->unsigned();
-            $table->foreign('nov_tra_codigo')->references('tra_codigo')->on('trabajos');
+            $table->Integer('nov_tra_id')->unsigned();
+            $table->foreign('nov_tra_id')->references('tra_id')->on('trabajos');
             $table->string('nov_descripcion');
             $table->date('nov_fecha');
             $table->timestamps();

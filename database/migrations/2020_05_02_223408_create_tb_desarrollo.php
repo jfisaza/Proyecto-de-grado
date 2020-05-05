@@ -15,13 +15,13 @@ class CreateTbDesarrollo extends Migration
     {
         Schema::create('desarrollo', function (Blueprint $table) {
             $table->bigIncrements('des_id')->unique();
-            $table->Integer('des_con_id')->unsigned();
+            $table->integer('des_con_id')->unsigned()->nullable();
             $table->foreign('des_con_id')->references('con_id')->on('conceptos');
-            $table->Integer('des_prop_id')->unsigned();
+            $table->integer('des_prop_id')->unsigned();
             $table->foreign('des_prop_id')->references('prop_id')->on('propuesta');
-            $table->string('des_formato',40);
-            $table->date('des_fecha_entrega');
-            $table->date('des_fecha_calificacion');
+            $table->string('des_formato',40)->nullable();
+            $table->date('des_fecha_entrega')->nullable();
+            $table->date('des_fecha_calificacion')->nullable();
 
 
             $table->timestamps();

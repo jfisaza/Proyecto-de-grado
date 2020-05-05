@@ -15,11 +15,11 @@ class CreateTbPropuesta extends Migration
     {
         Schema::create('propuesta', function (Blueprint $table) {
             $table->bigIncrements('prop_id')->unique();
-            $table->Integer('prop_con_id')->unsigned();
+            $table->integer('prop_con_id')->unsigned()->nullable();
             $table->foreign('prop_con_id')->references('con_id')->on('conceptos');
-            $table->string('prop_formato',40);
-            $table->date('prop_fecha_entrega');
-            $table->date('prop_fecha_calificacion');
+            $table->string('prop_formato',40)->nullable();
+            $table->date('prop_fecha_entrega')->nullable();
+            $table->date('prop_fecha_calificacion')->nullable();
             $table->timestamps();
         });
     }

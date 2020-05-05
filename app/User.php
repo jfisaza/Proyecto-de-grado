@@ -77,8 +77,8 @@ class User extends Authenticatable
     public function programas(){
         return $this->belongsTo(Programas::class, 'programa');
     }
-    public function trabajo(){
-        return $this->belongsTo('App\Trabajos');
+    public function trabajos(){
+        return $this->belongsTo(Trabajos::class,'trabajo');
     }
     
 }
