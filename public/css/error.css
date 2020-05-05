@@ -13,7 +13,6 @@
     margin: auto;
 }
 #error article img{
-    position: relative !important;
     margin: auto;
     width: 100%;
 }
@@ -31,4 +30,17 @@
 #error h1,#error h3{
     font-size: 3vw;
 }
+}
+
+.pagina-info{
+    padding: 4%;
+    box-sizing: border-box;
+	background-image: url(../img/fondo-info.jpg);
+	background-size:cover;
+	background-attachment: fixed;
+	display: flex;
+	min-height: 100vh;
+	overflow: hidden;
+	height: 540px;
+	box-sizing: border-box;
 }

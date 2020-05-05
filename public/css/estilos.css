@@ -4,10 +4,10 @@
     box-sizing: border-box;
     font-family: 'Baloo Tammudu 2', cursive;
 }
-.contenedor{
+/* .contenedor{
     margin-left: 4%;
     margin-right: 4%;
-} */
+} */ */
 h1{
     color: #46474E;
 }
@@ -22,7 +22,7 @@ header{
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 2%;
+    /* margin-bottom: 1%; */
 }
 #btn-menu{
     display: none;
@@ -55,7 +55,7 @@ header label{
 .menu  a:hover{
 	background: rgba(0, 0,0, 0.3)
 }
-img{
+.img{
     position: absolute;
     left:20px;
     top:-10px;
