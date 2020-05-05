@@ -13,6 +13,7 @@ class EstudiantesController extends Controller
             return view("auth.login");
         }
         $request->user()->authorizeRoles('estudiante');
-        return view("estudiantes.index");
+        $usuarios=User::all()->where('trabajo',$request->user()->trabajo);
+        return view("estudiantes.index", compact('usuarios'));
     }
 }

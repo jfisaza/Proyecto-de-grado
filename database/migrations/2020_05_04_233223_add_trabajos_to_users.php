@@ -16,6 +16,7 @@ class AddTrabajosToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->integer('trabajo')->nullable()->after('password');
             $table->foreign('trabajo')->references('tra_id')->on('trabajos');
+            $table->foreign('programa')->references('pro_id')->on('programas');
         });
     }
 
