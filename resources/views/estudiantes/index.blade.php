@@ -36,26 +36,38 @@
             <tr>
                 <td>{{ auth()->user()->trabajos->tra_id }}</td>
                 <td>{{ auth()->user()->trabajos->tra_titulo }}</td>
-                <td>{{ auth()->user()->trabajos->tra_mod_id }}</td>
-                <td>asdf</td>
+                <td>{{ auth()->user()->trabajos->modalidad->mod_nombre }}</td>
+                <td>{{ auth()->user()->programas->pro_nombre }}</td>
                 <td>
                     <table class="table-bordered table-hover">
+                    @foreach($usuarios as $usu)
                         <tr>
-                            <td>asdf</td>
+                            <td>{{ $usu->nombres }}</td>
                         </tr>
-                        <tr>
-                            <td>asdf</td>
-                        </tr>
-                        <tr>
-                            <td>asdf</td>
-                        </tr>
+                    @endforeach
                     </table>
                 </td>
-                <td>asdf</td>
-                <td>asdf</td>
-                <td>asdf</td>
-                <td id="estado">APROBADO</td>
-                <td>asdf</td>
+                <td>{{ auth()->user()->trabajos->director->nombres }}</td>
+                <td>
+                @if( isset(auth()->user()->trabajos->codirector->nombres) )
+                {{ auth()->user()->trabajos->codirector->nombres }}
+                @endif
+                </td>
+                <td>
+                @if( isset(auth()->user()->trabajos->propuesta->prop_formato) )
+                {{ auth()->user()->trabajos->propuesta->prop_formato }}
+                @endif
+                </td>
+                <td>
+                @if( isset(auth()->user()->trabajos->propuesta->concepto->calificador->nombres) )
+                {{ auth()->user()->trabajos->propuesta->concepto->calificador->nombres }}
+                @endif
+                </td>
+                <td id="estado">
+                @if( isset(auth()->user()->trabajos->propuesta->concepto->con_nombre) )
+                {{ auth()->user()->trabajos->propuesta->concepto->con_nombre }}
+                @endif
+                </td>
                 <td>
                     <a href="" class="btn btn-primary ml-3"><span class="fas fa-edit"></span></a>
                     <a href="" class="btn btn-primary"><span class="fas fa-arrow-right"></span></a>
@@ -81,28 +93,40 @@
         </thead>
         <tbody>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ auth()->user()->trabajos->tra_id }}</td>
+                <td>{{ auth()->user()->trabajos->tra_titulo }}</td>
+                <td>{{ auth()->user()->trabajos->modalidad->mod_nombre }}</td>
+                <td>{{ auth()->user()->programas->pro_nombre }}</td>
                 <td>
                     <table class="table-bordered table-hover">
+                    @foreach($usuarios as $usu)
                         <tr>
-                            <td></td>
+                            <td>{{ $usu->nombres }}</td>
                         </tr>
-                        <tr>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                        </tr>
+                    @endforeach
                     </table>
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ auth()->user()->trabajos->director->nombres }}</td>
+                <td>
+                @if( isset(auth()->user()->trabajos->propuesta->prop_formato) )
+                {{ auth()->user()->trabajos->propuesta->prop_formato }}
+                @endif
+                </td>
+                <td>
+                @if( isset(auth()->user()->trabajos->propuesta->prop_formato) )
+                {{ auth()->user()->trabajos->propuesta->prop_formato }}
+                @endif
+                </td>
+                <td>
+                @if( isset(auth()->user()->trabajos->propuesta->concepto->calificador->nombres) )
+                {{ auth()->user()->trabajos->propuesta->concepto->calificador->nombres }}
+                @endif
+                </td>
+                <td id="estado">
+                @if( isset(auth()->user()->trabajos->propuesta->concepto->con_nombre) )
+                {{ auth()->user()->trabajos->propuesta->concepto->con_nombre }}
+                @endif
+                </td>
                 <td>
                     <a href="" class="btn btn-primary ml-3"><span class="fas fa-edit"></span></a>
                     <a href="" class="btn btn-primary"><span class="fas fa-arrow-right"></span></a>
