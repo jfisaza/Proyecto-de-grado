@@ -6,6 +6,9 @@
     width: 72%;
     display: flex;
 }
+#pagina{
+    padding: 3%;
+}
 #error article{
     display: block;
     width: 50%;

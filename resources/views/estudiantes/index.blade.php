@@ -1,11 +1,11 @@
 @extends('layout')
 
 @section('content')
-
+<div id="pagina">
 <h1>Estudiante</h1>
 
 <section class="tablas">
-
+ 
     <div class="tabs">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -16,12 +16,13 @@
             </li>
         </ul>
     </div>
-    <article class="prupuesta" id="propuesta">
+    <article class="propuesta" id="propuesta">
 
     <table class="table-bordered table-hover table-striped">
+
         <thead>
             <th>Código</th>
-            <th>Nombre del trabajo</th>
+            <th>Nombre de l propuestas</th>
             <th>Modalidad</th>
             <th>Programa</th>
             <th>Estudiantes</th>
@@ -34,9 +35,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ auth()->user()->trabajos->tra_id }}</td>
-                <td>{{ auth()->user()->trabajos->tra_titulo }}</td>
-                <td>{{ auth()->user()->trabajos->modalidad->mod_nombre }}</td>
+                <td>{{ auth()->user()->propuestas->prop_id }}</td>
+                <td>{{ auth()->user()->propuestas->prop_titulo }}</td>
+                <td>{{ auth()->user()->propuestas->modalidad->mod_nombre }}</td>
                 <td>{{ auth()->user()->programas->pro_nombre }}</td>
                 <td>
                     <table class="table-bordered table-hover">
@@ -47,25 +48,25 @@
                     @endforeach
                     </table>
                 </td>
-                <td>{{ auth()->user()->trabajos->director->nombres }}</td>
+                <td>{{ auth()->user()->propuestas->director->nombres }}</td>
                 <td>
-                @if( isset(auth()->user()->trabajos->codirector->nombres) )
-                {{ auth()->user()->trabajos->codirector->nombres }}
+                @if( isset(auth()->user()->propuestas->codirector->nombres) )
+                {{ auth()->user()->propuestas->codirector->nombres }}
                 @endif
                 </td>
                 <td>
-                @if( isset(auth()->user()->trabajos->propuesta->prop_formato) )
-                {{ auth()->user()->trabajos->propuesta->prop_formato }}
+                @if( isset(auth()->user()->propuestas->prop_formato) )
+                {{ auth()->user()->propuestas->prop_formato }}
                 @endif
                 </td>
                 <td>
-                @if( isset(auth()->user()->trabajos->propuesta->concepto->calificador->nombres) )
-                {{ auth()->user()->trabajos->propuesta->concepto->calificador->nombres }}
+                @if( isset(auth()->user()->propuestas->concepto->calificador->nombres) )
+                {{ auth()->user()->propuestas->concepto->calificador->nombres }}
                 @endif
                 </td>
                 <td id="estado">
-                @if( isset(auth()->user()->trabajos->propuesta->concepto->con_nombre) )
-                {{ auth()->user()->trabajos->propuesta->concepto->con_nombre }}
+                @if( isset(auth()->user()->propuestas->concepto->con_nombre) )
+                {{ auth()->user()->propuestas->concepto->con_nombre }}
                 @endif
                 </td>
                 <td>
@@ -74,13 +75,21 @@
                 </td>
             </tr>
         </tbody>
+
     </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="btn-group">
+     <a href="{{route('estudiantes.create')}}" class="btn btn-info"> Agregar Propuesta</a>
+</div> 
     </article>
     <article class="desarrollo" id="desarrollo">
     <table class="table-bordered table-hover table-striped">
         <thead>
             <th>Código</th>
-            <th>Nombre del trabajo</th>
+            <th>Nombre de la propuestas</th>
             <th>Modalidad</th>
             <th>Programa</th>
             <th>Estudiantes</th>
@@ -93,9 +102,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ auth()->user()->trabajos->tra_id }}</td>
-                <td>{{ auth()->user()->trabajos->tra_titulo }}</td>
-                <td>{{ auth()->user()->trabajos->modalidad->mod_nombre }}</td>
+                <td>{{ auth()->user()->propuestas->prop_id }}</td>
+                <td>{{ auth()->user()->propuestas->prop_titulo }}</td>
+                <td>{{ auth()->user()->propuestas->modalidad->mod_nombre }}</td>
                 <td>{{ auth()->user()->programas->pro_nombre }}</td>
                 <td>
                     <table class="table-bordered table-hover">
@@ -106,25 +115,25 @@
                     @endforeach
                     </table>
                 </td>
-                <td>{{ auth()->user()->trabajos->director->nombres }}</td>
+                <td>{{ auth()->user()->propuestas->director->nombres }}</td>
                 <td>
-                @if( isset(auth()->user()->trabajos->propuesta->prop_formato) )
-                {{ auth()->user()->trabajos->propuesta->prop_formato }}
+                @if( isset(auth()->user()->propuestas->prop_formato) )
+                {{ auth()->user()->propuestas->prop_formato }}
                 @endif
                 </td>
                 <td>
-                @if( isset(auth()->user()->trabajos->propuesta->prop_formato) )
-                {{ auth()->user()->trabajos->propuesta->prop_formato }}
+                @if( isset(auth()->user()->propuestas->prop_formato) )
+                {{ auth()->user()->propuestas->prop_formato }}
                 @endif
                 </td>
                 <td>
-                @if( isset(auth()->user()->trabajos->propuesta->concepto->calificador->nombres) )
-                {{ auth()->user()->trabajos->propuesta->concepto->calificador->nombres }}
+                @if( isset(auth()->user()->propuestas->concepto->calificador->nombres) )
+                {{ auth()->user()->propuestas->concepto->calificador->nombres }}
                 @endif
                 </td>
                 <td id="estado">
-                @if( isset(auth()->user()->trabajos->propuesta->concepto->con_nombre) )
-                {{ auth()->user()->trabajos->propuesta->concepto->con_nombre }}
+                @if( isset(auth()->user()->propuestas->concepto->con_nombre) )
+                {{ auth()->user()->propuestas->concepto->con_nombre }}
                 @endif
                 </td>
                 <td>
@@ -133,8 +142,10 @@
                 </td>
             </tr>
         </tbody>
+        
     </table>
+
     </article>
 </section>
-
+</div>
 @endsection

@@ -1,7 +1,8 @@
 @extends('layout')
 
 @section('content')
-
+<div id="pagina">
+    <div class="container"></div>
 <h1>Banco de ideas</h1>
 
 <section class="tablas">
@@ -94,6 +95,6 @@
     </article>
 </section>
 
-
+</div>
 
 @endsection

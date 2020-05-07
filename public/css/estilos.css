@@ -4,10 +4,10 @@
     box-sizing: border-box;
     font-family: 'Baloo Tammudu 2', cursive;
 }
-/* .contenedor{
-    margin-left: 4%;
-    margin-right: 4%;
-} */ */
+#pagina{
+    padding: 5%;
+}
+ */
 h1{
     color: #46474E;
 }
@@ -123,8 +123,6 @@ header section label:hover{
     line-height: 1.6;
 }
 
-
-
 @media(max-width:978px){
 
     header label{
@@ -171,6 +169,8 @@ header section label:hover{
     #btn-menu:checked ~ #filtro{
         display: none;
     }
+
+
 
 }
 

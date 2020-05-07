@@ -1,0 +1,91 @@
+*{
+	margin:0px ;
+	padding: 0px;
+	box-sizing:border-box;
+}
+
+
+#formulario{
+	width: 50%;
+	min-width: 400px;
+	height: 620px;
+	box-sizing: border-box;
+	background-size: cover;
+	background-color: rgba(16, 24, 29, 0.555);
+	text-align: center;
+	color: white;
+    position: relative;
+    padding: 30px;
+	margin: auto;
+	border-radius: 10px;
+	align-content: center;
+	opacity: 1 !important;
+}
+#formulario p{
+	color: rgb(131, 156, 179);
+}
+
+#pagina{
+	box-sizing: border-box;
+	background-image: url(../img/fondo-info.jpg);
+	/* background-color: white; */
+	background-size:cover;
+	background-attachment: fixed;
+	display: flex;
+	min-height: 120vh;
+	overflow: hidden;
+	height: 800px;
+	box-sizing: border-box;
+}
+input, select{
+	padding: 1em;
+	text-align: center;
+	font-family: 'Didact Gothic', sans-serif;
+	box-sizing: border-box;
+	width: 80%;
+	margin: auto;
+      background :transparent;
+	  border-width :0 0 0.1em;
+	  border-color: #fff;
+	  color: rgb(44, 42, 42);
+	  margin-top: 16px;
+}
+
+#registrar{
+	background: rgba(48, 135, 175, 0.9);
+	color: white;
+	cursor: pointer;
+	display: block;
+	border-radius: 5px;
+	text-align: center;
+	font-family: 'Didact Gothic', sans-serif;
+	margin: auto;
+}
+
+.boton{
+	padding-top: 16px;
+}
+input[type="submit"]:hover{
+	opacity: 0.80;
+}
+
+input[type="submit"]:active{
+	transform: scale(0.95);
+}
+
+
+
+@media(max-width:766px){
+	#formulario{
+        width: 80%;
+        height: 750px;
+	}
+    #pagina{
+        min-height: 140vh;
+    }
+ 
+
+}
+
+
+

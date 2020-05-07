@@ -14,8 +14,8 @@ class AddTrabajosToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('trabajo')->nullable()->after('password');
-            $table->foreign('trabajo')->references('tra_id')->on('trabajos');
+            $table->integer('propuesta')->nullable()->after('password');
+            $table->foreign('propuesta')->references('prop_id')->on('propuesta');
             $table->foreign('programa')->references('pro_id')->on('programas');
         });
     }

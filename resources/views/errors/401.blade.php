@@ -2,6 +2,7 @@
 
 @section('content') 
 <link rel="stylesheet" href="../public/css/error.css">
+<div id="pagina">
 <section id="error">
     <article>
         <img src="img/403.jpg" >
@@ -12,4 +13,5 @@
     </article>
     
 </section>
+</div>
 @endsection
