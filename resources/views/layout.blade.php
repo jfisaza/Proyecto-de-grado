@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.css">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
+    <link href="{{ asset('fontawesome-free-5.13.0-web/css/all.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
 
     <title>Trabajo de grado - Unidades Tecnológicas de Santander</title>

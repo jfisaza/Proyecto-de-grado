@@ -22,7 +22,7 @@ class CreateTbDesarrollo extends Migration
             $table->string('des_formato',40)->nullable();
             $table->date('des_fecha_entrega')->nullable();
             $table->date('des_fecha_calificacion')->nullable();
-
+            $table->timestamp('tra_citacion')->nullable();
 
             $table->timestamps();
         });

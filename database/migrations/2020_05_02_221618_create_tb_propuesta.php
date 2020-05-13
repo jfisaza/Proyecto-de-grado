@@ -16,8 +16,6 @@ class CreateTbPropuesta extends Migration
         Schema::create('propuesta', function (Blueprint $table) {
             $table->bigIncrements('prop_id')->unique();
             $table->string('prop_titulo');
-            $table->integer('prop_est_usu_id')->unsigned();
-            $table->foreign('prop_est_usu_id')->references('id')->on('users');
             $table->integer('prop_dir_usu_id')->unsigned();
             $table->foreign('prop_dir_usu_id')->references('id')->on('users');
             $table->integer('prop_codir_usu_id')->nullable()->unsigned();

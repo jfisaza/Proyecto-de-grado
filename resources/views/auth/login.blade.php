@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Login</title>
-	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
 	<link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Marck+Script" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">

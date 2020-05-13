@@ -5,7 +5,7 @@
 <h1>Estudiante</h1>
 
 <section class="tablas">
- 
+ @if(isset(auth()->user()->propuestas->prop_id))
     <div class="tabs">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -22,7 +22,7 @@
 
         <thead>
             <th>Código</th>
-            <th>Nombre de l propuestas</th>
+            <th>Titulo de la propuesta</th>
             <th>Modalidad</th>
             <th>Programa</th>
             <th>Estudiantes</th>
@@ -40,34 +40,35 @@
                 <td>{{ auth()->user()->propuestas->modalidad->mod_nombre }}</td>
                 <td>{{ auth()->user()->programas->pro_nombre }}</td>
                 <td>
-                    <table class="table-bordered table-hover">
-                    @foreach($usuarios as $usu)
-                        <tr>
-                            <td>{{ $usu->nombres }}</td>
-                        </tr>
+                <table>
+                    @foreach($estudiantes as $est)
+                    <tr>
+                        <td>{{ $est->nombres }} {{ $est->apellidos }}</td>
+                    </tr>
                     @endforeach
-                    </table>
+                </table>
                 </td>
-                <td>{{ auth()->user()->propuestas->director->nombres }}</td>
+                <td>{{ auth()->user()->propuestas->director->nombres }} {{ auth()->user()->propuestas->director->apellidos }}</td>
                 <td>
-                @if( isset(auth()->user()->propuestas->codirector->nombres) )
-                {{ auth()->user()->propuestas->codirector->nombres }}
-                @endif
-                </td>
-                <td>
-                @if( isset(auth()->user()->propuestas->prop_formato) )
-                {{ auth()->user()->propuestas->prop_formato }}
-                @endif
+                    @if(isset(auth()->user()->propuestas->codirector))
+                    {{ auth()->user()->propuestas->codirector->nombres }}
+                    {{ auth()->user()->propuestas->codirector->apellidos }}
+                    @endif
                 </td>
                 <td>
-                @if( isset(auth()->user()->propuestas->concepto->calificador->nombres) )
-                {{ auth()->user()->propuestas->concepto->calificador->nombres }}
-                @endif
+                    @if(isset(auth()->user()->propuestas->prop_formato))
+                    <a href="{{ action('EstudiantesController@download') }}">{{ auth()->user()->propuestas->prop_formato }} <span class="fas fa-download"></span></a>
+                    @endif
                 </td>
-                <td id="estado">
-                @if( isset(auth()->user()->propuestas->concepto->con_nombre) )
-                {{ auth()->user()->propuestas->concepto->con_nombre }}
-                @endif
+                <td>
+                    @if(isset(auth()->user()->propuestas->concepto->calificador))
+                    {{ auth()->user()->propuestas->concepto->calificador->nombres }}
+                    @endif
+                </td>
+                <td>
+                    @if(isset(auth()->user()->propuestas->concepto->con_nombre))
+                    {{ auth()->user()->propuestas->concepto->con_nombre}}
+                    @endif
                 </td>
                 <td>
                     <a href="" class="btn btn-primary ml-3"><span class="fas fa-edit"></span></a>
@@ -75,14 +76,12 @@
                 </td>
             </tr>
         </tbody>
-
     </table>
     <br>
     <br>
     <br>
     <br>
     <div class="btn-group">
-     <a href="{{route('estudiantes.create')}}" class="btn btn-info"> Agregar Propuesta</a>
 </div> 
     </article>
     <article class="desarrollo" id="desarrollo">
@@ -101,51 +100,15 @@
             <th>Acciones</th>
         </thead>
         <tbody>
-            <tr>
-                <td>{{ auth()->user()->propuestas->prop_id }}</td>
-                <td>{{ auth()->user()->propuestas->prop_titulo }}</td>
-                <td>{{ auth()->user()->propuestas->modalidad->mod_nombre }}</td>
-                <td>{{ auth()->user()->programas->pro_nombre }}</td>
-                <td>
-                    <table class="table-bordered table-hover">
-                    @foreach($usuarios as $usu)
-                        <tr>
-                            <td>{{ $usu->nombres }}</td>
-                        </tr>
-                    @endforeach
-                    </table>
-                </td>
-                <td>{{ auth()->user()->propuestas->director->nombres }}</td>
-                <td>
-                @if( isset(auth()->user()->propuestas->prop_formato) )
-                {{ auth()->user()->propuestas->prop_formato }}
-                @endif
-                </td>
-                <td>
-                @if( isset(auth()->user()->propuestas->prop_formato) )
-                {{ auth()->user()->propuestas->prop_formato }}
-                @endif
-                </td>
-                <td>
-                @if( isset(auth()->user()->propuestas->concepto->calificador->nombres) )
-                {{ auth()->user()->propuestas->concepto->calificador->nombres }}
-                @endif
-                </td>
-                <td id="estado">
-                @if( isset(auth()->user()->propuestas->concepto->con_nombre) )
-                {{ auth()->user()->propuestas->concepto->con_nombre }}
-                @endif
-                </td>
-                <td>
-                    <a href="" class="btn btn-primary ml-3"><span class="fas fa-edit"></span></a>
-                    <a href="" class="btn btn-primary"><span class="fas fa-arrow-right"></span></a>
-                </td>
-            </tr>
+            
         </tbody>
         
     </table>
 
     </article>
+@else
+<a href="{{route('estudiantes.create')}}" class="btn btn-primary">Registrar Popuesta</a>
+@endif
 </section>
 </div>
 @endsection

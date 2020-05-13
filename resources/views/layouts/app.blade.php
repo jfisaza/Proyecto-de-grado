@@ -15,31 +15,33 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/propuesta.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('fontawesome-free-5.13.0-web/css/all.css') }}">
+    
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<header>
+        <input type="checkbox" name="btn-menu" id="btn-menu">
+        <label for="btn-menu"><span class="fas fa-bars"></span></label>
+        
+        <article class="logo">
+            <a href="{{ url('/') }}"><img class="img" src="{{ asset('img/uts-logo.png') }}" height="70px" width="110px"></a>
+        </article>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+        <nav class="menu">
+            <ul>
+                <li><a href="{{ url('/') }}">Inicio</a></li>
+                <li><a href="{{ action('BancoController@index') }}">Banco De Ideas</a></li>
+                <li><a href="{{ action('EstudiantesController@index') }}">Estudiantes</a></li>
+                <li><a href="{{ action('DocentesController@index') }}">Docentes</a></li>
+                <li><a href="{{ action('AdministrativosController@index') }}">Administrativos</a></li>
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
+                @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -51,14 +53,15 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->nombres }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a href="{{ url('/home') }}" id="logout">Mi Cuenta <span class="fas fa-user"></span></a>
+                                    <a id="logout" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        Cerrar Sesión <span class="fas fa-sign-out-alt"></span>
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -67,14 +70,15 @@
                                 </div>
                             </li>
                         @endguest
-                    </ul>
-                </div>
-            </div>
+                </li>
+            </ul>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        </article>
+    </header>
+    <div class="contenedor">
+        @yield('content')
     </div>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

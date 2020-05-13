@@ -1,18 +1,7 @@
-@extends('layout')
-
+@extends('layouts.app')
 @section('content')
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<!-- <link rel="stylesheet" href="../../public/css/propuesta.css"> -->
-<link rel="stylesheet" type="text/css" href="../../public/css/propuesta.css">
-
-<link rel="stylesheet" type="text/css" href="../../public/css/estilos.css">
-
-
 <article class="logo"height="70px" width="110px">
 </article>
-<body>
 
     @if (count($errors) >0)
     <div class="alert alert-danger">
@@ -37,16 +26,15 @@
             {{ csrf_field()}}
 
 
-                <input type="hidden" id="prop_est_usu_id" name="prop_est_usu_id" value="{{auth()->user()->id}}">
                 <div class="form-group">
                     
                     <label for="prop_titulo">Titulo de Propuesta</label>
-                    <input type="text" class="form-control" name="prop_titulo"  id="prop_titulo" placeholder="">
+                    <input type="text" class="form-control" name="prop_titulo"  id="prop_titulo" placeholder="" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="prop_dir_usu_id"></label>
-                        <select id="prop_dir_usu_id" name="prop_dir_usu_id" class="form-control">
+                        <select id="prop_dir_usu_id" name="prop_dir_usu_id" class="form-control" required>
                             <option selected> Director</option>
                             <option value="1">Sergio</option>
                             <option value="2">Carlos</option>
@@ -59,7 +47,7 @@
                     <div class="form-group col-md-6">
                         <label for="prop_codir_usu_id"></label>
                         <select id="prop_codir_usu_id" name="prop_codir_usu_id" class="form-control">
-                            <option selected> Co-Director</option>
+                            <option value="" selected> Co-Director</option>
                             <option value="1">Sergio</option>
                             <option value="2">Carlos</option>
                             <option value="3">Leydi</option>
@@ -69,8 +57,8 @@
 
                 <div class="form-group">
                     <label for="prop_mod_id"></label>
-                    <select id="prop_mod_id" name="prop_mod_id" class="form-control">
-                        <option selected>Modalidad</option>
+                    <select id="prop_mod_id" name="prop_mod_id" class="form-control" required>
+                        <option value="" selected>Modalidad</option>
                         <option value="1">Desarrollo</option>
                         <option value="2">Monografia</option>
                         <option value="3">Seminario</option>
@@ -78,11 +66,8 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <a href="https://www.dropbox.com/sh/op8bmnpioxnutkq/AAA3aYa4B9loRyLJkkcaX3Sma/DOCUMENTOS%20DE%20GRADO?dl=0&preview=R-DC-124+Registro+Propuesta+Trabajo+Grado+PI+DTeI+Mono+Emprend+V1.doc&subfolder_nav_tracking=1" class="btn btn-light " target="blank">Ver Formato</a>
-                    </div>
                     <div class="custom-file col-md-4">
-                        <input type="file" class="custom-file-input" id="customFileLangHTML">
+                        <input type="file" class="custom-file-input" id="customFileLangHTML" name="prop_formato">
                         <label class="custom-file-label" for="customFileLangHTML" data-browse="">Subir Formato</label>
                     </div>
                 </div>
@@ -97,7 +82,5 @@
         </div>
 
     </div>
-
-</body>
 
 @endsection

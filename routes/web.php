@@ -24,5 +24,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/estudiantes','EstudiantesController');
+Route::get('/formato','EstudiantesController@download')->name('formato');
 Route::resource('/docentes','DocentesController');
 Route::resource('/administrativos','AdministrativosController');

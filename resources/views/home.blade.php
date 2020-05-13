@@ -24,13 +24,13 @@
 
                             <table class=" table">
                                 <tr>
+                                <td><strong>Documento:</strong></td>
+                                    <td>{{ auth()->user()->documento }}</td>
+                                </tr>
+                                <tr>
                                     <td><strong>Nombres:</strong></td>
                                     <td>{{ auth()->user()->nombres }}</td>
                                     
-                                </tr>
-                                <tr>
-                                <td><strong>Documento:</strong></td>
-                                    <td>{{ auth()->user()->documento }}</td>
                                 </tr>
                                 <tr class="" >
                                     <td><strong>Apellidos:</strong></td>
