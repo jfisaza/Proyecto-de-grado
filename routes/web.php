@@ -24,6 +24,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/estudiantes','EstudiantesController');
-Route::get('/formato','EstudiantesController@download')->name('formato');
+Route::get('/propuesta','EstudiantesController@propuestaDownload')->name('propuesta');
+Route::get('/desarrollo','EstudiantesController@desarrolloDownload')->name('desarrollo');
+Route::post('/estudiante','EstudiantesController@agregarEstudiante')->name('estudiante');
 Route::resource('/docentes','DocentesController');
 Route::resource('/administrativos','AdministrativosController');

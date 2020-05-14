@@ -12,10 +12,10 @@ $(document).ready(function(){
     });
 
     var estado=document.getElementById('estado');
-    if(estado.value != 'APROBADO'){
-        $('#btn-desarrollo').addClass('disabled');
-    }else if(estado.value = 'APROBADO'){
-        $('#btn-desarrollo').removeClass('disabled');
+    if(estado != 'APROBADO'){
+        $('#btn-desarrollo').prop('disabled',true);
+    }else{
+        $('#btn-desarrollo').prop('disabled',false);
     }
 });
 

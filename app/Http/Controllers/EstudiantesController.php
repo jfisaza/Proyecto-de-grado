@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Propuesta;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
-use App\propuesta_user;
+use App\Modalidades;
+use App\Propuesta;
+use App\Desarrollo;
 
 class EstudiantesController extends Controller
 {
@@ -16,7 +18,8 @@ class EstudiantesController extends Controller
         }
         $request->user()->authorizeRoles('estudiante');
         $estudiantes=User::all()->where('propuesta',$request->user()->propuesta);
-        return view("estudiantes.index", compact("estudiantes"));
+        $desarrollo=Desarrollo::all()->where('des_prop_id',$request->user()->propuesta);
+        return view("estudiantes.index", compact("estudiantes","desarrollo"));
     }
 
     public function create(Request $request){
@@ -24,7 +27,9 @@ class EstudiantesController extends Controller
             return view("auth.login");
         }
         $request->user()->authorizeRoles('estudiante');
-        return view("estudiantes.create");
+        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        $modalidades=Modalidades::all();
+        return view("estudiantes.create", compact("usuarios","modalidades"));
     }
 
     
@@ -34,7 +39,7 @@ class EstudiantesController extends Controller
         if($request->hasFile('prop_formato')){
             $file = $request->file('prop_formato');
             $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/files/',$name);
+            $file->move(public_path().'/files/propuesta/',$name);
         }
         
         $this->validate($request,['prop_titulo'=>'required',
@@ -57,11 +62,26 @@ class EstudiantesController extends Controller
         $user->save();
         return redirect()->route("estudiantes.index");
     }
+    public function agregarEstudiante(Request $request){
+        $user=User::where('documento',$request->input('documento'))->first();
+        if(is_null($user)){
+            return redirect()->route("estudiantes.index")->with('error','Estudiante no encontrado.');
+        }
+        $user->propuesta=$request->input('propuesta');
+        $user->save();
+        return redirect()->route("estudiantes.index");
+    }
    
-    public function download(Request $request){
+    public function propuestaDownload(Request $request){
         $propuesta=Propuesta::find($request->user()->propuesta);
         $ruta=$propuesta->prop_formato;
-        return response()->download(public_path()."/files/$ruta");
+        return response()->download(public_path()."/files/propuesta/$ruta");
+        
+    }
+    public function desarrolloDownload(Request $request){
+        $desarrollo=Desarrollo::where('des_prop_id',$request->user()->propuesta)->first();
+        $ruta=$desarrollo->des_formato;
+        return response()->download(public_path()."/files/final/$ruta");
         
     }
 }

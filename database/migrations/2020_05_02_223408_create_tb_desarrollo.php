@@ -14,7 +14,7 @@ class CreateTbDesarrollo extends Migration
     public function up()
     {
         Schema::create('desarrollo', function (Blueprint $table) {
-            $table->bigIncrements('des_id')->unique();
+            $table->integer('des_id')->unique();
             $table->integer('des_con_id')->unsigned()->nullable();
             $table->foreign('des_con_id')->references('con_id')->on('conceptos');
             $table->integer('des_prop_id')->unsigned();

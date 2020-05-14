@@ -36,11 +36,9 @@
                         <label for="prop_dir_usu_id"></label>
                         <select id="prop_dir_usu_id" name="prop_dir_usu_id" class="form-control" required>
                             <option selected> Director</option>
-                            <option value="1">Sergio</option>
-                            <option value="2">Carlos</option>
-                            <option value="3">Leydi</option>
-
-
+                            @foreach($usuarios as $usr)
+                            <option value="{{ $usr->id }}">{{ $usr->nombres }} {{ $usr->apellidos }}</option>
+                            @endforeach
                         </select>
 
                     </div>
@@ -48,9 +46,9 @@
                         <label for="prop_codir_usu_id"></label>
                         <select id="prop_codir_usu_id" name="prop_codir_usu_id" class="form-control">
                             <option value="" selected> Co-Director</option>
-                            <option value="1">Sergio</option>
-                            <option value="2">Carlos</option>
-                            <option value="3">Leydi</option>
+                            @foreach($usuarios as $usr)
+                            <option value="{{ $usr->id }}">{{ $usr->nombres }} {{ $usr->apellidos }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -59,9 +57,9 @@
                     <label for="prop_mod_id"></label>
                     <select id="prop_mod_id" name="prop_mod_id" class="form-control" required>
                         <option value="" selected>Modalidad</option>
-                        <option value="1">Desarrollo</option>
-                        <option value="2">Monografia</option>
-                        <option value="3">Seminario</option>
+                        @foreach($modalidades as $mod)
+                        <option value="{{ $mod->mod_id }}">{{ $mod->mod_nombre }}</option>
+                        @endforeach
                     </select>
                 </div>
 
