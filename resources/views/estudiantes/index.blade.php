@@ -83,6 +83,8 @@
                 <td>
                     <a href="" class="btn btn-sm btn-primary ml-3"><span class="fas fa-edit"></span></a>
                     <a href="" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right"></span></a>
+                    <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
+
                 </td>
             </tr>
         </tbody>
@@ -111,6 +113,7 @@
             <th>Formato RDC</th>
             <th>Calificador</th>
             <th>Estado</th>
+            <th>Novedades</th>
             <th>Acciones</th>
         </thead>
         <tbody>
@@ -155,8 +158,15 @@
                 @endif
                 </td>
                 <td>
+                @if(isset($novedades))
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal2"><span class="fas fa-eye"></span></button>
+                @endif
+                </td>
+                <td>
                     <a href="" class="btn btn-sm btn-primary ml-3"><span class="fas fa-edit"></span></a>
                     <a href="" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right"></span></a>
+                    <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
+
                 </td>
             </tr>
             @endforeach
@@ -164,7 +174,7 @@
         </tbody>
         
     </table>
-
+    
     </article>
 
 </section>
@@ -197,6 +207,35 @@
     </div>
   </div>
 </div>
+@if(isset($novedades))
+                    
+                    <div class="modal" tabindex="-1" role="dialog" id="modal2">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Novedad</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                          @foreach($novedades as $nov)
+                            {{ $nov->nov_descripcion }}
+                            <br>
+                            Fecha de creación:
+                            {{ $nov->nov_fecha }}
+                            <hr>
+                            @endforeach
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                          </div>
+                       </div>
+                     </div>
+                    </div>
+                    
+                @endif
+
 @else
 <a href="{{route('estudiantes.create')}}" class="btn btn-primary">Registrar Popuesta</a>
 @endif

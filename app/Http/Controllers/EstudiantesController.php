@@ -9,6 +9,7 @@ use App\User;
 use App\Modalidades;
 use App\Propuesta;
 use App\Desarrollo;
+use App\Novedades;
 
 class EstudiantesController extends Controller
 {
@@ -19,7 +20,8 @@ class EstudiantesController extends Controller
         $request->user()->authorizeRoles('estudiante');
         $estudiantes=User::all()->where('propuesta',$request->user()->propuesta);
         $desarrollo=Desarrollo::all()->where('des_prop_id',$request->user()->propuesta);
-        return view("estudiantes.index", compact("estudiantes","desarrollo"));
+        $novedades=Novedades::all()->where('nov_des_id',$request->user()->propuesta);
+        return view("estudiantes.index", compact("estudiantes","desarrollo","novedades"));
     }
 
     public function create(Request $request){
@@ -83,5 +85,18 @@ class EstudiantesController extends Controller
         $ruta=$desarrollo->des_formato;
         return response()->download(public_path()."/files/final/$ruta");
         
+    }
+
+    public function abandonar(Request $request){
+        $desarrollo=Desarrollo::where('des_prop_id',$request->user()->propuesta)->first();
+        if(isset($desarrollo)){
+            $novedad=new Novedades();
+            $novedad->nov_des_id=$request->user()->propuesta;
+            $novedad->nov_descripcion="El estudiante ".$request->user()->nombres.$request->user()->apellidos." con documento ".$request->user()->documento." abandono el trabajo.";
+            $novedad->nov_fecha=date('Y-m-d');
+            $novedad->save();
+        }
+        $user=DB::table('users')->where('id',$request->user()->id)->update(['propuesta'=>NULL]);
+        return redirect()->route("estudiantes.index");
     }
 }

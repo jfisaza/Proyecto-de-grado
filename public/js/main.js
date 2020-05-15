@@ -11,11 +11,5 @@ $(document).ready(function(){
         return false;
     });
 
-    var estado=document.getElementById('estado');
-    if(estado != 'APROBADO'){
-        $('#btn-desarrollo').prop('disabled',true);
-    }else{
-        $('#btn-desarrollo').prop('disabled',false);
-    }
 });
 

@@ -27,5 +27,6 @@ Route::resource('/estudiantes','EstudiantesController');
 Route::get('/propuesta','EstudiantesController@propuestaDownload')->name('propuesta');
 Route::get('/desarrollo','EstudiantesController@desarrolloDownload')->name('desarrollo');
 Route::post('/estudiante','EstudiantesController@agregarEstudiante')->name('estudiante');
+Route::get('/estudiante','EstudiantesController@abandonar')->name('estudiante');
 Route::resource('/docentes','DocentesController');
 Route::resource('/administrativos','AdministrativosController');
