@@ -95,6 +95,17 @@ class EstudiantesController extends Controller
         return response()->download(public_path()."/files/final/$ruta");
         
     }
+    public function subirFormato(Request $request){
+        if($request->hasFile('des_formato')){
+            $file = $request->file('des_formato');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/files/desarrollo/',$name);
+        }
+        $desarrollo=Desarrollo::find($request->user()->propuesta)->first();
+        $desarrollo->des_formato=$name;
+        $desarrollo->save();
+        return redirect()->route("estudiantes.index");
+    }
 
     public function abandonar(Request $request){
         $desarrollo=Desarrollo::where('des_prop_id',$request->user()->propuesta)->first();

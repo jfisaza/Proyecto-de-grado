@@ -82,7 +82,9 @@
                 </td>
                 <td>
                     <a href="" class="btn btn-sm btn-primary ml-3"><span class="fas fa-edit"></span></a>
+                    @if(count($desarrollo)===0)
                     <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right"></span></a>
+                    @endif
                     <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
 
                 </td>
@@ -142,8 +144,10 @@
                 @endif
                 </td>
                 <td>
-                @if( isset($des->des_formato) ))
+                @if( isset($des->des_formato) )
                 <a href="{{ action('EstudiantesController@desarrolloDownload') }}">{{ $des->des_formato }} <span class="fas fa-download"></span></a>
+                @else
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal3"><span class="fas fa-upload"></span></button>
                 @endif
                 </td>
                 <td>
@@ -164,7 +168,6 @@
                 </td>
                 <td>
                     <a href="" class="btn btn-sm btn-primary ml-3"><span class="fas fa-edit"></span></a>
-                    <a href="" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right"></span></a>
                     <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
 
                 </td>
@@ -237,7 +240,31 @@
 </div>
                     
                 
-
+<div class="modal" tabindex="-1" role="dialog" id="modal3">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title">Subir formato</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <form action="{{ action('EstudiantesController@subirFormato') }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+            <div class="form-group">
+                <label for="des_formato">Formato</label>
+                <input type="file" name="des_formato" id="des_formato">
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <input type="submit" class="btn btn-primary" value="Subir">
+        </form>
+        </div>
+    </div>
+    </div>
+</div>
 @else
 <a href="{{route('estudiantes.create')}}" class="btn btn-primary">Registrar Popuesta</a>
 @endif
