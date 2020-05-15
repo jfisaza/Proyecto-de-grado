@@ -56,6 +56,15 @@ class EstudiantesController extends Controller
         $propuesta->save();
         return $this->enlazarPropuestaUser($request,$propuesta);
     }
+
+    public function crearDesarrollo(Request $request){
+        $desarrollo=new Desarrollo();
+        $desarrollo->des_id=$request->user()->propuesta;
+        $desarrollo->des_prop_id=$request->user()->propuesta;
+        $desarrollo->save();
+        return redirect()->route("estudiantes.index");
+    }
+
     public function enlazarPropuestaUser(Request $request, $pro){
         $propuesta=Propuesta::where('prop_titulo',$pro->prop_titulo)->first();
         $userid=$request->user()->id;
@@ -92,7 +101,7 @@ class EstudiantesController extends Controller
         if(isset($desarrollo)){
             $novedad=new Novedades();
             $novedad->nov_des_id=$request->user()->propuesta;
-            $novedad->nov_descripcion="El estudiante ".$request->user()->nombres.$request->user()->apellidos." con documento ".$request->user()->documento." abandono el trabajo.";
+            $novedad->nov_descripcion="El estudiante ".$request->user()->nombres." ".$request->user()->apellidos." con documento ".$request->user()->documento." abandono el trabajo.";
             $novedad->nov_fecha=date('Y-m-d');
             $novedad->save();
         }
