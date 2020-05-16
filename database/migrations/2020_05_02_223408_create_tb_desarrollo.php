@@ -19,7 +19,7 @@ class CreateTbDesarrollo extends Migration
             $table->foreign('des_con_id')->references('con_id')->on('conceptos');
             $table->integer('des_prop_id')->unsigned();
             $table->foreign('des_prop_id')->references('prop_id')->on('propuesta');
-            $table->string('des_formato',40)->nullable();
+            $table->string('des_formato')->nullable();
             $table->date('des_fecha_entrega')->nullable();
             $table->date('des_fecha_calificacion')->nullable();
             $table->timestamp('tra_citacion')->nullable();

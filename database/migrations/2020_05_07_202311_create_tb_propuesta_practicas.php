@@ -23,7 +23,7 @@ class CreateTbPropuestaPracticas extends Migration
             $table->foreign('pp_dir_usu_id')->references('id')->on('users');
             $table->integer('pp_con_id');
             $table->foreign('pp_con_id')->references('con_id')->on('conceptos');
-            $table->string('prop_formato',40)->nullable();
+            $table->string('prop_formato')->nullable();
             $table->date('prop_fecha_entrega')->nullable();
             $table->date('prop_fecha_calificacion')->nullable();
             $table->timestamps();

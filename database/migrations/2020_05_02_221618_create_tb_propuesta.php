@@ -24,7 +24,7 @@ class CreateTbPropuesta extends Migration
             $table->foreign('prop_mod_id')->references('mod_id')->on('modalidades');  
             $table->integer('prop_con_id')->unsigned()->nullable();
             $table->foreign('prop_con_id')->references('con_id')->on('conceptos');
-            $table->string('prop_formato',40)->nullable();
+            $table->string('prop_formato')->nullable();
             $table->date('prop_fecha_entrega')->nullable();
             $table->date('prop_fecha_calificacion')->nullable();
             $table->timestamps();

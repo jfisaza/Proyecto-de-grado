@@ -5,11 +5,11 @@
 <div class="pagina-info">
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header p-3 mb-2 bg-success text-white">
-                    <h4> <center><strong>Bienvenido {{ auth()->user()->nombres }}
-                          Aquí tu  Información Personal</strong></center> </div></h4>
+                    <h4> <center><strong>Bienvenid@ {{ auth()->user()->nombres }}
+                          Aquí tu  Información Personal</strong></center> </h4></div>
 
                 <div class="">
                     @if (session('status'))
@@ -19,7 +19,7 @@
                     @endif
                     
                     <section class="tablas">
-                        <article>
+                        <article id="article">
                             <!-- table-bordered table-striped -->
 
                             <table class=" table">

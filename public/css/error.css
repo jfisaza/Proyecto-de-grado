@@ -41,9 +41,9 @@
 	background-image: url(../img/fondo-info.jpg);
 	background-size:cover;
 	background-attachment: fixed;
-	display: flex;
+    display: flex;
+    height: 850px;
 	min-height: 100vh;
 	overflow: hidden;
-	height: 540px;
 	box-sizing: border-box;
 }

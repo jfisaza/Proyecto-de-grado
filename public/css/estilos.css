@@ -93,6 +93,9 @@ header section label:hover{
 .tablas{
     width: 100%;
 }
+.col-md-8{
+    height: 800px;
+}
 .tablas article{
     width: 100%;
 }
@@ -136,7 +139,11 @@ header section label:hover{
         width: 100%;
         transform: translateX(-100%);
         transition: all 0.3s;
+        z-index: 20;
     }
+   .card{
+       z-index: 1;
+   }
     .menu ul{
         display: block;
         background: #555;
