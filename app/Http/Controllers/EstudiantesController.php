@@ -137,10 +137,10 @@ class EstudiantesController extends Controller
             unlink(public_path().'/files/desarrollo/'.$desarrollo->des_formato);
             $desarrollo->des_formato=$name;
         }
-
         $propuesta->prop_titulo=$request->input('prop_titulo');
         $propuesta->prop_dir_usu_id=$request->input('prop_dir_usu_id');
         $propuesta->prop_codir_usu_id=$request->input('prop_codir_usu_id');
+        
         $propuesta->save();
         $desarrollo->save();
         return redirect()->route("estudiantes.index");
@@ -191,7 +191,27 @@ class EstudiantesController extends Controller
             $novedad->nov_fecha=date('Y-m-d');
             $novedad->save();
         }
+        $id=$request->user()->propuesta;
         $user=DB::table('users')->where('id',$request->user()->id)->update(['propuesta'=>NULL]);
+        $vacio=User::all()->where('propuesta',$id);
+        if(count($vacio)===0){
+            if(isset($desarrollo)){
+                $novedades=Novedades::all()->where('nov_des_id',$id);
+                if(count($novedades) != 0){
+                    Novedades::where('nov_des_id',$id)->delete();
+                }
+                Desarrollo::find($id)->delete();
+            }
+            Propuesta::find($id)->delete();
+        }
+        return redirect()->route("estudiantes.index");
+    }
+    public function novedades(Request $request){
+        $novedad=new Novedades();
+        $novedad->nov_des_id=$request->user()->propuesta;
+        $novedad->nov_descripcion=$request->input('nov_descripcion');
+        $novedad->nov_fecha=date('Y-m-d');
+        $novedad->save();
         return redirect()->route("estudiantes.index");
     }
 }

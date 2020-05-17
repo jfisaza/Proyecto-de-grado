@@ -53,7 +53,7 @@
                                     <td>{{ auth()->user()->programas->pro_nombre }}</td>
                                 </tr>
                             </table>
-                            <a href="" class="btn btn-sm btn-success mt-3 mb-3 ml-3"><span class="fas fa-user-edit"></span></a>
+                            <a href="{{ route('usuarios.edit', auth()->user()->id) }}" class="btn btn-sm btn-success mt-3 mb-3 ml-3" title="Editar"><span class="fas fa-user-edit"></span></a>
                             <a href="{{ action('EstudiantesController@index') }}" class="btn btn-sm btn-success mt-3 mb-3 ml-3">Ir a proyecto <span class="fas fa-arrow-right"></span></a>
                         </article>
                     </section>
