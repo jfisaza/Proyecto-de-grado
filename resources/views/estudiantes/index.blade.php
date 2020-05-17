@@ -114,7 +114,7 @@
                                     <th>Acciones</th>
 
                                     <td>
-                                        <a href="" class="btn btn-sm btn-primary ml-3" title="Editar Propuesta"><span class="fas fa-edit"></span></a>
+                                        <a href="{{ action('EstudiantesController@edit', auth()->user()->propuesta) }}" class="btn btn-sm btn-primary ml-3" title="Editar Propuesta"><span class="fas fa-edit"></span></a>
                                         @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right">Seguir a Desarrollo</span></a>
                                         @endif
@@ -131,7 +131,7 @@
                         </div>
                         <article class="desarrollo panels-item" id="desarrollo">
                             <table class="table">
-                            @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)!==0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                            @if(count($desarrollo)!=0)
 
 
                                 @if(isset($desarrollo))
@@ -221,7 +221,7 @@
                                     <th>Acciones</th>
 
                                     <td>
-                                        <a href="" class="btn btn-sm btn-primary ml-3" title="Editar informe final" ><span class="fas fa-edit"></span></a>
+                                        <a href="{{ action('EstudiantesController@desarrolloEdit', auth()->user()->propuesta) }}" class="btn btn-sm btn-primary ml-3" title="Editar informe final" ><span class="fas fa-edit"></span></a>
                                         @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right"> Seguir a Desarrollo</span></a>
                                         @endif
@@ -234,7 +234,7 @@
                                 @endforeach
                                 @endif
 
-                            @elseif(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                            @elseif(isset(auth()->user()->propuestas->concepto) && count($desarrollo)===0 && auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                             <div class="jumbotron">
                                 <h1 class="display-4">Propuesta de Grado Aprobada!!</h1>
                                 <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right">Seguir a Informe final</span></a>

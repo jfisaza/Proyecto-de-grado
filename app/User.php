@@ -81,5 +81,6 @@ class User extends Authenticatable
     public function propuestas(){
         return $this->belongsTo(Propuesta::class,'propuesta');
     }
+    
 
 }
