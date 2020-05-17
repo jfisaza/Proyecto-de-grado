@@ -60,6 +60,9 @@ class EstudiantesController extends Controller
         if(empty($request->user())){
             return view("auth.login");
         }
+        if($request->user()->propuesta != $id){
+            return abort(401,'Página no autorizada');
+        }
         $request->user()->authorizeRoles('estudiante');
         $propuesta=Propuesta::find($id);
         $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
