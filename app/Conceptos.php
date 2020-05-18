@@ -13,4 +13,10 @@ class Conceptos extends Model
     public function calificador(){
         return $this->belongsTo(User::class,'con_usu_id');
     }
+    public function propuestas(){
+        return $this->hasOne(Propuesta::class,'prop_con_id');
+    }
+    public function desarrollos(){
+        return $this->hasOne(Desarrollo::class,'des_con_id');
+    }
 }

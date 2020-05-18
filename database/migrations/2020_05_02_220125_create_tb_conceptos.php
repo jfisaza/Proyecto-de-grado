@@ -15,10 +15,11 @@ class CreateTbConceptos extends Migration
     {
         Schema::create('conceptos', function (Blueprint $table) {
             $table->Increments('con_id')->unique();
-            $table->string('con_nombre',40);
+            $table->string('con_nombre',40)->nullable;
+            $table->integer('con_acta')->nullable();
             $table->Integer('con_usu_id')->unsigned();
             $table->foreign('con_usu_id')->references('id')->on('users');
-            $table->date('con_fecha');
+            $table->date('con_fecha')->nullable();
 
             $table->timestamps();
         });

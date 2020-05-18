@@ -54,7 +54,15 @@
                                 </tr>
                             </table>
                             <a href="{{ route('usuarios.edit', auth()->user()->id) }}" class="btn btn-sm btn-success mt-3 mb-3 ml-3" title="Editar"><span class="fas fa-user-edit"></span></a>
+                            @if(auth()->user()->hasRole('estudiante'))
                             <a href="{{ action('EstudiantesController@index') }}" class="btn btn-sm btn-success mt-3 mb-3 ml-3">Ir a proyecto <span class="fas fa-arrow-right"></span></a>
+                            @endif
+                            @if(auth()->user()->hasRole('docente'))
+                            <a href="{{ route('docentes.index') }}" class="btn btn-sm btn-success" title="Trabajos"><span class="fas fa-arrow-right"></span></a>
+                            @endif
+                            @if(auth()->user()->hasRole('administrativo'))
+                            <a href="{{ route('administrativos.index') }}" class="btn btn-sm btn-success" title="Trabajos"><span class="fas fa-arrow-right"></span></a>
+                            @endif
                         </article>
                     </section>
                     

@@ -1,11 +1,11 @@
 @extends('layout')
 
 @section('content') 
-<link rel="stylesheet" href="../public/css/error.css">
+<link rel="stylesheet" href="{{ asset('css/error.css') }}">
 <div id="pagina">
 <section id="error">
     <article>
-        <img src="img/403.jpg" >
+        <img src="{{ asset('img/403.jpg') }}" >
     </article>
     <article>
         <h1>Error de autentificación</h1>

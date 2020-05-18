@@ -16,6 +16,7 @@ class AddProgramaToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('programa')->references('pro_id')->on('programas');
             $table->foreign('propuesta')->references('prop_id')->on('propuesta');
+            $table->foreign('desarrollo')->references('des_id')->on('desarrollo');
         });
     }
 

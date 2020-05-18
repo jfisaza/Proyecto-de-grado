@@ -8,8 +8,14 @@ use App\Programas;
 
 class UsersController extends Controller
 {
-    public function edit($id){
+    public function edit(Request $request,$id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
         $user=User::find($id);
+        if($user->id != $request->user()->id){
+            return abort(401,'Pagina no autorizada');
+        }
         $programas=Programas::all();
         return view('users.edit',compact('user','programas'));
     }

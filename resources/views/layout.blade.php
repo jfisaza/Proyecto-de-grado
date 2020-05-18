@@ -21,7 +21,7 @@
         <label for="btn-menu"><span class="fas fa-bars"></span></label>
         
         <article class="logo">
-            <a href="{{ url('/') }}"><img class="img" src="img/uts-logo.png" height="70px" width="110px"></a>
+            <a href="{{ url('/') }}"><img class="img" src="{{ asset('img/uts-logo.png') }}" height="70px" width="110px"></a>
         </article>
 
         <nav class="menu">

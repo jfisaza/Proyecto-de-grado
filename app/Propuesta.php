@@ -27,6 +27,9 @@ class Propuesta extends Model
     public function modalidad(){
         return $this->belongsTo(Modalidades::class,'prop_mod_id');
     }
+    public function estudiantes(){
+        return $this->hasMany(User::class,'propuesta');
+    }
 
 
 }

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'documento','nombres','apellidos','telefono','ciudad','programa','email', 'password','propuesta'
+        'documento','nombres','apellidos','telefono','ciudad','programa','email', 'password','propuesta','desarrollo'
     ];
 
     /**
@@ -80,6 +80,9 @@ class User extends Authenticatable
     
     public function propuestas(){
         return $this->belongsTo(Propuesta::class,'propuesta');
+    }
+    public function desarrollos(){
+        return $this->belongsTo(Desarrollo::class,'desarrollo');
     }
     
 

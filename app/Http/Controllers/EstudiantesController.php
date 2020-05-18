@@ -20,9 +20,9 @@ class EstudiantesController extends Controller
         }
         $request->user()->authorizeRoles('estudiante');
         $estudiantes=User::all()->where('propuesta',$request->user()->propuesta);
-        $desarrollo=Desarrollo::all()->where('des_prop_id',$request->user()->propuesta);
-        $novedades=Novedades::all()->where('nov_des_id',$request->user()->propuesta);
-        return view("estudiantes.index", compact("estudiantes","desarrollo","novedades"));
+        $estudiantesd=User::all()->where('desarrollo',$request->user()->desarrollo);
+        $novedades=Novedades::all()->where('nov_des_id',$request->user()->desarrollo);
+        return view("estudiantes.index", compact("estudiantes","estudiantesd","novedades"));
     }
     //redirige al formulario para crear una propuesta
     public function create(Request $request){
@@ -102,9 +102,13 @@ class EstudiantesController extends Controller
         
         $desarrollo=new Desarrollo();
         $desarrollo->des_id=$request->user()->propuesta;
+        $desarrollo->des_titulo=$request->user()->propuestas->prop_titulo;
+        $desarrollo->des_dir_usu_id=$request->user()->propuestas->prop_dir_usu_id;
+        $desarrollo->des_codir_usu_id=$request->user()->propuestas->prop_codir_usu_id;
+        $desarrollo->des_mod_id=$request->user()->propuestas->prop_mod_id;
         $desarrollo->des_prop_id=$request->user()->propuesta;
         $desarrollo->save();
-        
+        $user=User::where('propuesta',$request->user()->propuesta)->update(['desarrollo'=>$desarrollo->des_id]);
         return redirect()->route("estudiantes.index");
     }
     //redirige al formulario para editar la fase de desarrollo
@@ -124,8 +128,8 @@ class EstudiantesController extends Controller
         
         return view("estudiantes.editar", compact("desarrollo","usuarios"));
     }
+    //actualizar datos en fase de desarrollo
     public function desarrolloUpdate(Request $request,$id){
-        $propuesta=Propuesta::find($id);
         $desarrollo=Desarrollo::find($id);
         $this->validate($request,['prop_titulo'=>'required',
         'prop_dir_usu_id'=>'required']);
@@ -137,11 +141,10 @@ class EstudiantesController extends Controller
             unlink(public_path().'/files/desarrollo/'.$desarrollo->des_formato);
             $desarrollo->des_formato=$name;
         }
-        $propuesta->prop_titulo=$request->input('prop_titulo');
-        $propuesta->prop_dir_usu_id=$request->input('prop_dir_usu_id');
-        $propuesta->prop_codir_usu_id=$request->input('prop_codir_usu_id');
+        $desarrollo->des_titulo=$request->input('prop_titulo');
+        $desarrollo->des_dir_usu_id=$request->input('prop_dir_usu_id');
+        $desarrollo->des_codir_usu_id=$request->input('prop_codir_usu_id');
         
-        $propuesta->save();
         $desarrollo->save();
         return redirect()->route("estudiantes.index");
     }
@@ -183,16 +186,18 @@ class EstudiantesController extends Controller
     }
     //esta funcion permite a un estudiante salirse del trabajo de grado en el que esta registrado
     public function abandonar(Request $request){
-        $desarrollo=Desarrollo::where('des_prop_id',$request->user()->propuesta)->first();
+        $desarrollo=Desarrollo::where('des_id',$request->user()->desarrollo)->first();
+        $id=$request->user()->propuesta;
         if(isset($desarrollo)){
             $novedad=new Novedades();
             $novedad->nov_des_id=$request->user()->propuesta;
             $novedad->nov_descripcion="El estudiante ".$request->user()->nombres." ".$request->user()->apellidos." con documento ".$request->user()->documento." abandono el trabajo.";
             $novedad->nov_fecha=date('Y-m-d');
             $novedad->save();
+            $user=User::find($request->user()->id)->update(['desarrollo'=>NULL]);
         }
-        $id=$request->user()->propuesta;
-        $user=DB::table('users')->where('id',$request->user()->id)->update(['propuesta'=>NULL]);
+        $user=User::find($request->user()->id)->update(['propuesta'=>NULL]);
+        
         $vacio=User::all()->where('propuesta',$id);
         if(count($vacio)===0){
             if(isset($desarrollo)){
@@ -206,9 +211,10 @@ class EstudiantesController extends Controller
         }
         return redirect()->route("estudiantes.index");
     }
+    //registrar una novedad digitada por el estudiante
     public function novedades(Request $request){
         $novedad=new Novedades();
-        $novedad->nov_des_id=$request->user()->propuesta;
+        $novedad->nov_des_id=$request->user()->desarrollo;
         $novedad->nov_descripcion=$request->input('nov_descripcion');
         $novedad->nov_fecha=date('Y-m-d');
         $novedad->save();

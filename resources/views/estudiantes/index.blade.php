@@ -114,11 +114,13 @@
                                     <th>Acciones</th>
 
                                     <td>
-                                        <a href="{{ action('EstudiantesController@edit', auth()->user()->propuesta) }}" class="btn btn-sm btn-primary ml-3" title="Editar"><span class="fas fa-edit"></span></a>
-                                        @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                                        @if(isset(auth()->user()->propuestas->concepto->con_nombre) and is_null(auth()->user()->desarrollo) and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right">Seguir a Desarrollo</span></a>
                                         @endif
+                                        @if(is_null(auth()->user()->desarrollo))
                                         <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Abandonar propuesta" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
+                                        <a href="{{ action('EstudiantesController@edit', auth()->user()->propuesta) }}" class="btn btn-sm btn-primary ml-3" title="Editar"><span class="fas fa-edit"></span></a>
+                                        @endif
                                     </td>
                                 </tr>
 
@@ -131,23 +133,19 @@
                         </div>
                         <article class="desarrollo panels-item" id="desarrollo">
                             <table class="table">
-                            @if(count($desarrollo)!=0)
-
-
-                                @if(isset($desarrollo))
-                                @foreach($desarrollo as $des)
+                            @if(isset(auth()->user()->desarrollo))
 
                                 <tr>
                                     <th>Código</th>
-                                    <td>{{ $des->des_id }}</td>
+                                    <td>{{ auth()->user()->desarrollos->des_id }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Nombre de la propuestas</th>
-                                    <td>{{ $des->propuesta->prop_titulo }}</td>
+                                    <th>Titulo</th>
+                                    <td>{{ auth()->user()->desarrollos->des_titulo }}</td>
                                 </tr>
                                 <tr>
                                     <th>Modalidad</th>
-                                    <td>{{ $des->propuesta->modalidad->mod_nombre }}</td>
+                                    <td>{{ auth()->user()->desarrollos->modalidad->mod_nombre }}</td>
                                 </tr>
                                 <tr>
                                     <th>Programa</th>
@@ -155,12 +153,10 @@
                                 </tr>
                                 <tr>
                                     <th>Estudiantes
-                                        @if(count($estudiantes)<=3) <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" title="Agregar Estudiante" data-target="#modal"><span class="fas fa-plus"></span></button>
-                                            @endif
                                     </th>
                                     <td>
                                         <table>
-                                            @foreach($estudiantes as $est)
+                                            @foreach($estudiantesd as $est)
                                             <tr>
                                                 <td>{{ $est->nombres }} {{ $est->apellidos }}</td>
                                             </tr>
@@ -171,21 +167,21 @@
                                 </tr>
                                 <tr>
                                     <th>Director</th>
-                                    <td>{{ $des->propuesta->director->nombres }} {{ $des->propuesta->director->apellidos }}</td>
+                                    <td>{{ auth()->user()->desarrollos->director->nombres }} {{ auth()->user()->desarrollos->director->apellidos }}</td>
                                 </tr>
                                 <tr>
                                     <th>Codirector</th>
-                                    <td> @if(isset($des->propuesta->codirector))
-                                        {{ $des->propuesta->codirector->nombres }}
-                                        {{ $des->propuesta->codirector->apellidos }}
+                                    <td> @if(isset(auth()->user()->desarrollos->codirector))
+                                        {{ auth()->user()->desarrollos->codirector->nombres }}
+                                        {{ auth()->user()->desarrollos->codirector->apellidos }}
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Formato RDC</th>
                                     <td>
-                                        @if( isset($des->des_formato) )
-                                        <a href="{{ action('EstudiantesController@desarrolloDownload') }}" title="Descargar">{{ $des->des_formato }} <span class="fas fa-download"></span></a>
+                                        @if( isset(auth()->user()->desarrollos->des_formato) )
+                                        <a href="{{ action('EstudiantesController@desarrolloDownload') }}" title="Descargar">{{ auth()->user()->desarrollos->des_formato }} <span class="fas fa-download"></span></a>
                                         @else
                                         <button type="button"  title="subir informe final" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal3"><span class="fas fa-upload"></span></button>
                                         @endif
@@ -194,17 +190,17 @@
                                 <tr>
                                     <th>Calificador</th>
                                     <td>
-                                        @if(isset($des->concepto->calificador))
-                                        {{ $des->concepto->calificador->nombres }}
-                                        {{ $des->concepto->calificador->apellidos }}
+                                        @if(isset(auth()->user()->desarrollos->concepto->calificador))
+                                        {{ auth()->user()->desarrollos->concepto->calificador->nombres }}
+                                        {{ auth()->user()->desarrollos->concepto->calificador->apellidos }}
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Estado</th>
                                     <td>
-                                        @if(isset($des->concepto))
-                                        {{ $des->concepto->con_nombre }}
+                                        @if(isset(auth()->user()->desarrollos->concepto))
+                                        {{ auth()->user()->desarrollos->concepto->con_nombre }}
                                         @endif
                                     </td>
                                 </tr>
@@ -219,23 +215,27 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>Citación</th>
+
+                                    <td>
+                                        @if(isset(auth()->user()->desarrollos->des_citacion))
+                                        {{ auth()->user()->desarrollos->des_citacion }}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>Acciones</th>
 
                                     <td>
-                                        <a href="{{ action('EstudiantesController@desarrolloEdit', auth()->user()->propuesta) }}" class="btn btn-sm btn-primary ml-3" title="Editar" ><span class="fas fa-edit"></span></a>
-                                        @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                                        <a href="{{ action('EstudiantesController@desarrolloEdit', auth()->user()->desarrollo) }}" class="btn btn-sm btn-primary ml-3" title="Editar" ><span class="fas fa-edit"></span></a>
+                                        @if(isset(auth()->user()->propuestas->concepto->con_nombre) and is_null(auth()->user()->desarrollo) and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right"> Seguir a Desarrollo</span></a>
                                         @endif
                                         <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Dejar trabajo de grado" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
 
                                     </td>
                                 </tr>
-
-
-                                @endforeach
-                                @endif
-
-                            @elseif(isset(auth()->user()->propuestas->concepto) && count($desarrollo)===0 && auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                            @elseif(isset(auth()->user()->propuestas->concepto) && is_null(auth()->user()->desarrollo) && auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                             <div class="jumbotron">
                                 <h1 class="display-4">Propuesta de Grado Aprobada!!</h1>
                                 <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right">Seguir a Informe final</span></a>
@@ -247,10 +247,6 @@
                                 <p>cuando tu propuesta de grado sea aprobada aparecerá un boton para seguir con el informe final</p>
                                 
                             </div>
-
-
-                           
-                            
                             @endif
 
                             </table>

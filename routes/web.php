@@ -34,4 +34,6 @@ Route::get('/estudiantes/{id}','EstudiantesController@desarrolloEdit')->name('es
 Route::post('/desarrolloUpdate/{id}','EstudiantesController@desarrolloUpdate')->name('desarrolloUpdate');
 Route::post('/novedades','EstudiantesController@novedades')->name('novedades');
 Route::resource('/docentes','DocentesController');
+Route::get('/descargaFormatoP/{id}','DocentesController@downloadPropuesta')->name('descargaFormatoP');
+Route::get('/descargaFormatoD/{id}','DocentesController@downloadDesarrollo')->name('descargaFormatoD');
 Route::resource('/administrativos','AdministrativosController');

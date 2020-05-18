@@ -3,6 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\User;
+use App\Modalidades;
+use App\Propuesta;
+use App\Desarrollo;
+use App\Novedades;
+use App\Banco;
+use App\Conceptos;
+
 
 class DocentesController extends Controller
 {
@@ -11,6 +20,23 @@ class DocentesController extends Controller
             return view("auth.login");
         }
         $request->user()->authorizeRoles('docente');
-        return view("docentes.index");
+        $propuestas=Propuesta::all()->where('prop_dir_usu_id',$request->user()->id);
+        $propuestasc=Propuesta::all()->where('prop_codir_usu_id',$request->user()->id);
+        $desarrollo=Desarrollo::all()->where('des_dir_usu_id',$request->user()->id);
+        $desarrolloc=Desarrollo::all()->where('des_codir_usu_id',$request->user()->id);
+        $banco=Banco::all()->where('ban_usu_id',$request->user()->id);
+        $calificar=Conceptos::all()->where('con_usu_id',$request->user()->id);
+        return view("docentes.index",compact('propuestas','propuestasc','desarrollo','desarrolloc','banco','calificar'));
+    }
+
+    public function downloadPropuesta($id){
+        $propuesta=Propuesta::find($id);
+        $ruta=$propuesta->prop_formato;
+        return response()->download(public_path()."/files/propuesta/$ruta");
+    }
+    public function downloadDesarrollo($id){
+        $desarrollo=Propuesta::find($id);
+        $ruta=$desarrollo->des_formato;
+        return response()->download(public_path()."/files/desarrollo/$ruta");
     }
 }
