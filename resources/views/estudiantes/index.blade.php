@@ -131,7 +131,7 @@
                         </div>
                         <article class="desarrollo panels-item" id="desarrollo">
                             <table class="table">
-                            @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)!==0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                                @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)!==0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
 
 
                                 @if(isset($desarrollo))
@@ -187,7 +187,7 @@
                                         @if( isset($des->des_formato) )
                                         <a href="{{ action('EstudiantesController@desarrolloDownload') }}" title="descargar informe final">{{ $des->des_formato }} <span class="fas fa-download"></span></a>
                                         @else
-                                        <button type="button"  title="subir informe final" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal3"><span class="fas fa-upload"></span></button>
+                                        <button type="button" title="subir informe final" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal3"><span class="fas fa-upload"></span></button>
                                         @endif
                                     </td>
                                 </tr>
@@ -221,7 +221,7 @@
                                     <th>Acciones</th>
 
                                     <td>
-                                        <a href="" class="btn btn-sm btn-primary ml-3" title="Editar informe final" ><span class="fas fa-edit"></span></a>
+                                        <a href="" class="btn btn-sm btn-primary ml-3" title="Editar informe final"><span class="fas fa-edit"></span></a>
                                         @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right"> Seguir a Desarrollo</span></a>
                                         @endif
@@ -234,23 +234,23 @@
                                 @endforeach
                                 @endif
 
-                            @elseif(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
-                            <div class="jumbotron">
-                                <h1 class="display-4">Propuesta de Grado Aprobada!!</h1>
-                                <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right">Seguir a Informe final</span></a>
-                            </div>
-                            @else
-                            <div class="jumbotron">
-                                <h1 class="display-4">Aun tu propuesta de Grado no ha sido Aprobada!!</h1>
-                                <hr class="my-4">
-                                <p>cuando tu propuesta de grado sea aprobada aparecerá un boton para seguir con el informe final</p>
-                                
-                            </div>
+                                @elseif(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                                <div class="jumbotron">
+                                    <h1 class="display-4">Propuesta de Grado Aprobada!!</h1>
+                                    <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right">Seguir a Informe final</span></a>
+                                </div>
+                                @else
+                                <div class="jumbotron">
+                                    <h1 class="display-4">Aun tu propuesta de Grado no ha sido Aprobada!!</h1>
+                                    <hr class="my-4">
+                                    <p>cuando tu propuesta de grado sea aprobada aparecerá un boton para seguir con el informe final</p>
+
+                                </div>
 
 
-                           
-                            
-                            @endif
+
+
+                                @endif
 
                             </table>
 

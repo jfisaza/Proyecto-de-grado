@@ -27,7 +27,10 @@ class Propuesta extends Model
     public function modalidad(){
         return $this->belongsTo(Modalidades::class,'prop_mod_id');
     }
-
+    
+    public function programas(){
+        return $this->belongsTo(Programas::class, 'programa');
+    }
 
 }
 

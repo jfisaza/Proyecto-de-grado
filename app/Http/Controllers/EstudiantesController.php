@@ -34,7 +34,6 @@ class EstudiantesController extends Controller
         return view("estudiantes.create", compact("usuarios","modalidades"));
     }
 
-    
 
     public function store(Request $request)
     {
