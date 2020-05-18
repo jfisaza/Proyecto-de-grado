@@ -16,6 +16,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
 <body>
+<div id="contenedor_carga">
+    <div id="carga"></div>
+</div>
+
     <header>
         <input type="checkbox" name="btn-menu" id="btn-menu">
         <label for="btn-menu"><span class="fas fa-bars"></span></label>
@@ -73,5 +77,6 @@
     <script src="js/script.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/main.js"></script>
+
 </body>
 </html>

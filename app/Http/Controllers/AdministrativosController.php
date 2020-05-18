@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Propuesta;
+
 
 class AdministrativosController extends Controller
 {
@@ -11,6 +13,23 @@ class AdministrativosController extends Controller
             return view("auth.login");
         }
         $request->user()->authorizeRoles('administrativo');
-        return view("administrativos.index");
+        $propuestas=Propuesta::all();
+
+        return view("administrativos.index",compact("propuestas"));
+
+
     }
+
+    public function propuestaDownload(Request $request){
+        $propuesta=Propuesta::all();
+        $ruta=$propuesta->prop_formato;
+        return response()->download(public_path()."/files/propuesta/$ruta");
+        
+    }
+
+
+
+
+
+
 }
