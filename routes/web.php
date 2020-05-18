@@ -32,5 +32,8 @@ Route::post('/estudiante','EstudiantesController@agregarEstudiante')->name('estu
 Route::get('/estudiante','EstudiantesController@abandonar')->name('estudiante');
 Route::get('/descargaformato','EstudiantesController@crearDesarrollo')->name('descargaformato');
 Route::post('/formato','EstudiantesController@subirFormato')->name('/formato');
+Route::get('/estudiantes/{id}','EstudiantesController@desarrolloEdit')->name('estudiantes');
+Route::post('/desarrolloUpdate/{id}','EstudiantesController@desarrolloUpdate')->name('desarrolloUpdate');
+Route::post('/novedades','EstudiantesController@novedades')->name('novedades');
 Route::resource('/docentes','DocentesController');
 Route::resource('/administrativos','AdministrativosController');

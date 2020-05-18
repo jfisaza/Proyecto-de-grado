@@ -35,6 +35,7 @@
                                                 <td><strong>Nombres:</strong></td>
                                                 <td>{{ auth()->user()->nombres }}</td>
 
+<<<<<<< HEAD
                                             </tr>
                                             <tr class="">
                                                 <td><strong>Apellidos:</strong></td>
@@ -67,6 +68,44 @@
                             </div>
                         </div>
                     </div>
+=======
+                            <table class=" table">
+                                <tr>
+                                <td><strong>Documento:</strong></td>
+                                    <td>{{ auth()->user()->documento }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nombres:</strong></td>
+                                    <td>{{ auth()->user()->nombres }}</td>
+                                    
+                                </tr>
+                                <tr class="" >
+                                    <td><strong>Apellidos:</strong></td>
+                                    <td>{{ auth()->user()->apellidos }}</td>
+                                </tr>
+                                <tr class="" >
+                                    <td><strong>Correo:</strong></td>
+                                    <td>{{ auth()->user()->email }}</td>
+                                   
+                                   
+                                </tr>
+                                <tr class=""  >
+                                <td><strong>Teléfono:</strong></td>
+                                    <td>{{ auth()->user()->telefono }}</td>
+                                </tr>
+                                <tr class=""  > <td><strong>Ciudad</strong></td>
+                                    <td>{{ auth()->user()->ciudad }}</td></tr>
+                                <tr>
+                                    <td><strong>Programa:</strong></td>
+                                    <td>{{ auth()->user()->programas->pro_nombre }}</td>
+                                </tr>
+                            </table>
+                            <a href="{{ route('usuarios.edit', auth()->user()->id) }}" class="btn btn-sm btn-success mt-3 mb-3 ml-3" title="Editar"><span class="fas fa-user-edit"></span></a>
+                            <a href="{{ action('EstudiantesController@index') }}" class="btn btn-sm btn-success mt-3 mb-3 ml-3">Ir a proyecto <span class="fas fa-arrow-right"></span></a>
+                        </article>
+                    </section>
+                    
+>>>>>>> 1cf002d53f82aacec6a2232d85e9dfaebd401e57
                 </div>
             </div>
         </div>

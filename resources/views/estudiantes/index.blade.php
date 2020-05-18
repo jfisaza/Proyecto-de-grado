@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr>
                                     <th>Estudiantes
-                                        @if(count($estudiantes)<=3) <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal" title="Añadir estudiante a Propuesta"><span class="fas fa-plus"></span></button>
+                                        @if(count($estudiantes)<=3) <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal" title="Añadir estudiante"><span class="fas fa-plus"></span></button>
                                             @endif
                                     </th>
                                     <td>
@@ -114,11 +114,11 @@
                                     <th>Acciones</th>
 
                                     <td>
-                                        <a href="" class="btn btn-sm btn-primary ml-3" title="Editar Propuesta"><span class="fas fa-edit"></span></a>
+                                        <a href="{{ action('EstudiantesController@edit', auth()->user()->propuesta) }}" class="btn btn-sm btn-primary ml-3" title="Editar"><span class="fas fa-edit"></span></a>
                                         @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right">Seguir a Desarrollo</span></a>
                                         @endif
-                                        <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Salir de  Propuesta" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
+                                        <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Abandonar propuesta" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
                                     </td>
                                 </tr>
 
@@ -131,7 +131,11 @@
                         </div>
                         <article class="desarrollo panels-item" id="desarrollo">
                             <table class="table">
+<<<<<<< HEAD
                                 @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)!==0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+=======
+                            @if(count($desarrollo)!=0)
+>>>>>>> 1cf002d53f82aacec6a2232d85e9dfaebd401e57
 
 
                                 @if(isset($desarrollo))
@@ -155,7 +159,7 @@
                                 </tr>
                                 <tr>
                                     <th>Estudiantes
-                                        @if(count($estudiantes)<=3) <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" title="Agregar Estudiante a Desarrollo" data-target="#modal"><span class="fas fa-plus"></span></button>
+                                        @if(count($estudiantes)<=3) <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" title="Agregar Estudiante" data-target="#modal"><span class="fas fa-plus"></span></button>
                                             @endif
                                     </th>
                                     <td>
@@ -185,7 +189,7 @@
                                     <th>Formato RDC</th>
                                     <td>
                                         @if( isset($des->des_formato) )
-                                        <a href="{{ action('EstudiantesController@desarrolloDownload') }}" title="descargar informe final">{{ $des->des_formato }} <span class="fas fa-download"></span></a>
+                                        <a href="{{ action('EstudiantesController@desarrolloDownload') }}" title="Descargar">{{ $des->des_formato }} <span class="fas fa-download"></span></a>
                                         @else
                                         <button type="button" title="subir informe final" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal3"><span class="fas fa-upload"></span></button>
                                         @endif
@@ -213,19 +217,24 @@
 
                                     <td>
                                         @if(isset($novedades))
-                                        <button type="button" class="btn btn-sm btn-primary" title="ver novedades del proyecto" data-toggle="modal" data-target="#modal2"><span class="fas fa-eye"></span></button>
+                                        <button type="button" class="btn btn-sm btn-primary" title="Novedades" data-toggle="modal" data-target="#modal2"><span class="fas fa-eye"></span></button>
                                         @endif
+                                        <button type="button" class="btn btn-sm btn-primary" title="Nueva novedad" data-toggle="modal" data-target="#novedades"><span class="fas fa-plus"></span></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Acciones</th>
 
                                     <td>
+<<<<<<< HEAD
                                         <a href="" class="btn btn-sm btn-primary ml-3" title="Editar informe final"><span class="fas fa-edit"></span></a>
+=======
+                                        <a href="{{ action('EstudiantesController@desarrolloEdit', auth()->user()->propuesta) }}" class="btn btn-sm btn-primary ml-3" title="Editar" ><span class="fas fa-edit"></span></a>
+>>>>>>> 1cf002d53f82aacec6a2232d85e9dfaebd401e57
                                         @if(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right"> Seguir a Desarrollo</span></a>
                                         @endif
-                                        <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="dejar trabajo de grado" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
+                                        <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Dejar trabajo de grado" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
 
                                     </td>
                                 </tr>
@@ -234,6 +243,7 @@
                                 @endforeach
                                 @endif
 
+<<<<<<< HEAD
                                 @elseif(isset(auth()->user()->propuestas->concepto->con_nombre) and count($desarrollo)===0 and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
                                 <div class="jumbotron">
                                     <h1 class="display-4">Propuesta de Grado Aprobada!!</h1>
@@ -246,6 +256,20 @@
                                     <p>cuando tu propuesta de grado sea aprobada aparecerá un boton para seguir con el informe final</p>
 
                                 </div>
+=======
+                            @elseif(isset(auth()->user()->propuestas->concepto) && count($desarrollo)===0 && auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                            <div class="jumbotron">
+                                <h1 class="display-4">Propuesta de Grado Aprobada!!</h1>
+                                <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary"><span class="fas fa-arrow-right">Seguir a Informe final</span></a>
+                            </div>
+                            @else
+                            <div class="jumbotron">
+                                <h1 class="display-4">Aun tu propuesta de Grado no ha sido Aprobada!!</h1>
+                                <hr class="my-4">
+                                <p>cuando tu propuesta de grado sea aprobada aparecerá un boton para seguir con el informe final</p>
+                                
+                            </div>
+>>>>>>> 1cf002d53f82aacec6a2232d85e9dfaebd401e57
 
 
 
@@ -343,6 +367,32 @@
                         <input type="submit" class="btn btn-primary" value="Subir">
                         </form>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="novedades">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar Novedad</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-primary" role="alert">
+                            Las novedades se registran cuando se realizan cambios en el trabajo.
+                        </div>
+                        <form action="{{ action('EstudiantesController@novedades') }}" method="post">
+                            {{ csrf_field()}}
+                            <textarea name="nov_descripcion" class="form-control" cols="30" rows="10" placeholder="Digite la descripcion de la novedad a registrar."></textarea>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
