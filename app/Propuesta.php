@@ -27,17 +27,10 @@ class Propuesta extends Model
     public function modalidad(){
         return $this->belongsTo(Modalidades::class,'prop_mod_id');
     }
-<<<<<<< HEAD
     public function estudiantes(){
         return $this->hasMany(User::class,'propuesta');
     }
 
-=======
-    
-    public function programas(){
-        return $this->belongsTo(Programas::class, 'programa');
-    }
->>>>>>> ca722927485cbeed67a4e0e2fc1deb810f52e17e
 
 }
 

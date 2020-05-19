@@ -26,8 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/estudiantes','EstudiantesController');
 Route::get('/propuesta','EstudiantesController@propuestaDownload')->name('propuesta');
 Route::get('/desarrollo','EstudiantesController@desarrolloDownload')->name('desarrollo');
-Route::get('/propuesta','AdministrativosController@propuestaDownload')->name('propuesta');
-
+Route::get('/propuestaa','AdministrativosController@propuestaDownload')->name('propuestaa');
 Route::post('/estudiante','EstudiantesController@agregarEstudiante')->name('estudiante');
 Route::get('/estudiante','EstudiantesController@abandonar')->name('estudiante');
 Route::get('/descargaformato','EstudiantesController@crearDesarrollo')->name('descargaformato');

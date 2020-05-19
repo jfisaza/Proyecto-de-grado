@@ -11,7 +11,7 @@ class Banco extends Model
     protected $fillable=['ban_id','ban_nombre','ban_usu_id','ban_mod_id','ban_pro_id'];
 
     public function usuarios(){
-        return $this->belongsTo(Usuarios::class, 'ban_usu_id');
+        return $this->belongsTo(User::class, 'ban_usu_id');
     }
     public function modalidad(){
         return $this->belongsTo(Modalidades::class, 'ban_mod_id');

@@ -29,6 +29,18 @@ class DocentesController extends Controller
         return view("docentes.index",compact('propuestas','propuestasc','desarrollo','desarrolloc','banco','calificar'));
     }
 
+    public function edit(Request $request, $id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('docente');
+        $concepto=Concepto::find($id);
+        return view('docentes.edit',compact('concepto'));
+    }
+    public function update(Request $request, $id){
+
+    }
+
     public function downloadPropuesta($id){
         $propuesta=Propuesta::find($id);
         $ruta=$propuesta->prop_formato;

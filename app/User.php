@@ -73,6 +73,12 @@ class User extends Authenticatable
         }
         abort(401,'Página no autorizada');
     }
+    public function authorizeManyRoles($rol1,$rol2){
+        if($this->hasAnyRole($rol1) || $this->hasAnyRole($rol2)){
+            return true;
+        }
+        abort(401,'Página no autorizada');
+    }
 
     public function programas(){
         return $this->belongsTo(Programas::class, 'programa');

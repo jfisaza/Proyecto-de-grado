@@ -49,9 +49,9 @@
                         <td>{{ $ban->ban_nombre }}</td>
                         <td>{{ $ban->modalidad->mod_nombre }}</td>
                         <td>{{ $ban->programa->pro_nombre }}</td>
-                        <td>{{ $ban->usuarios->usu_nombres }} {{ $ban->usuarios->usu_apellidos }}</td>
-                        <td>{{ $ban->usuarios->usu_telefono }}</td>
-                        <td>{{ $ban->usuarios->usu_correo }}</td>
+                        <td>{{ $ban->usuarios->nombres }} {{ $ban->usuarios->apellidos }}</td>
+                        <td>{{ $ban->usuarios->telefono }}</td>
+                        <td>{{ $ban->usuarios->email }}</td>
                     </tr>
             @endforeach
             @else

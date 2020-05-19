@@ -34,12 +34,7 @@ class EstudiantesController extends Controller
         $modalidades=Modalidades::all();
         return view("estudiantes.create", compact("usuarios","modalidades"));
     }
-<<<<<<< HEAD
-
-
-=======
     //crea la propuesta
->>>>>>> 1cf002d53f82aacec6a2232d85e9dfaebd401e57
     public function store(Request $request)
     {
         if($request->hasFile('prop_formato')){

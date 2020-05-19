@@ -252,6 +252,7 @@
                 <th>Director</th>
                 <th>Teléfono</th>
                 <th>Correo</th>
+                <th>Acciones</th>
             </thead>
             <tbody>
             @foreach($banco as $ban)
@@ -259,14 +260,18 @@
                     <td>{{ $ban->ban_nombre }}</td>
                     <td>{{ $ban->modalidad->mod_nombre }}</td>
                     <td>{{ $ban->programa->pro_nombre }}</td>
-                    <td>{{ $ban->usuarios->usu_nombres }} {{ $ban->usuarios->usu_apellidos }}</td>
-                    <td>{{ $ban->usuarios->usu_telefono }}</td>
-                    <td>{{ $ban->usuarios->usu_correo }}</td>
+                    <td>{{ $ban->usuarios->nombres }} {{ $ban->usuarios->apellidos }}</td>
+                    <td>{{ $ban->usuarios->telefono }}</td>
+                    <td>{{ $ban->usuarios->email }}</td>
+                    <td>
+                        <a href="{{ route('banco.edit',$ban->ban_id) }}" class="btn btn-sm btn-primary" title="Editar"><span class="fas fa-edit"></span></a>
+                        <a href="{{ route('banco.destroy', $ban->ban_id) }}" class="btn btn-sm btn-primary" title="Eliminar" onclick="return confirm('¿Esta seguro de eliminar esta idea del banco?')"><span class="fas fa-trash"></span></a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        <a href="" class="btn btn-primary mt-3">Agregar</a>
+        <a href="{{ route('banco.create') }}" class="btn btn-primary mt-3">Agregar</a>
     </article>
     
     <article id="calificar">
@@ -310,7 +315,7 @@
                     </td>
                     <td><a href="{{ action('DocentesController@downloadPropuesta', $cal->propuestas->prop_id) }}">{{ $cal->propuestas->prop_formato }}</a></td>
                     <td>
-                        <a href="" class="btn btn-primary btn-sm" title="Calificar"><span class="fas fa-pen-alt"></span></a>
+                        <a href="{{ route('docentes.edit', $cal->con_id) }}" class="btn btn-primary btn-sm" title="Calificar"><span class="fas fa-pen-alt"></span></a>
                     </td>
                 </tr>
                 @endif
@@ -337,13 +342,14 @@
                     </td>
                     <td><a href="{{ action('DocentesController@downloadDesarrollo', $cal->desarrollos->des_id) }}">{{ $cal->desarrollos->des_formato }}</a></td>
                     <td>
-                        <a href="" class="btn btn-primary btn-sm" title="Calificar"><span class="fas fa-pen-alt"></span></a>
+                        <a href="{{ route('docentes.edit', $cal->con_id) }}" class="btn btn-primary btn-sm" title="Calificar"><span class="fas fa-pen-alt"></span></a>
                     </td>
                 </tr>
                 @endif
                 
                 
                 @endif
+                
                 @endforeach
                 @else
                 <tr>
