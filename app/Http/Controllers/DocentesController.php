@@ -34,11 +34,15 @@ class DocentesController extends Controller
             return view("auth.login");
         }
         $request->user()->authorizeRoles('docente');
-        $concepto=Concepto::find($id);
+        $concepto=Conceptos::find($id);
+        if($concepto->con_usu_id != $request->user()->id){
+            return abort(401,'Pagina no autorizada');
+        }
         return view('docentes.edit',compact('concepto'));
     }
     public function update(Request $request, $id){
-
+        $concepto=Conceptos::find($id)->update(['con_nombre'=>$request->con_nombre],['con_acta'=>$request->con_acta]);
+        return redirect()->route('docentes.index');
     }
 
     public function downloadPropuesta($id){
@@ -47,7 +51,7 @@ class DocentesController extends Controller
         return response()->download(public_path()."/files/propuesta/$ruta");
     }
     public function downloadDesarrollo($id){
-        $desarrollo=Propuesta::find($id);
+        $desarrollo=Desarrollo::find($id);
         $ruta=$desarrollo->des_formato;
         return response()->download(public_path()."/files/desarrollo/$ruta");
     }
