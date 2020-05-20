@@ -52,12 +52,11 @@
                                             <th>Director</th>
                                             <th>Codirector</th>
                                             <th>Modalidad</th>
-                                            <th>Estado</th>
                                             <th>Formato RDC</th>
                                             <th>Fecha Entrega</th>
+                                            <th>Estado</th>
                                             <th>Fecha Calificacion</th>
                                             <th>Calificador</th>
-                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,24 +72,23 @@
                                                 @endif
                                             </td>
                                             <td>{{$prop->modalidad->mod_nombre}}</td>
+                                            
+                                            <td>
+                                                @if(isset($prop->prop_formato))
+                                                <a href="{{ action('AdministrativosController@downloadPropuesta', $prop->prop_id) }}">{{$prop->prop_formato}} <span class="fas fa-download"></span></a>
+                                                @endif
+                                            </td>
+                                            <td>{{$prop->created_at}}</td>
                                             <td>@if(isset($prop->concepto->con_nombre))
                                                 {{$prop->concepto->con_nombre}}
                                                 @endif
                                             </td>
-                                            <td>
-                                                @if(isset($prop->prop_formato))
-                                                {{$prop->prop_formato}} 
-                                                @endif
-                                            </td>
-                                            <td>{{$prop->prop_fecha_entrega}}</td>
-                                            <td>{{$prop->prop_fecha_calificacion}}</td>
+                                            <td>{{$prop->concepto->con_fecha}}</td>
 
                                             <td>@if(isset ($prop->concepto->calificador))
                                                 {{$prop->concepto->calificador->nombres}}
                                                 @endif
                                             </td>
-
-                                            <td></td>
                                         </tr>
                                         @endforeach
                                         @else
@@ -119,7 +117,17 @@
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                    @if($desarrollo->count())
+                                        @foreach($desarrollo as $des)
+                                        <tr>
+                                            <td>{{ $des->des_id }}</td>
+                                            <td>{{ $des->des_titulo }}</td>
+                                            <td>{{ $des->modalidad->mod_nombre }}</td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
                                 </table>
                             </div>
                         </article>

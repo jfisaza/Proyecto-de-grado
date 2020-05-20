@@ -8,7 +8,7 @@ class Propuesta extends Model
 {
     protected $table = 'propuesta';
     protected $primaryKey = 'prop_id';
-    protected $fillable = ['prop_titulo','prop_est_usu_id','prop_dir_usu_id','prop_codir_usu_id','prop_mod_id','prop_con_id','prop_formato','prop_fecha_entrega','prop_fecha_calificacion'];
+    protected $fillable = ['prop_titulo','prop_est_usu_id','prop_dir_usu_id','prop_codir_usu_id','prop_mod_id','prop_pro_id','prop_con_id','prop_formato','prop_fecha_entrega','prop_fecha_calificacion'];
 
 
 
@@ -30,7 +30,9 @@ class Propuesta extends Model
     public function estudiantes(){
         return $this->hasMany(User::class,'propuesta');
     }
-
+    public function programas(){
+        return $this->belongsTo(Programas::class,'prop_pro_id');
+    }
 
 }
 

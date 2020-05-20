@@ -21,7 +21,9 @@ class CreateTbPropuesta extends Migration
             $table->integer('prop_codir_usu_id')->nullable()->unsigned();
             $table->foreign('prop_codir_usu_id')->references('id')->on('users');
             $table->integer('prop_mod_id')->unsigned();
-            $table->foreign('prop_mod_id')->references('mod_id')->on('modalidades');  
+            $table->foreign('prop_mod_id')->references('mod_id')->on('modalidades');
+            $table->integer('prop_pro_id')->unsigned();
+            $table->foreign('prop_pro_id')->references('pro_id')->on('programas');  
             $table->integer('prop_con_id')->unsigned()->nullable();
             $table->foreign('prop_con_id')->references('con_id')->on('conceptos');
             $table->string('prop_formato')->nullable();

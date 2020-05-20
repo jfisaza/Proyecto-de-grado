@@ -29,6 +29,7 @@
                 <th>Código</th>
                 <th>Titulo</th>
                 <th>Modalidad</th>
+                <th>Programa</th>
                 <th>Estudiantes</th>
                 <th>Codirector</th>
                 <th>Formato RDC</th>
@@ -42,6 +43,7 @@
                         <td>{{ $pro->prop_id }}</td>
                         <td>{{ $pro->prop_titulo }}</td>
                         <td>{{ $pro->modalidad->mod_nombre }}</td>
+                        <td>{{ $pro->programas->pro_nombre }}</td>
                         <td>
                         <table>
                             @foreach($pro->estudiantes as $est)
@@ -82,6 +84,7 @@
                 <th>Código</th>
                 <th>Titulo</th>
                 <th>Modalidad</th>
+                <th>Programa</th>
                 <th>Estudiantes</th>
                 <th>Codirector</th>
                 <th>Formato RDC</th>
@@ -95,6 +98,7 @@
                         <td>{{ $pro->prop_id }}</td>
                         <td>{{ $pro->prop_titulo }}</td>
                         <td>{{ $pro->modalidad->mod_nombre }}</td>
+                        <td>{{ $pro->programas->pro_nombre }}</td>
                         <td>
                         <table>
                             @foreach($pro->estudiantes as $est)
@@ -137,6 +141,7 @@
                 <th>Código</th>
                 <th>Titulo</th>
                 <th>Modalidad</th>
+                <th>Programa</th>
                 <th>Estudiantes</th>
                 <th>Director</th>
                 <th>Codirector</th>
@@ -151,6 +156,7 @@
                     <td>{{ $des->des_id }}</td>
                     <td>{{ $des->des_titulo }}</td>
                     <td>{{ $des->modalidad->mod_nombre }}</td>
+                    <td>{{ $des->programas->pro_nombre }}</td>
                     <td>
                     <table>
                             @foreach($des->estudiantes as $est)
@@ -192,6 +198,7 @@
                 <th>Código</th>
                 <th>Titulo</th>
                 <th>Modalidad</th>
+                <th>Programa</th>
                 <th>Estudiantes</th>
                 <th>Director</th>
                 <th>Codirector</th>
@@ -207,6 +214,7 @@
                     <td>{{ $des->des_id }}</td>
                     <td>{{ $des->des_titulo }}</td>
                     <td>{{ $des->modalidad->mod_nombre }}</td>
+                    <td>{{ $des->programas->pro_nombre }}</td>
                     <td>
                     <table>
                             @foreach($des->estudiantes as $est)
@@ -281,6 +289,7 @@
                 <th>Código</th>
                 <th>Titulo</th>
                 <th>Modalidad</th>
+                <th>Programa</th>
                 <th>Estudiantes</th>
                 <th>Director</th>
                 <th>Codirector</th>
@@ -290,7 +299,7 @@
             <tbody>
                 @if(isset($calificar))
                 @foreach($calificar as $cal)
-                @if(empty($cal->con_nombre))
+                @if(empty($cal->con_nombre) || $cal->con_nombre==='ESPERA')
                 @if(isset($cal->propuestas))
                 
                 <tr>
@@ -298,6 +307,7 @@
                     <td>{{ $cal->propuestas->prop_id }}</td>
                     <td>{{ $cal->propuestas->prop_titulo }}</td>
                     <td>{{ $cal->propuestas->modalidad->mod_nombre }}</td>
+                    <td>{{ $cal->propuestas->programas->pro_nombre }}</td>
                     <td>
                     <table>
                         @foreach($cal->propuestas->estudiantes as $est)
@@ -325,6 +335,7 @@
                     <td>{{ $cal->desarrollos->des_id }}</td>
                     <td>{{ $cal->desarrollos->des_titulo }}</td>
                     <td>{{ $cal->desarrollos->modalidad->mod_nombre }}</td>
+                    <td>{{ $cal->desarrollos->programas->pro_nombre }}</td>
                     <td>
                     <table>
                         @foreach($cal->desarrollos->estudiantes as $est)

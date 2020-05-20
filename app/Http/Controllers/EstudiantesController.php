@@ -10,6 +10,10 @@ use App\Modalidades;
 use App\Propuesta;
 use App\Desarrollo;
 use App\Novedades;
+use App\Programas;
+use App\Auditoria_propuesta;
+use App\Auditoria_desarrollo;
+use App\Auditoria_novedades;
 
 class EstudiantesController extends Controller
 {
@@ -32,7 +36,8 @@ class EstudiantesController extends Controller
         $request->user()->authorizeRoles('estudiante');
         $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         $modalidades=Modalidades::all();
-        return view("estudiantes.create", compact("usuarios","modalidades"));
+        $programas=Programas::all();
+        return view("estudiantes.create", compact("usuarios","modalidades","programas"));
     }
     //crea la propuesta
     public function store(Request $request)
@@ -47,10 +52,11 @@ class EstudiantesController extends Controller
         'prop_dir_usu_id'=>'required',
         'prop_mod_id'=>'required']);
         $propuesta=new Propuesta();
-        $propuesta->prop_titulo=$request->input('prop_titulo');
+        $propuesta->prop_titulo=strtoupper($request->input('prop_titulo'));
         $propuesta->prop_dir_usu_id=$request->input('prop_dir_usu_id');
         $propuesta->prop_codir_usu_id=$request->input('prop_codir_usu_id');
         $propuesta->prop_mod_id=$request->input('prop_mod_id');
+        $propuesta->prop_pro_id=$request->input('prop_pro_id');
         $propuesta->prop_formato=$name;
         $propuesta->save();
         return $this->enlazarPropuestaUser($request,$propuesta);
@@ -65,8 +71,9 @@ class EstudiantesController extends Controller
         }
         $request->user()->authorizeRoles('estudiante');
         $propuesta=Propuesta::find($id);
+        $programas=Programas::all();
         $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
-        return view("estudiantes.edit", compact("propuesta","usuarios"));
+        return view("estudiantes.edit", compact("propuesta","usuarios","programas"));
     }
     //actualiza la propuesta
     public function update(Request $request, $id){
@@ -85,6 +92,7 @@ class EstudiantesController extends Controller
         $propuesta->prop_titulo=$request->input('prop_titulo');
         $propuesta->prop_dir_usu_id=$request->input('prop_dir_usu_id');
         $propuesta->prop_codir_usu_id=$request->input('prop_codir_usu_id');
+        $propuesta->prop_pro_id=$request->input('prop_pro_id');
         $propuesta->save();
         return redirect()->route("estudiantes.index");
     }
@@ -99,13 +107,38 @@ class EstudiantesController extends Controller
     }
     //crea el registro en la tabla desarrollo
     public function crearDesarrollo(Request $request){
+        $user=User::all()->where('propuesta',$request->user()->propuesta);
+        $cont=0;
+        foreach($user as $u){
+            $array[0]=$u->id;
+            $cont++;
+        }
+        $ap=new Auditoria_propuesta();
+        $ap->ap_id=$request->user()->propuesta;
+        $ap->ap_titulo=$request->user()->propuestas->prop_titulo;
+        $ap->ap_est1=$array[0];
+        if(isset($array[1])){
+            $ap->ap_est2=$array[1];
+        }
+        if(isset($array[2])){
+            $ap->ap_est3=$array[2];
+        }
         
+        $ap->ap_dir_usu_id=$request->user()->propuestas->prop_dir_usu_id;
+        $ap->ap_codir_usu_id=$request->user()->propuestas->prop_codir_usu_id;
+        $ap->ap_mod_id=$request->user()->propuestas->prop_mod_id;
+        $ap->ap_pro_id=$request->user()->propuestas->prop_pro_id;
+        $ap->ap_con_id=$request->user()->propuestas->prop_con_id;
+        $ap->ap_formato=$request->user()->propuestas->prop_formato;
+        $ap->save();
+
         $desarrollo=new Desarrollo();
         $desarrollo->des_id=$request->user()->propuesta;
         $desarrollo->des_titulo=$request->user()->propuestas->prop_titulo;
         $desarrollo->des_dir_usu_id=$request->user()->propuestas->prop_dir_usu_id;
         $desarrollo->des_codir_usu_id=$request->user()->propuestas->prop_codir_usu_id;
         $desarrollo->des_mod_id=$request->user()->propuestas->prop_mod_id;
+        $desarrollo->des_pro_id=$request->user()->propuestas->prop_pro_id;
         $desarrollo->des_prop_id=$request->user()->propuesta;
         $desarrollo->save();
         $user=User::where('propuesta',$request->user()->propuesta)->update(['desarrollo'=>$desarrollo->des_id]);
@@ -123,10 +156,11 @@ class EstudiantesController extends Controller
         if($request->user()->propuesta != $id){
             return abort(401,'Página no autorizada');
         }
+        $programas=Programas::all();
         $desarrollo=Desarrollo::find($id);
         $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         
-        return view("estudiantes.editar", compact("desarrollo","usuarios"));
+        return view("estudiantes.editar", compact("desarrollo","usuarios","programas"));
     }
     //actualizar datos en fase de desarrollo
     public function desarrolloUpdate(Request $request,$id){
@@ -144,6 +178,7 @@ class EstudiantesController extends Controller
         $desarrollo->des_titulo=$request->input('prop_titulo');
         $desarrollo->des_dir_usu_id=$request->input('prop_dir_usu_id');
         $desarrollo->des_codir_usu_id=$request->input('prop_codir_usu_id');
+        $desarrollo->des_pro_id=$request->input('des_pro_id');
         
         $desarrollo->save();
         return redirect()->route("estudiantes.index");
@@ -185,8 +220,11 @@ class EstudiantesController extends Controller
         return redirect()->route("estudiantes.index");
     }
     //esta funcion permite a un estudiante salirse del trabajo de grado en el que esta registrado
+    //cuando todos los estudiantes de un trabajo abandonan, se crea un registro de auditoria de su trabajo
     public function abandonar(Request $request){
         $desarrollo=Desarrollo::where('des_id',$request->user()->desarrollo)->first();
+        $countu=User::all()->where('desarrollo',$desarrollo->id);
+        $ad_exist=Auditoria_desarrollo::find($request->user()->desarrollo);
         $id=$request->user()->propuesta;
         if(isset($desarrollo)){
             $novedad=new Novedades();
@@ -196,17 +234,59 @@ class EstudiantesController extends Controller
             $novedad->save();
             $user=User::find($request->user()->id)->update(['desarrollo'=>NULL]);
         }
+        
+        if($countu===1 && is_null($ad_exist)){
+            $ad=new Auditoria_desarrollo();
+            $ad->ad_id=$request->user()->propuesta;
+            $ad->ad_titulo=$request->user()->propuestas->prop_titulo;
+            $ad->ad_est1=$request->user()->id;
+            $ad->ad_prop_id=$request->user()->propuesta;
+            $ad->ad_dir_usu_id=$request->user()->propuestas->prop_dir_usu_id;
+            $ad->ad_codir_usu_id=$request->user()->propuestas->prop_codir_usu_id;
+            $ad->ad_mod_id=$request->user()->propuestas->prop_mod_id;
+            $ad->ad_pro_id=$request->user()->propuestas->prop_pro_id;
+            $ad->ad_con_id=$request->user()->propuestas->prop_con_id;
+            $ad->ad_formato=$request->user()->propuestas->prop_formato;
+            $ad->save();
+            $nov=Novedades::all()->where('nov_des_id',$desarrollo->id);
+            if(isset($nov)){
+                foreach($nov as $n){
+                    $an=new Auditoria_novedades();
+                    $an->an_id=$n->nov_id;
+                    $an->an_ad_id=$n->nov_des_id;
+                    $an->an_descripcion=$n->nov_descripcion;
+                    $an->an_fecha=$n->nov_fecha;
+                }
+            }
+        }
+        $vacio=User::all()->where('propuesta',$id);
+        $ap_exist=Auditoria_propuesta::find($request->user()->propuesta);
+        if(count($vacio)===1 && is_null($ap_exist)){
+            $ap=new Auditoria_propuesta();
+            $ap->ap_id=$request->user()->propuesta;
+            $ap->ap_titulo=$request->user()->propuestas->prop_titulo;
+            $ap->ap_est1=$request->user()->id;
+            $ap->ap_dir_usu_id=$request->user()->propuestas->prop_dir_usu_id;
+            $ap->ap_codir_codir_id=$request->user()->propuestas->prop_codir_usu_id;
+            $ap->ap_mod_id=$request->user()->propuestas->prop_mod_id;
+            $ap->ap_pro_id=$request->user()->propuestas->prop_pro_id;
+            $ap->ap_con_id=$request->user()->propuestas->prop_con_id;
+            $ap->ap_formato=$request->user()->propuestas->prop_formato;
+            $ap->save();
+        }
         $user=User::find($request->user()->id)->update(['propuesta'=>NULL]);
         
-        $vacio=User::all()->where('propuesta',$id);
+        
         if(count($vacio)===0){
             if(isset($desarrollo)){
                 $novedades=Novedades::all()->where('nov_des_id',$id);
+
                 if(count($novedades) != 0){
                     Novedades::where('nov_des_id',$id)->delete();
                 }
                 Desarrollo::find($id)->delete();
             }
+            
             Propuesta::find($id)->delete();
         }
         return redirect()->route("estudiantes.index");
@@ -219,5 +299,55 @@ class EstudiantesController extends Controller
         $novedad->nov_fecha=date('Y-m-d');
         $novedad->save();
         return redirect()->route("estudiantes.index");
+    }
+
+    public function finalizar(Request $request,$id){
+        $desarrollo=Desarrollo::find($id);
+        $ad=new Auditoria_desarrollo();
+
+        $user=User::all()->where('desarrollo',$desarrollo->des_id);
+        $cont=0;
+        foreach($user as $u){
+            $array[0]=$u->id;
+            $cont++;
+        }
+        $ad->ad_id=$desarrollo->des_id;
+        $ad->ad_titulo=$desarrollo->des_titulo;
+        $ad->ad_est1=$array[0];
+        if(isset($array[1])){
+            $ad->ad_est2=$array[1];
+        }
+        if(isset($array[2])){
+            $ad->ad_est3=$array[2];
+        }
+        $ad->ad_dir_usu_id=$desarrollo->des_dir_usu_id;
+        $ad->ad_codir_usu_id=$desarrollo->des_codir_usu_id;
+        $ad->ad_ap_id=$desarrollo->des_prop_id;
+        $ad->ad_mod_id=$desarrollo->des_mod_id;
+        $ad->ad_pro_id=$desarrollo->des_pro_id;
+        $ad->ad_con_id=$desarrollo->des_con_id;
+        $ad->ad_formato=$desarrollo->des_formato;
+        $ad->save();
+        $nov=Novedades::all()->where('nov_des_id',$id);
+        if(isset($nov)){
+            foreach($nov as $n){
+                $an=new Auditoria_novedades();
+                $an->an_id=$n->nov_id;
+                $an->an_ad_id=$n->nov_des_id;
+                 $an->an_descripcion=$n->nov_descripcion;
+                $an->an_fecha=$n->nov_fecha;
+            }
+        }
+        $nov=Novedades::where('nov_des_id',$id)->delete();
+        $users=User::all()->where('desarrollo',$id);
+        foreach($users as $u){
+            $u->propuesta=NULL;
+            $u->desarrollo=NULL;
+            $u->save();
+        }
+        
+        $desarrollo=Desarrollo::find($id)->delete();
+        $propuesta=Propuesta::find($id)->delete();
+        return redirect()->route('estudiantes.index')->with('success','Felicidades, Terminaste tu proceso de trabajo de grado.');
     }
 }

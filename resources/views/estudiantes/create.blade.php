@@ -62,6 +62,16 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="form-group">
+                        <label for="prop_pro_id"></label>
+                        <select id="prop_pro_id" name="prop_pro_id" class="form-control" required>
+                            <option selected value="">Programa</option>
+                            @foreach($programas as $pro)
+                            <option value="{{ $pro->pro_id }}">{{ $pro->pro_nombre }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
 
                 <div class="form-row">
                     <div class="custom-file col-md-4">

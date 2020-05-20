@@ -19,6 +19,11 @@
                         {{ session('error') }}
                     </div>
                     @endif
+                    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
 
                     <section class="tablas">
                         @if(isset(auth()->user()->propuestas->prop_id))
@@ -52,7 +57,7 @@
                                 </tr>
                                 <tr>
                                     <th>Programa</th>
-                                    <td>{{ auth()->user()->programas->pro_nombre }}</td>
+                                    <td>{{ auth()->user()->propuestas->programas->pro_nombre }}</td>
                                 </tr>
                                 <tr>
                                     <th>Estudiantes
@@ -156,7 +161,7 @@
                                 </tr>
                                 <tr>
                                     <th>Programa</th>
-                                    <td>{{ auth()->user()->programas->pro_nombre }}</td>
+                                    <td>{{ auth()->user()->desarrollos->programas->pro_nombre }}</td>
                                 </tr>
                                 <tr>
                                     <th>Estudiantes
@@ -239,6 +244,9 @@
                                     @if(is_null(auth()->user()->desarrollos->concepto) || (isset(auth()->user()->desarrollos->concepto) && auth()->user()->desarrollos->concepto->con_nombre != 'APROBADO'))
                                         <a href="{{ action('EstudiantesController@desarrolloEdit', auth()->user()->desarrollo) }}" class="btn btn-sm btn-primary ml-3" title="Editar" ><span class="fas fa-edit"></span></a>
                                         <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Dejar trabajo de grado" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
+                                    @endif
+                                    @if(isset(auth()->user()->desarrollos->concepto) && auth()->user()->desarrollos->concepto->con_nombre === 'APROBADO')
+                                        <a href="{{ action('EstudiantesController@finalizar', auth()->user()->desarrollo) }}" class="btn btn-sm btn-success">Finalizar Proceso <span class="fas fa-arrow-right"></span></a>
                                     @endif
                                     </td>
                                 </tr>
@@ -378,6 +386,6 @@
     </div>
 </div>
 @else
-<a href="{{route('estudiantes.create')}}" class="btn btn-primary">Registrar Popuesta</a>
+<center><a href="{{route('estudiantes.create')}}" class="btn btn-primary">Registrar Popuesta</a></center>
 @endif
 @endsection

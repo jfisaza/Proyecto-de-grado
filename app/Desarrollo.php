@@ -8,7 +8,7 @@ class Desarrollo extends Model
 {
     protected $table = 'desarrollo';
     protected $primaryKey = 'des_id';
-    protected $fillable = ['des_id','des_titulo','des_est_usu_id','des_dir_usu_id','des_codir_usu_id','des_mod_id','des_con_id','des_prop_id','des_formato','des_fecha_entrega','des_fecha_calificacion','des_citacion'];
+    protected $fillable = ['des_id','des_titulo','des_est_usu_id','des_dir_usu_id','des_codir_usu_id','des_mod_id','des_pro_id','des_con_id','des_prop_id','des_formato','des_fecha_entrega','des_fecha_calificacion','des_citacion'];
 
     public function concepto(){
         return $this->belongsTo(Conceptos::class,'des_con_id');
@@ -33,5 +33,8 @@ class Desarrollo extends Model
     }
     public function novedades(){
         return $this->hasMany(Novedades::class,'nov_des_id');
+    }
+    public function programas(){
+        return $this->belongsTo(Programas::class,'des_pro_id');
     }
 }
