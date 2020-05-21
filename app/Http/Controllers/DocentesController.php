@@ -41,9 +41,12 @@ class DocentesController extends Controller
         return view('docentes.edit',compact('concepto'));
     }
     public function update(Request $request, $id){
-        $concepto=Conceptos::find($id)->update(['con_nombre'=>$request->con_nombre],
-        ['con_acta'=>$request->con_acta],
-        ['con_fecha'=>date('Y-m-d')]);
+        
+        $concepto=Conceptos::find($id);
+        $concepto->con_nombre=$request->con_nombre;
+        $concepto->con_acta=$request->con_acta;
+        $concepto->con_fecha=date('Y-m-d');
+        $concepto->save();
         return redirect()->route('docentes.index');
     }
 
