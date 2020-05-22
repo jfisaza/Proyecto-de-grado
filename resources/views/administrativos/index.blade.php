@@ -240,12 +240,28 @@
                                         <th>Teléfono</th>
                                         <th>Correo</th>
                                         <th>Dirección</th>
+                                        <th>Acciones</th>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                    @if(isset($solicitudes))
+                                    @foreach($solicitudes as $sol)
+                                    <tr>
+                                        <td>{{ $sol->programa->pro_nombre }}</td>
+                                        <td>{{ $sol->empresa->emp_nombre }}</td>
+                                        <td>{{ $sol->empresa->emp_representante }}</td>
+                                        <td>{{ $sol->empresa->emp_telefono }}</td>
+                                        <td>{{ $sol->empresa->emp_correo }}</td>
+                                        <td>{{ $sol->empresa->emp_direccion }}</td>
+                                        <td>
+                                            <a href="{{ action('BancoController@editSolicitud',$sol->sol_id) }}" class="btn btn-sm btn-primary"><span class="fas fa-edit"></span></a>
+                                            <a href="{{ action('BancoController@destroySolicitud',$sol->sol_id) }}" class="btn btn-sm btn-primary"><span class="fas fa-trash" onclick="return confirm('¿Está seguro de eliminar?')"></span></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                    </tbody>
                                 </table>
-
-                                <a href="" class="btn btn-primary">Agregar</a>
-                                <br>
+                                <a href="{{ action('BancoController@createSolicitud') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>
                             </div>
                         </article>
                         <article id="empresas">
@@ -254,13 +270,33 @@
                                 <table class="table">
                                     <thead>
                                         <th>Nombre</th>
+                                        <th>Sector</th>
                                         <th>Representante</th>
                                         <th>Teléfono</th>
                                         <th>Correo</th>
                                         <th>Dirección</th>
+                                        <th>Acciones</th>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                    @if(isset($empresas))
+                                    @foreach($empresas as $emp)
+                                    <tr>
+                                        <td>{{ $emp->emp_nombre }}</td>
+                                        <td>{{ $emp->emp_sector }}</td>
+                                        <td>{{ $emp->emp_representante }}</td>
+                                        <td>{{ $emp->emp_telefono }}</td>
+                                        <td>{{ $emp->emp_correo }}</td>
+                                        <td>{{ $emp->emp_direccion }}</td>
+                                        <td>
+                                        <a href="{{ route('administrativos.edit',$emp->emp_id) }}" class="btn btn-sm btn-primary" title="Editar"><span class="fas fa-edit"></span></a>
+                                        <a href="{{ route('administrativos.destroy',$emp->emp_id) }}" class="btn btn-sm btn-primary" onclick="return confirm('¿Esta seguro de eliminar?')" title="Eliminar"><span class="fas fa-trash"></span></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                    </tbody>
                                 </table>
+                                <a href="{{ route('administrativos.create') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>
                             </div>
                         </article>
                         <article id="ap">
@@ -448,6 +484,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+                                <a href="" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>
                             </div>
                         </article>
                 </div>

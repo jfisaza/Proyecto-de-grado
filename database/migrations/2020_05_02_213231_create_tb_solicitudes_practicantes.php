@@ -17,6 +17,8 @@ class CreateTbSolicitudesPracticantes extends Migration
             $table->bigIncrements('sol_id');
             $table->Integer('sol_emp_id')->unsigned();
             $table->foreign('sol_emp_id')->references('emp_id')->on('empresa');
+            $table->integer('sol_pro_id')->unsigned();
+            $table->foreign('sol_pro_id')->references('pro_id')->on('programas');
             $table->timestamps();
         });
     }

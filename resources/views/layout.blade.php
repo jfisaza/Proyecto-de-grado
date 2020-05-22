@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="{{ asset('img/uts-logo.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
@@ -32,9 +33,10 @@
             <ul>
                 <li><a href="{{ url('/') }}">Inicio</a></li>
                 <li><a href="{{ action('BancoController@index') }}">Banco De Ideas</a></li>
-                <li><a href="{{ action('EstudiantesController@index') }}">Estudiantes</a></li>
-                <li><a href="{{ action('DocentesController@index') }}">Docentes</a></li>
-                <li><a href="{{ action('AdministrativosController@index') }}">Administrativos</a></li>
+                <li><a href="">Ayuda</a></li>
+                <li><a href="https://www.dropbox.com/sh/op8bmnpioxnutkq/AAA3aYa4B9loRyLJkkcaX3Sma/DOCUMENTOS%20DE%20GRADO?dl=0&subfolder_nav_tracking=1">Documentos de grado</a></li>
+                <li><a href="http://www.uts.edu.co/sitio/">UTS</a></li>
+                <li><a href="http://www.uts.edu.co/sitio/wp-content/uploads/normatividad/reglamento_trabajo_grado.pdf">Reglamento Trabajos de grado</a></li>
 
                 @guest
                             <li class="nav-item">

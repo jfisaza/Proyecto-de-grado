@@ -10,6 +10,8 @@ use App\Conceptos;
 use App\User;
 use App\Auditoria_propuesta;
 use App\Auditoria_desarrollo;
+use App\Empresas;
+use App\Solicitudes;
 
 class AdministrativosController extends Controller
 {
@@ -22,10 +24,60 @@ class AdministrativosController extends Controller
         $desarrollo=Desarrollo::paginate();
         $ap=Auditoria_propuesta::paginate();
         $ad=Auditoria_desarrollo::paginate();
+        $empresas=Empresas::paginate();
+        $solicitudes=Solicitudes::paginate();
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','2')->get();
-        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes"));
+        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes"));
 
 
+    }
+
+    public function create(Request $request){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return view("administrativos.create");
+    }
+
+    public function store(Request $request){
+        $empresa=new Empresas();
+        $empresa->emp_nombre=strtoupper($request->input('emp_nombre'));
+        $empresa->emp_sector=$request->input('emp_sector');
+        $empresa->emp_representante=strtoupper($request->input('emp_representante'));
+        $empresa->emp_direccion=$request->input('emp_direccion');
+        $empresa->emp_telefono=$request->input('emp_telefono');
+        $empresa->emp_correo=$request->input('emp_correo');
+        $empresa->save();
+        return redirect()->route('administrativos.index');
+    }
+
+    public function edit(Request $request, $id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        $empresa=Empresas::find($id);
+        return view("administrativos.edit",compact('empresa'));
+    }
+
+    public function update(Request $request, $id){
+        $empresa=Empresas::find($id);
+        $empresa->emp_nombre=strtoupper($request->input('emp_nombre'));
+        $empresa->emp_sector=$request->input('emp_sector');
+        $empresa->emp_representante=strtoupper($request->input('emp_representante'));
+        $empresa->emp_direccion=$request->input('emp_direccion');
+        $empresa->emp_telefono=$request->input('emp_telefono');
+        $empresa->emp_correo=$request->input('emp_correo');
+        $empresa->save();
+        return redirect()->route('administrativos.index');
+    }
+    public function show($id){
+        return $this->destroy($id);
+    }
+    public function destroy($id){
+        $empresa=Empresas::find($id)->delete();
+        return redirect()->route('administrativos.index');
     }
 
     public function asignarPropuesta(Request $request,$id){

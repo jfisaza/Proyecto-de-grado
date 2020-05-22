@@ -8,6 +8,7 @@ use App\Programas;
 use App\Solicitudes;
 use App\Modalidades;
 use App\User;
+use App\Empresas;
 
 class BancoController extends Controller
 {
@@ -65,5 +66,47 @@ class BancoController extends Controller
     public function destroy($id){
         $banco=Banco::find($id)->delete();
         return redirect()->route('docentes.index');
+    }
+
+    public function createSolicitud(Request $request){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        $empresas=Empresas::all();
+        $programas=Programas::all();
+        return view('banco_ideas.createSolicitud',compact('empresas','programas'));
+    }
+
+    public function storeSolicitud(Request $request){
+        $solicitud=new Solicitudes();
+        $solicitud->sol_emp_id=$request->input('sol_emp_id');
+        $solicitud->sol_pro_id=$request->input('sol_pro_id');
+        $solicitud->save();
+        return redirect()->route('administrativos.index');
+    }
+
+    public function editSolicitud(Request $request, $id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        $solicitud=Solicitudes::find($id);
+        $empresas=Empresas::all();
+        $programas=Programas::all();
+        return view('banco_ideas.editSolicitud', compact('solicitud','empresas','programas'));
+    }
+
+    public function updateSolicitud(Request $request, $id){
+        $solicitud=Solicitudes::find($id);
+        $solicitud->sol_emp_id=$request->input('sol_emp_id');
+        $solicitud->sol_pro_id=$request->input('sol_pro_id');
+        $solicitud->save();
+        return redirect()->route('administrativos.index');
+    }
+
+    public function destroySolicitud($id){
+        $solicitud=Solicitudes::find($id)->delete();
+        return redirect()->route('administrativos.index');
     }
 }

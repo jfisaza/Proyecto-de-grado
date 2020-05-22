@@ -46,3 +46,8 @@ Route::get('/asigDes/{id}','AdministrativosController@asignarDesarrollo')->name(
 Route::post('/asigCalDes','AdministrativosController@asignarCalificadorDesarrollo')->name('asigCalDes');
 Route::get('/apropuesta/{id}','AdministrativosController@downloadAuditoriaPropuesta')->name('apropuesta');
 Route::get('/adesarrollo/{id}','AdministrativosController@downloadAuditoriaDesarrollo')->name('adesarrollo');
+Route::get('/createSolicitud','BancoController@createSolicitud')->name('createSolicitud');
+Route::post('/storeSolicitud','BancoController@storeSolicitud')->name('storeSolicitud');
+Route::get('/editSolicitud/{id}','BancoController@editSolicitud')->name('editSolicitud');
+Route::post('/updateSolicitud/{id}','BancoController@updateSolicitud')->name('updateSolicitud');
+Route::get('/destroySolicitud/{id}','BancoController@destroySolicitud')->name('destroySolicitud');

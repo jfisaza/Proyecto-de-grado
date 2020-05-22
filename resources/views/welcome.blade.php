@@ -5,8 +5,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
+        <link rel="icon" href="{{ asset('img/uts-logo.png') }}">
+        <title>Trabajos de grado UTS</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -28,7 +28,7 @@
         .pagina:before{
 	        content:"";
 	        width: 100%;
-	        height:627px;
+	        height:100%;
 	        background-color:black;
 	        position: absolute;
 	        opacity: 0.7;
@@ -97,10 +97,10 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                     
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">Entrar</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}">Registrarse</a>
                         @endif
                     @endauth
                 </div>
