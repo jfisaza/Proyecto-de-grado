@@ -51,3 +51,6 @@ Route::post('/storeSolicitud','BancoController@storeSolicitud')->name('storeSoli
 Route::get('/editSolicitud/{id}','BancoController@editSolicitud')->name('editSolicitud');
 Route::post('/updateSolicitud/{id}','BancoController@updateSolicitud')->name('updateSolicitud');
 Route::get('/destroySolicitud/{id}','BancoController@destroySolicitud')->name('destroySolicitud');
+Route::post('/setRolDocente','AdministrativosController@setRolDocente')->name('setRolDocente');
+Route::post('/setRolAdministrativo','AdministrativosController@setRolAdministrativo')->name('setRolAdministrativo');
+Route::get('/setRolEstudiante/{id}','AdministrativosController@setRolEstudiante')->name('setRolEstudiante');

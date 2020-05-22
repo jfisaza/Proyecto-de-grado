@@ -43,6 +43,11 @@
                                 <li class="nav-item">
                                     <a href="#docentes" class="nav-link">Docentes</a>
                                 </li>
+                                @if(auth()->user()->hasRole('super'))
+                                <li class="nav-item">
+                                    <a href="#administrativos" class="nav-link">Administrativos</a>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                         <br>
@@ -469,6 +474,7 @@
                                         <th>Apellidos</th>
                                         <th>Teléfono</th>
                                         <th>Correo</th>
+                                        <th>Acciones</th>
                                     </thead>
                                     <tbody>
                                     @if(isset($docentes))
@@ -479,12 +485,43 @@
                                         <td>{{ $doc->apellidos }}</td>
                                         <td>{{ $doc->telefono }}</td>
                                         <td>{{ $doc->email }}</td>
+                                        <td><a href="{{ action('AdministrativosController@setRolEstudiante',$doc->id) }}" class="btn btn-sm btn-primary" title="Remover Rol" onclick="return confirm('¿Esta seguro de quitar el rol a este usuario?')"><span class="fas fa-arrow-down"></span></a></td>
                                     </tr>
                                     @endforeach
                                     @endif
                                     </tbody>
                                 </table>
-                                <a href="" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal" title="Nuevo"><span class="fas fa-plus"></span></button>
+                            </div>
+                        </article>
+                        <article id="administrativos">
+                            <div class="table-responsive-sm">
+
+                                <table class="table">
+                                    <thead>
+                                        <th>Documento</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Teléfono</th>
+                                        <th>Correo</th>
+                                        <th>Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                    @if(isset($administrativos))
+                                    @foreach($administrativos as $admin)
+                                    <tr>
+                                        <td>{{ $admin->documento }}</td>
+                                        <td>{{ $admin->nombres }}</td>
+                                        <td>{{ $admin->apellidos }}</td>
+                                        <td>{{ $admin->telefono }}</td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td><a href="{{ action('AdministrativosController@setRolEstudiante',$admin->id) }}" class="btn btn-sm btn-primary" title="Remover Rol" onclick="return confirm('¿Esta seguro de quitar el rol a este usuario?')"><span class="fas fa-arrow-down"></span></a></td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal2" title="Nuevo"><span class="fas fa-plus"></span></button>
                             </div>
                         </article>
                 </div>
@@ -494,4 +531,54 @@
         </div>
     </div>
 </div>
+<div class="modal" tabindex="-1" role="dialog" id="modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Asignar Docente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ action('AdministrativosController@setRolDocente') }}" method="post">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="documento">Documento</label>
+                                <input type="text" name="documento" class="form-control">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <input type="submit" class="btn btn-primary" value="Asignar">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="modal2">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Asignar Administrativo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ action('AdministrativosController@setRolAdministrativo') }}" method="post">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="documento">Documento</label>
+                                <input type="text" name="documento" class="form-control">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <input type="submit" class="btn btn-primary" value="Asignar">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection

@@ -26,8 +26,9 @@ class AdministrativosController extends Controller
         $ad=Auditoria_desarrollo::paginate();
         $empresas=Empresas::paginate();
         $solicitudes=Solicitudes::paginate();
-        $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','2')->get();
-        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes"));
+        $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','2')->get();
+        $administrativos=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','1')->get();
+        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos"));
 
 
     }
@@ -148,8 +149,28 @@ class AdministrativosController extends Controller
         return response()->download(public_path()."/files/desarrollo/$ruta");
     }
 
+    public function setRolDocente(Request $request){
+        $docente=User::where('documento',$request->input('documento'))->first();
+        if(is_null($docente)){
+            return redirect()->route("administrativos.index")->with('error','Usuario no encontrado.');
+        }
+        $rol=DB::table('roles_user')->where('user_id',$docente->id)->update(['roles_rol_id'=>2]);
+        return redirect()->route('administrativos.index');
+    }
+    public function setRolAdministrativo(Request $request){
+        $docente=User::where('documento',$request->input('documento'))->first();
+        if(is_null($docente)){
+            return redirect()->route("administrativos.index")->with('error','Usuario no encontrado.');
+        }
+        $rol=DB::table('roles_user')->where('user_id',$docente->id)->update(['roles_rol_id'=>1]);
+        return redirect()->route('administrativos.index');
+    }
 
-
+    public function setRolEstudiante($id){
+        $user=User::find($id);
+        $rol=DB::table('roles_user')->where('user_id',$user->id)->update(['roles_rol_id'=>3]);
+        return redirect()->route('administrativos.index');
+    }
 
 
 
