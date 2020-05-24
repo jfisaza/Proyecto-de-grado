@@ -8,7 +8,7 @@
 #formulario{
 	width: 50%;
 	min-width: 400px;
-	height: 620px;
+	height: 690px;
 	box-sizing: border-box;
 	background-size: cover;
 	background-color: rgba(16, 24, 29, 0.555);
@@ -78,10 +78,10 @@ input[type="submit"]:active{
 @media(max-width:766px){
 	#formulario{
         width: 80%;
-        height: 750px;
+        height: 800px;
 	}
     #pagina{
-        min-height: 140vh;
+        min-height: 160vh;
     }
  
 

@@ -25,6 +25,39 @@
                 height: 100vh;
                 margin: 0;
             }
+            #contenedor_carga{
+    background-color: rgba(250, 240, 245, 0.9);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    -webkit-transition: all 1s ease;
+    -o-transition: all  1s ease;
+    transition: all  1s ease;
+    z-index: 10000;
+}
+#carga{
+    border: 15px solid #ccc;
+    border-top-color: rgb(33, 107, 156);
+    border-top-style: groove;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    -webkit-animation: girar 1.5s linear infinite;
+    -o-animation: girar 1.5s linear infinite;
+    animation: girar 1.5s linear infinite;
+}
+@keyframes girar{
+from{transform: rotate(0deg);}
+to{transform: rotate(360deg);}
+
+}
         .pagina:before{
 	        content:"";
 	        width: 100%;
@@ -89,6 +122,10 @@
         </style>
     </head>
     <body>
+        <!-- preloader -->
+        <div id="contenedor_carga">
+            <div id="carga"></div>
+        </div>
         <div class="pagina">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
@@ -121,5 +158,7 @@
             </div>
         </div>
     </div>
+    <script src="js/script.js"></script>
+
     </body>
 </html>
