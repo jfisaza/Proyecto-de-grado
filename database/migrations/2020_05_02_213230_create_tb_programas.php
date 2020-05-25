@@ -15,7 +15,7 @@ class CreateTbProgramas extends Migration
     {
         Schema::create('programas', function (Blueprint $table) {
             $table->Increments('pro_id');
-            $table->string('pro_nombre',60);
+            $table->string('pro_nombre',100);
             $table->Integer('pro_fac_id')->unsigned();
             $table->foreign('pro_fac_id')->references('fac_id')->on('facultades');
             $table->Integer('pro_coo_id')->unsigned();

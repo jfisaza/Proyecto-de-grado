@@ -37,4 +37,10 @@ class Auditoria_propuesta extends Model
     public function programas(){
         return $this->belongsTo(Programas::class,'ap_pro_id');
     }
+
+    public function scopeCodigo($query, $id){
+        if($id != ""){
+            $query->where('ap_id',$id);
+        }
+    }
 }

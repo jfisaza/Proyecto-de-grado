@@ -55,6 +55,15 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a href="{{ url('/home') }}" id="logout">Mi Cuenta <span class="fas fa-user"></span></a>
+                                    @if(auth()->user()->hasRole('estudiante'))
+                                    <a href="{{ action('EstudiantesController@index') }}" id="logout">Trabajo <span class="fas fa-arrow-right"></span></a>
+                                    @endif
+                                    @if(auth()->user()->hasRole('docente'))
+                                    <a href="{{ route('docentes.index') }}" id="logout" >Trabajo <span class="fas fa-arrow-right"></span></a>
+                                    @endif
+                                    @if(auth()->user()->hasRole('administrativo'))
+                                    <a href="{{ route('administrativos.index') }}" id="logout">Trabajo <span class="fas fa-arrow-right"></span></a>
+                                    @endif
                                     <a id="logout" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

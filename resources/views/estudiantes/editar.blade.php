@@ -64,6 +64,16 @@
                         </select>
 
                     </div>
+                    <div class="form-group">
+                        <label for="des_mod_id"></label>
+                        <select id="des_mod_id" name="des_mod_id" class="form-control" required>
+                            <option selected value="{{ $desarrollo->modalidad->mod_id }}">{{ $desarrollo->modalidad->mod_nombre }}</option>
+                            @foreach($modalidades as $mod)
+                            <option value="{{ $mod->mod_id }}">{{ $mod->mod_nombre }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
                 <div class="form-row">
                     <div class="custom-file col-md-4">
                         <input type="file" class="custom-file-input" id="customFileLangHTML" name="des_formato">

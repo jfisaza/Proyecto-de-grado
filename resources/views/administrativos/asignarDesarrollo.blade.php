@@ -20,7 +20,7 @@
     @endif
     <div id="pagina">
         <div id="formulario">
-            <h2>Calificar</h2>
+            <h2>Asignar Calificador</h2>
             <form method="post" action="{{action('AdministrativosController@asignarCalificadorDesarrollo')}}" role="form" class="form" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 

@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\PropuestasExport;
+use App\Exports\DesarrollosExport;
+use App\Exports\AuditoriaPropuestaExport;
+use App\Exports\AuditoriaDesarrolloExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Propuesta;
 use App\Desarrollo;
 use App\Conceptos;
@@ -20,17 +25,15 @@ class AdministrativosController extends Controller
             return view("auth.login");
         }
         $request->user()->authorizeRoles('administrativo');
-        $propuestas=Propuesta::paginate();
-        $desarrollo=Desarrollo::paginate();
-        $ap=Auditoria_propuesta::paginate();
-        $ad=Auditoria_desarrollo::paginate();
+        $propuestas=Propuesta::codigo($request->get('prop_id'))->paginate();
+        $desarrollo=Desarrollo::codigo($request->get('des_id'))->paginate();
+        $ap=Auditoria_propuesta::codigo($request->get('ap_id'))->paginate();
+        $ad=Auditoria_desarrollo::codigo($request->get('ad_id'))->paginate();
         $empresas=Empresas::paginate();
         $solicitudes=Solicitudes::paginate();
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','2')->get();
         $administrativos=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','1')->get();
         return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos"));
-
-
     }
 
     public function create(Request $request){
@@ -172,6 +175,37 @@ class AdministrativosController extends Controller
         return redirect()->route('administrativos.index');
     }
 
-
+    public function exportPropuesta(Request $request) 
+    {
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return Excel::download(new PropuestasExport, 'propuestas.xlsx');
+    }
+    public function exportDesarrollo(Request $request) 
+    {
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return Excel::download(new DesarrollosExport, 'trabajos.xlsx');
+    }
+    public function exportAuditoriaPropuesta(Request $request) 
+    {
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return Excel::download(new AuditoriaPropuestaExport, 'AuditoriaPropuestas.xlsx');
+    }
+    public function exportAuditoriaDesarrollo(Request $request) 
+    {
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return Excel::download(new AuditoriaDesarrolloExport, 'AuditoriaTrabajos.xlsx');
+    }
 
 }

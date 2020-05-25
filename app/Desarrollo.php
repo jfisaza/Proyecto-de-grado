@@ -37,4 +37,10 @@ class Desarrollo extends Model
     public function programas(){
         return $this->belongsTo(Programas::class,'des_pro_id');
     }
+
+    public function scopeCodigo($query, $id){
+        if($id != ""){
+            $query->where('des_id',$id);
+        }
+    }
 }

@@ -54,3 +54,7 @@ Route::get('/destroySolicitud/{id}','BancoController@destroySolicitud')->name('d
 Route::post('/setRolDocente','AdministrativosController@setRolDocente')->name('setRolDocente');
 Route::post('/setRolAdministrativo','AdministrativosController@setRolAdministrativo')->name('setRolAdministrativo');
 Route::get('/setRolEstudiante/{id}','AdministrativosController@setRolEstudiante')->name('setRolEstudiante');
+Route::get('/exportPropuesta', 'AdministrativosController@exportPropuesta')->name('exportPropuesta');
+Route::get('/exportDesarrollo', 'AdministrativosController@exportDesarrollo')->name('exportDesarrollo');
+Route::get('/exportAuditoriaPropuesta', 'AdministrativosController@exportAuditoriaPropuesta')->name('exportAuditoriaPropuesta');
+Route::get('/exportAuditoriaDesarrollo', 'AdministrativosController@exportAuditoriaDesarrollo')->name('exportAuditoriaDesarrollo');

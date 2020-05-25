@@ -43,4 +43,10 @@ class Auditoria_desarrollo extends Model
     public function programas(){
         return $this->belongsTo(Programas::class,'ad_pro_id');
     }
+
+    public function scopeCodigo($query, $id){
+        if($id != ""){
+            $query->where('ad_id',$id);
+        }
+    }
 }
