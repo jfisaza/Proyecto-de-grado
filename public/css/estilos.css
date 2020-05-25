@@ -40,9 +40,7 @@ to{transform: rotate(360deg);}
 
 }
 
-#pagina{
-    padding: 5%;
-}
+
  */
 h1{
     color: #46474E;
@@ -58,7 +56,6 @@ header{
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    /* margin-bottom: 1%; */
 }
 #btn-menu{
     display: none;
@@ -68,6 +65,7 @@ header label{
     cursor: pointer;
     display: none;
 }
+
 
 .menu ul{
     background: #0B4A75;
@@ -81,7 +79,8 @@ header label{
 
 .menu  a{
     display: block;
-    padding: 15px 20px;
+    padding-top: 40px  !important;
+    padding: 20px ;
     color: #fff;
     text-decoration: none;
 }
@@ -102,13 +101,10 @@ header label{
 
 .menu ul li:hover ul {
     display:none;
-    /* queda raro como lo pongo */
     width: 100%;
     position: absolute;
 }
-.login span:hover {
-    opacity: 1;
-}
+
 
 
 header section label{
@@ -121,11 +117,15 @@ header section label{
 header section label:hover{
     color: rgba(0,0,0,0.3);
 }
-
+.login span:hover {
+    opacity: 1;
+}
 .menu label:hover{
     color: rgba(0,0,0,0.3);
 }
-
+#logout{
+    color: black;
+}
 .tablas{
     width: 100%;
 }
@@ -226,7 +226,6 @@ header section label:hover{
 	background-size:cover;
 	background-attachment: fixed;
     display: flex;
-    height: 900px;
 	min-height: 100vh;
 	overflow: hidden;
 	box-sizing: border-box;

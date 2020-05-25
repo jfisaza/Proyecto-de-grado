@@ -19,7 +19,7 @@
                                     <a class="nav-link" href="#propuestas">Propuestas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#trabajos">Trabajos</a>
+                                    <a class="nav-link" href="#trabajos">Informes Finales</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#banco" class="nav-link">Banco de ideas</a>
@@ -31,10 +31,10 @@
                         </div>
 
                         <article id="propuestas">
-                            <h3>Eres director de estas propuestas:</h3>
-                            <div class="table-responsive-xl">
+                          <center><h3>Eres director de estas propuestas:</h3></center>  
+                            <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead class="table-success">
                                     <th>Código</th>
                                     <th>Titulo</th>
                                     <th>Modalidad</th>
@@ -88,10 +88,10 @@
                                 </tbody>
                             </table>
                             </div>
-                            <h3>Eres codirector de estas propuestas:</h3>
-                            <div class="table-responsive-xl">
+                            <center><h3>Eres codirector de estas propuestas:</h3></center>
+                            <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead class="table-success">
                                     <th>Código</th>
                                     <th>Titulo</th>
                                     <th>Modalidad</th>
@@ -147,11 +147,11 @@
                             </div>
                         </article>
                         <article id="trabajos">
-                            <h3>Eres director de estos trabajos:</h3>
-                            <div class="table-responsive-xl">
+                           <center> <h3>Eres director de estos Trabajos de grado:</h3></center>
+                            <div class="table-responsive">
 
                             <table class="table">
-                                <thead>
+                                <thead class="table-success">
                                     <th>Código</th>
                                     <th>Titulo</th>
                                     <th>Modalidad</th>
@@ -207,11 +207,11 @@
                                 </tbody>
                             </table>
                             </div>
-                            <h3>Eres codirector de estos trabajos:</h3>
-                            <div class="table-responsive-xl">
+                           <center> <h3>Eres codirector de estos Trabajos de grado:</h3></center>
+                            <div class="table-responsive">
 
                             <table class="table">
-                                <thead>
+                                <thead class="table-success">
                                     <th>Código</th>
                                     <th>Titulo</th>
                                     <th>Modalidad</th>
@@ -270,10 +270,11 @@
                             </div>
                         </article>
                         <article id="banco">
-                        <div class="table-responsive-xl">
+                            <br>
+                        <div class="table-responsive">
 
                             <table class="table">
-                                <thead>
+                                <thead class="table-success">
                                     <th>Nombre</th>
                                     <th>Modalidad</th>
                                     <th>Programa</th>
@@ -305,10 +306,10 @@
                         </article>
 
                         <article id="calificar">
-                        <div class="table-responsive-xl">
-
+                        <div class="table-responsive">
+                        <br>
                             <table class="table">
-                                <thead>
+                                <thead class="table-success">
                                     <th>Tipo</th>
                                     <th>Código</th>
                                     <th>Titulo</th>

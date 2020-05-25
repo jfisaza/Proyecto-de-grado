@@ -64,12 +64,11 @@
                         </select>
 
                     </div>
-                <div class="form-row">
-                    <div class="custom-file col-md-4">
-                        <input type="file" class="custom-file-input" id="customFileLangHTML" name="des_formato">
-                        <label class="custom-file-label" for="customFileLangHTML" data-browse="">Subir Formato</label>
-                    </div>
+                    <div class="form-group">
+                <div class="custom-file col-md-14">
+                    <input type="file" class="form-control" id="customFileLangHTML" name="prop_formato" required>
                 </div>
+            </div>
 
                 <div class="boton">
                     <input id="registrar" type="submit" name="registrar" value="Actualizar">
