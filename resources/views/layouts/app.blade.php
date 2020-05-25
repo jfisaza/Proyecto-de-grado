@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/script.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -25,6 +27,10 @@
     
 </head>
 <body>
+<div id="contenedor_carga">
+    <div id="carga"></div>
+</div>
+
 <header>
         <input type="checkbox" name="btn-menu" id="btn-menu">
         <label for="btn-menu"><span class="fas fa-bars"></span></label>

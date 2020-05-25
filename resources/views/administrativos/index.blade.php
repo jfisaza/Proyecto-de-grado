@@ -7,10 +7,10 @@
         <div class="row justify-content-center">
 
             <div class="card">
-                <div class="card-header p-3 mb-2 bg-success text-white">
+                <div class="card-header p-3 mb-2 bg-success text-white ">
                     <br>
                     <center>
-                        <h1> Administrativos</h1>
+                        <h1> Hola Admin {{ auth()->user()->nombres }} </h1>
                     </center>
                 </div>
                 <div class="card-body">
@@ -18,8 +18,8 @@
                     <section class="tablas">
 
                         <div class="tabs">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
+                            <ul class="nav nav-tabs ">
+                                <li class="nav-item ">
                                     <a class="nav-link" href="#propuestas">Propuestas</a>
                                 </li>
                                 <li class="nav-item">
@@ -59,9 +59,9 @@
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive-xl mt-3">
+                            <div class="table-responsive mt-3">
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <tr>
                                             <th>Código</th>
                                             <th>Titulo</th>
@@ -153,10 +153,10 @@
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive-xl mt-3">
+                            <div class="table-responsive mt-3">
 
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <th>Código</th>
                                         <th>Nombre del trabajo</th>
                                         <th>Estudiantes</th>
@@ -240,10 +240,10 @@
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive-xl mt-3">
+                            <div class="table-responsive mt-3">
 
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <th>Código</th>
                                         <th>Programa</th>
                                         <th>Estudiante</th>
@@ -259,10 +259,10 @@
                             </div>
                         </article>
                         <article id="solicitudes">
-                            <div class="table-responsive-xl">
+                            <div class="table-responsive">
 
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <th>Programa</th>
                                         <th>Empresa</th>
                                         <th>Representante</th>
@@ -296,10 +296,10 @@
                             </div>
                         </article>
                         <article id="empresas">
-                            <div class="table-responsive-xl">
+                            <div class="table-responsive">
 
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <th>Nombre</th>
                                         <th>Sector</th>
                                         <th>Representante</th>
@@ -337,9 +337,9 @@
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive-xl mt-3">
+                            <div class="table-responsive mt-3">
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <tr>
                                             <th>Código</th>
                                             <th>Titulo</th>
@@ -430,10 +430,10 @@
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive-xl mt-3">
+                            <div class="table-responsive mt-3">
 
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <th>Código</th>
                                         <th>Nombre del trabajo</th>
                                         <th>Estudiantes</th>
@@ -510,10 +510,10 @@
                             </div>
                         </article>
                         <article id="docentes">
-                            <div class="table-responsive-sm">
+                            <div class="table-responsive">
 
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <th>Documento</th>
                                         <th>Nombres</th>
                                         <th>Apellidos</th>
@@ -541,10 +541,10 @@
                             </div>
                         </article>
                         <article id="administrativos">
-                            <div class="table-responsive-sm">
+                            <div class="table-responsive">
 
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-success">
                                         <th>Documento</th>
                                         <th>Nombres</th>
                                         <th>Apellidos</th>

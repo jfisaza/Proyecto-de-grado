@@ -14,40 +14,40 @@
 </head>
 
 <body>
-	
-		<!-- menu -->
+	<!-- preloader -->
+	<div id="contenedor_carga">
+		<div id="carga"></div>
+	</div>
 
-		<div class="pagina">
-			<div class="formulario">
-				<h2>Login</h2>
-				<p>Trabajo de Grado</p>
-				<form method="POST" action="{{ route('login') }}" class="form">
-                    {{ csrf_field() }}
-					<input type="text" name="email" id="usuario" required placeholder="&#128100;   Correo">
-					@error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-					<input type="password" name="password" id="contraseña" required placeholder="&#9919; Contraseña">
-					@error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-								@enderror
-							
-					
-										
-					<input id="ingresar" type="submit" value="Ingresar">
-					
-				</form>
+	<!-- menu -->
 
-			</div>
+	<div class="pagina">
+		<div class="formulario">
+			<h2>Login</h2>
+			<p>Trabajo de Grado</p>
+			<form method="POST" action="{{ route('login') }}" class="form">
+				{{ csrf_field() }}
+				<input type="text" name="email" id="usuario" required placeholder="&#128100;   Correo">
+				@error('email')
+				<span class="invalid-feedback" role="alert">
+					<strong>{{ $message }}</strong>
+				</span>
+				@enderror
+				<input type="password" name="password" id="contraseña" required placeholder="&#9919; Contraseña">
+				@error('password')
+				<span class="invalid-feedback" role="alert">
+					<strong>{{ $message }}</strong>
+				</span>
+				@enderror
+
+				<input id="ingresar" type="submit" value="Ingresar">
+
+			</form>
 
 		</div>
 
-
-	
+	</div>
+    <script src="js/script.js"></script>
 
 </body>
 

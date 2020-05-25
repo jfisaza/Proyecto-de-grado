@@ -386,6 +386,6 @@
     </div>
 </div>
 @else
-<center><a href="{{route('estudiantes.create')}}" class="btn btn-primary">Registrar Popuesta</a></center>
+<center><br><a href="{{route('estudiantes.create')}}" class="btn btn-primary">Registrar Popuesta</a><br><br></center>
 @endif
 @endsection
