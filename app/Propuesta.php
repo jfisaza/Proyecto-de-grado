@@ -33,6 +33,11 @@ class Propuesta extends Model
     public function programas(){
         return $this->belongsTo(Programas::class,'prop_pro_id');
     }
+    public function scopeCodigo($query, $id){
+        if($id != ""){
+            $query->where('prop_id',$id);
+        }
+    }
 
 }
 

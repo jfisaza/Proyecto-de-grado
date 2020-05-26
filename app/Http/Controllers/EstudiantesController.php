@@ -115,8 +115,9 @@ class EstudiantesController extends Controller
         $request->user()->authorizeRoles('estudiante');
         $propuesta=Propuesta::find($id);
         $programas=Programas::all();
+        $modalidades=Modalidades::all();
         $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
-        return view("estudiantes.edit", compact("propuesta","usuarios","programas"));
+        return view("estudiantes.edit", compact("propuesta","usuarios","programas","modalidades"));
     }
     //actualiza la propuesta
     public function update(Request $request, $id){
@@ -132,10 +133,11 @@ class EstudiantesController extends Controller
             $propuesta->prop_formato=$name;
         }
 
-        $propuesta->prop_titulo=$request->input('prop_titulo');
+        $propuesta->prop_titulo=strtoupper($request->input('prop_titulo'));
         $propuesta->prop_dir_usu_id=$request->input('prop_dir_usu_id');
         $propuesta->prop_codir_usu_id=$request->input('prop_codir_usu_id');
         $propuesta->prop_pro_id=$request->input('prop_pro_id');
+        $propuesta->prop_mod_id=$request->input('prop_mod_id');
         $propuesta->save();
         return redirect()->route("estudiantes.index");
     }
@@ -153,7 +155,7 @@ class EstudiantesController extends Controller
         $user=User::all()->where('propuesta',$request->user()->propuesta);
         $cont=0;
         foreach($user as $u){
-            $array[0]=$u->id;
+            $array[$cont]=$u->id;
             $cont++;
         }
         $ap=new Auditoria_propuesta();
@@ -201,9 +203,10 @@ class EstudiantesController extends Controller
         }
         $programas=Programas::all();
         $desarrollo=Desarrollo::find($id);
+        $modalidades=Modalidades::all();
         $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         
-        return view("estudiantes.editar", compact("desarrollo","usuarios","programas"));
+        return view("estudiantes.editar", compact("desarrollo","usuarios","programas","modalidades"));
     }
     //actualizar datos en fase de desarrollo
     public function desarrolloUpdate(Request $request,$id){
@@ -218,10 +221,11 @@ class EstudiantesController extends Controller
             unlink(public_path().'/files/desarrollo/'.$desarrollo->des_formato);
             $desarrollo->des_formato=$name;
         }
-        $desarrollo->des_titulo=$request->input('prop_titulo');
+        $desarrollo->des_titulo=strtoupper($request->input('prop_titulo'));
         $desarrollo->des_dir_usu_id=$request->input('prop_dir_usu_id');
         $desarrollo->des_codir_usu_id=$request->input('prop_codir_usu_id');
         $desarrollo->des_pro_id=$request->input('des_pro_id');
+        $desarrollo->des_mod_id=$request->input('des_mod_id');
         
         $desarrollo->save();
         return redirect()->route("estudiantes.index");
@@ -231,6 +235,9 @@ class EstudiantesController extends Controller
         $user=User::where('documento',$request->input('documento'))->first();
         if(is_null($user)){
             return redirect()->route("estudiantes.index")->with('error','Estudiante no encontrado.');
+        }
+        if(isset($user->propuesta)){
+            return redirect()->route("estudiantes.index")->with('error','El estudiante ya cuenta con una propuesta.');
         }
         $user->propuesta=$request->input('propuesta');
         $user->save();
@@ -348,7 +355,7 @@ class EstudiantesController extends Controller
         $user=User::all()->where('desarrollo',$desarrollo->des_id);
         $cont=0;
         foreach($user as $u){
-            $array[0]=$u->id;
+            $array[$cont]=$u->id;
             $cont++;
         }
         $ad->ad_id=$desarrollo->des_id;

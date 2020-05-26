@@ -24,14 +24,14 @@ class UsersController extends Controller
         $this->validate($request,['documento'=>'required',
         'nombres'=>'required','apellidos'=>'required', 'telefono'=>'required',
         'ciudad'=>'required','programa'=>'required']);
-        User::find($id)->update($request->all());
-        // $user->documento=$request->input('documento');
-        // $user->nombres=$request->input('nombres');
-        // $user->apellidos=$request->input('apellidos');
-        // $user->telefono=$request->input('telefono');
-        // $user->ciudad=$request->input('ciudad');
-        // $user->programa=$request->input('programa');
-        // $user->update();
+        $user=User::find($id);
+        $user->documento=$request->input('documento');
+        $user->nombres=strtoupper($request->input('nombres'));
+        $user->apellidos=strtoupper($request->input('apellidos'));
+        $user->telefono=$request->input('telefono');
+        $user->ciudad=$request->input('ciudad');
+        $user->programa=$request->input('programa');
+        $user->save();
         
         return redirect()->route("home");
 

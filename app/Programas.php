@@ -10,5 +10,7 @@ class Programas extends Model
     protected $primaryKey='pro_id';
     protected $fillable=['pro_id','pro_nombre','pro_fac_id','pro_coo_id'];
 
-    
+    public function coordinacion(){
+        return $this->belongsTo(Coordinacion::class,'pro_coo_id');
+    }
 }

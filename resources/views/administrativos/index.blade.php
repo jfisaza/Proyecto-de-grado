@@ -53,8 +53,13 @@
                         <br>
                         <br>
                         <article id="propuestas">
-
-                            <div class="table-responsive">
+                            <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                                <input type="text" name="prop_id" class="form-control" placeholder="Código">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
+                                </div>
+                            </form>
+                            <div class="table-responsive mt-3">
                                 <table class="table">
                                     <thead class="table-success">
                                         <tr>
@@ -77,6 +82,7 @@
                                     <tbody>
                                         @if($propuestas->count())
                                         @foreach($propuestas as $prop)
+                                        @if($prop->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
                                         <tr>
                                             <td>{{$prop->prop_id}}</td>
                                             <td>{{$prop->prop_titulo }}</td>
@@ -89,7 +95,7 @@
                                                     </table>
                                                 @endforeach
                                             </td>
-                                            <td>{{$prop->director->nombres}}</td>
+                                            <td>{{$prop->director->nombres}} {{ $prop->director->apellidos }}</td>
                                             <td> @if(isset($prop->codirector->nombres))
                                                 {{$prop->codirector->nombres}}
                                                 {{$prop->codirector->apellidos}}
@@ -128,6 +134,7 @@
                                             @endif
                                             </td>
                                         </tr>
+                                        @endif
                                         @endforeach
                                         @else
                                         <tr>
@@ -136,10 +143,17 @@
                                         @endif
                                     </tbody>
                                 </table>
+                                <a href="{{ action('AdministrativosController@exportPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
                             </div>
                         </article>
                         <article id="trabajos">
-                            <div class="table-responsive">
+                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                                <input type="text" name="des_id" class="form-control" placeholder="Código">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
+                                </div>
+                            </form>
+                            <div class="table-responsive mt-3">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -160,6 +174,7 @@
                                     <tbody>
                                     @if($desarrollo->count())
                                         @foreach($desarrollo as $des)
+                                        @if($des->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
                                         <tr>
                                             <td>{{ $des->des_id }}</td>
                                             <td>{{ $des->des_titulo }}</td>
@@ -209,14 +224,23 @@
                                             @endif
                                             </td>
                                         </tr>
+                                        @endif
                                         @endforeach
                                     @endif
                                     </tbody>
                                 </table>
+                                <a href="{{ action('AdministrativosController@exportDesarrollo') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
+
                             </div>
                         </article>
                         <article id="practicas">
-                            <div class="table-responsive">
+                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                                <input type="text" name="pra_id" class="form-control" placeholder="Código">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
+                                </div>
+                            </form>
+                            <div class="table-responsive mt-3">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -250,6 +274,7 @@
                                     <tbody>
                                     @if(isset($solicitudes))
                                     @foreach($solicitudes as $sol)
+                                    @if($sol->programa->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
                                     <tr>
                                         <td>{{ $sol->programa->pro_nombre }}</td>
                                         <td>{{ $sol->empresa->emp_nombre }}</td>
@@ -262,6 +287,7 @@
                                             <a href="{{ action('BancoController@destroySolicitud',$sol->sol_id) }}" class="btn btn-sm btn-primary"><span class="fas fa-trash" onclick="return confirm('¿Está seguro de eliminar?')"></span></a>
                                         </td>
                                     </tr>
+                                    @endif
                                     @endforeach
                                     @endif
                                     </tbody>
@@ -305,8 +331,13 @@
                             </div>
                         </article>
                         <article id="ap">
-
-                            <div class="table-responsive">
+                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                                <input type="text" name="ap_id" class="form-control" placeholder="Código">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
+                                </div>
+                            </form>
+                            <div class="table-responsive mt-3">
                                 <table class="table">
                                     <thead class="table-success">
                                         <tr>
@@ -329,6 +360,7 @@
                                     <tbody>
                                         @if($ap->count())
                                         @foreach($ap as $a)
+                                        @if($a->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
                                         <tr>
                                             <td>{{$a->ap_id}}</td>
                                             <td>{{$a->ap_titulo }}</td>
@@ -378,6 +410,7 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        @endif
                                         @endforeach
                                         @else
                                         <tr>
@@ -386,10 +419,18 @@
                                         @endif
                                     </tbody>
                                 </table>
+                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
+
                             </div>
                         </article>
                         <article id="ad">
-                            <div class="table-responsive">
+                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                                <input type="text" name="ad_id" class="form-control" placeholder="Código">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
+                                </div>
+                            </form>
+                            <div class="table-responsive mt-3">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -410,6 +451,7 @@
                                     <tbody>
                                     @if($ad->count())
                                         @foreach($ad as $des)
+                                        @if($des->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
                                         <tr>
                                             <td>{{ $des->ad_id }}</td>
                                             <td>{{ $des->ad_titulo }}</td>
@@ -420,7 +462,7 @@
                                                     @if(isset($des->est2))
                                                     <td>{{ $des->est2->nombres }} {{ $des->est2->apellidos }}</td>
                                                     @endif
-                                                    @if(isset($des->est2))
+                                                    @if(isset($des->est3))
                                                     <td>{{ $des->est3->nombres }} {{ $des->est3->apellidos }}</td>
                                                     @endif
                                                     </tr>
@@ -458,10 +500,13 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        @endif
                                         @endforeach
                                     @endif
                                     </tbody>
                                 </table>
+                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
+
                             </div>
                         </article>
                         <article id="docentes">
@@ -479,6 +524,7 @@
                                     <tbody>
                                     @if(isset($docentes))
                                     @foreach($docentes as $doc)
+                                    
                                     <tr>
                                         <td>{{ $doc->documento }}</td>
                                         <td>{{ $doc->nombres }}</td>
