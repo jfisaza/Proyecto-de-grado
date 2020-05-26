@@ -14,14 +14,17 @@ class CreateTbDesarrolloPracticas extends Migration
     public function up()
     {
         Schema::create('desarrollo_practicas', function (Blueprint $table) {
-            $table->id('dp_id');
+            $table->bigIncrements('dp_id')->unique();
+            $table->string('dp_titulo');
+            $table->integer('dp_dir_usu_id')->unsigned();
+            $table->foreign('dp_dir_usu_id')->references('id')->on('users');
             $table->integer('dp_pp_id');
             $table->foreign('dp_pp_id')->references('pp_id')->on('propuesta_practicas');
-            $table->integer('pp_con_id');
-            $table->foreign('pp_con_id')->references('con_id')->on('conceptos');
-            $table->string('prop_formato')->nullable();
-            $table->date('prop_fecha_entrega')->nullable();
-            $table->date('prop_fecha_calificacion')->nullable();
+            $table->integer('dp_con_id');
+            $table->foreign('dp_con_id')->references('con_id')->on('conceptos');
+            $table->string('dp_formato')->nullable();
+            $table->date('dp_fecha_entrega')->nullable();
+            $table->date('dp_fecha_calificacion')->nullable();
             $table->timestamps();
         });
     }

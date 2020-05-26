@@ -29,6 +29,9 @@ Route::get('/desarrollo','EstudiantesController@desarrolloDownload')->name('desa
 Route::get('/propuestaa/{id}','AdministrativosController@downloadPropuesta')->name('propuestaa');
 Route::get('/desarrolloa/{id}','AdministrativosController@downloadDesarrollo')->name('desarrolloa');
 Route::post('/estudiante','EstudiantesController@agregarEstudiante')->name('estudiante');
+//practica
+Route::post('/estudiante','EstudiantesController@createp')->name('estudiante');
+//fin practica
 Route::get('/estudiante','EstudiantesController@abandonar')->name('estudiante');
 Route::get('/creardesarrollo','EstudiantesController@crearDesarrollo')->name('creardesarrollo');
 Route::post('/formato','EstudiantesController@subirFormato')->name('/formato');

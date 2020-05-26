@@ -26,7 +26,7 @@
                     @endif
 
                     <section class="tablas">
-                        @if(isset(auth()->user()->propuestas->prop_id))
+                        @if(isset(auth()->user()->practicas->pp_id))
                         <div class="tabs">
                             <ul class="nav nav-tabs" id="tabs">
                                 <li class="nav-item">
@@ -44,25 +44,31 @@
 
                                 <tr>
                                     <th>Código</th>
-                                    <td>{{ auth()->user()->propuestas->prop_id }}</td>
+                                    <td>{{ auth()->user()->practicas->pp_id }}</td>
                                 </tr>
                                 <tr>
                                     <th>Titulo de la propuesta</th>
-                                    <td>{{ auth()->user()->propuestas->prop_titulo }}</td>
+                                    <td>{{ auth()->user()->practicas->pp_titulo }}</td>
 
                                 </tr>
                                 <tr>
-                                    <th>Modalidad</th>
-                                    <td>{{ auth()->user()->propuestas->modalidad->mod_nombre }}</td>
+                                    <th>Numero de convenio</th>
+                                    <td>{{ auth()->user()->practicas->pp_numconvenio }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Programa</th>
-                                    <td>{{ auth()->user()->propuestas->programas->pro_nombre }}</td>
+                                    <th>Fecha de convenio</th>
+                                    <td>{{ auth()->user()->practicas->pp_fechaconvenio }}</td>
                                 </tr>
+                                <tr>
+                                    <th>Asesor empresa</th>
+                                    <td>{{ auth()->user()->practicas->pp_asesorempresa }}</td>
+                                </tr>
+                                
+
                                 <tr>
                                     <th>Estudiantes
                                     @if(is_null(auth()->user()->desarrollo))
-                                    @if(is_null(auth()->user()->propuestas->prop_con_id) || (isset(auth()->user()->propuestas->concepto->con_nombre) && auth()->user()->propuestas->concepto->con_nombre != 'APROBADO'))
+                                    @if(is_null(auth()->user()->practicas->pp_con_id) || (isset(auth()->user()->practicas->concepto->con_nombre) && auth()->user()->practicas->concepto->con_nombre != 'APROBADO'))
                                         @if(count($estudiantes)<=3) 
                                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal" title="Añadir estudiante"><span class="fas fa-plus"></span></button>
                                         @endif
@@ -82,40 +88,32 @@
                                 </tr>
                                 <tr>
                                     <th>Director</th>
-                                    <td>{{ auth()->user()->propuestas->director->nombres }} {{ auth()->user()->propuestas->director->apellidos }}</td>
+                                    <td>{{ auth()->user()->practicas->director->nombres }} {{ auth()->user()->practicas->director->apellidos }}</td>
                                 </tr>
-                                <tr>
-                                    <th>Codirector</th>
-                                    <td>
-                                        @if(isset(auth()->user()->propuestas->codirector))
-                                        {{ auth()->user()->propuestas->codirector->nombres }}
-                                        {{ auth()->user()->propuestas->codirector->apellidos }}
-                                        @endif
-                                    </td>
-                                </tr>
+                            
                                 <tr>
                                     <th>Formato RDC</th>
                                     <td>
 
-                                        @if(isset(auth()->user()->propuestas->prop_formato))
-                                        <a href="{{ action('EstudiantesController@propuestaDownload') }}">{{ auth()->user()->propuestas->prop_formato }} <span class="fas fa-download"></span></a>
+                                        @if(isset(auth()->user()->practicas->pp_formato))
+                                        <a href="{{ action('EstudiantesController@propuestaDownload') }}">{{ auth()->user()->practicas->pp_formato }} <span class="fas fa-download"></span></a>
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
 
                                     <th>Calificador</th>
-                                    <td> @if(isset(auth()->user()->propuestas->concepto->calificador))
-                                        {{ auth()->user()->propuestas->concepto->calificador->nombres }}
-                                        {{ auth()->user()->propuestas->concepto->calificador->apellidos }}
+                                    <td> @if(isset(auth()->user()->practicas->concepto->calificador))
+                                        {{ auth()->user()->practicas->concepto->calificador->nombres }}
+                                        {{ auth()->user()->practicas->concepto->calificador->apellidos }}
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Estado</th>
                                     <td id="estado">
-                                        @if(isset(auth()->user()->propuestas->concepto->con_nombre))
-                                        {{ auth()->user()->propuestas->concepto->con_nombre}}
+                                        @if(isset(auth()->user()->practicas->concepto->con_nombre))
+                                        {{ auth()->user()->practicas->concepto->con_nombre}}
 
                                         @endif
                                     </td>
@@ -126,12 +124,12 @@
                                     <td>
                                         
                                         @if(is_null(auth()->user()->desarrollo))
-                                        @if(is_null(auth()->user()->propuestas->prop_con_id) || (isset(auth()->user()->propuestas->concepto->con_nombre) && auth()->user()->propuestas->concepto->con_nombre != 'APROBADO'))
+                                        @if(is_null(auth()->user()->practicas->pp_con_id) || (isset(auth()->user()->practicas->concepto->con_nombre) && auth()->user()->practicas->concepto->con_nombre != 'APROBADO'))
                                         <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Abandonar propuesta" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
                                         <a href="{{ action('EstudiantesController@edit', auth()->user()->propuesta) }}" class="btn btn-sm btn-primary ml-3" title="Editar"><span class="fas fa-edit"></span></a>
                                         @endif
                                         @endif
-                                        @if(isset(auth()->user()->propuestas->concepto->con_nombre) and is_null(auth()->user()->desarrollo) and auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                                        @if(isset(auth()->user()->practicas->concepto->con_nombre) and is_null(auth()->user()->desarrollo) and auth()->user()->practicas->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary">Seguir a Desarrollo <span class="fas fa-arrow-right"></span></a>
                                         @endif
                                     </td>
@@ -149,20 +147,13 @@
                             @if(isset(auth()->user()->desarrollo))
                                 <tr>
                                     <th>Código</th>
-                                    <td>{{ auth()->user()->desarrollos->des_id }}</td>
+                                    <td>{{ auth()->user()->desarrollosp->dp_id }}</td>
                                 </tr>
                                 <tr>
                                     <th>Titulo</th>
-                                    <td>{{ auth()->user()->desarrollos->des_titulo }}</td>
+                                    <td>{{ auth()->user()->desarrollosp->dp_titulo }}</td>
                                 </tr>
-                                <tr>
-                                    <th>Modalidad</th>
-                                    <td>{{ auth()->user()->desarrollos->modalidad->mod_nombre }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Programa</th>
-                                    <td>{{ auth()->user()->desarrollos->programas->pro_nombre }}</td>
-                                </tr>
+
                                 <tr>
                                     <th>Estudiantes
                                     </th>
@@ -179,21 +170,22 @@
                                 </tr>
                                 <tr>
                                     <th>Director</th>
-                                    <td>{{ auth()->user()->desarrollos->director->nombres }} {{ auth()->user()->desarrollos->director->apellidos }}</td>
+                                    <td>{{ auth()->user()->desarrollosp->director->nombres }} {{ auth()->user()->desarrollosp->director->apellidos }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Fecha Entrega</th>
+                                    <td>{{ auth()->user()->desarrollosp->dp_fecha_entrega }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Codirector</th>
-                                    <td> @if(isset(auth()->user()->desarrollos->codirector))
-                                        {{ auth()->user()->desarrollos->codirector->nombres }}
-                                        {{ auth()->user()->desarrollos->codirector->apellidos }}
-                                        @endif
-                                    </td>
+                                    <th>Fecha Calificacion</th>
+                                    <td>{{ auth()->user()->desarrollosp->dp_fecha_calificacion }}</td>
                                 </tr>
                                 <tr>
                                     <th>Formato RDC</th>
                                     <td>
-                                        @if( isset(auth()->user()->desarrollos->des_formato) )
-                                        <a href="{{ action('EstudiantesController@desarrolloDownload') }}" title="Descargar">{{ auth()->user()->desarrollos->des_formato }} <span class="fas fa-download"></span></a>
+                                        @if( isset(auth()->user()->desarrollosp->dp_formato) )
+                                        <a href="{{ action('EstudiantesController@desarrolloDownload') }}" title="Descargar">{{ auth()->user()->desarrollosp->dp_formato }} <span class="fas fa-download"></span></a>
                                         @else
                                         <button type="button" title="subir informe final" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal3"><span class="fas fa-upload"></span></button>
                                         @endif
@@ -202,17 +194,17 @@
                                 <tr>
                                     <th>Calificador</th>
                                     <td>
-                                        @if(isset(auth()->user()->desarrollos->concepto->calificador))
-                                        {{ auth()->user()->desarrollos->concepto->calificador->nombres }}
-                                        {{ auth()->user()->desarrollos->concepto->calificador->apellidos }}
+                                        @if(isset(auth()->user()->desarrollosp->concepto->calificador))
+                                        {{ auth()->user()->desarrollosp->concepto->calificador->nombres }}
+                                        {{ auth()->user()->desarrollosp->concepto->calificador->apellidos }}
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Estado</th>
                                     <td>
-                                        @if(isset(auth()->user()->desarrollos->concepto))
-                                        {{ auth()->user()->desarrollos->concepto->con_nombre }}
+                                        @if(isset(auth()->user()->desarrollosp->concepto))
+                                        {{ auth()->user()->desarrollosp->concepto->con_nombre }}
                                         @endif
                                     </td>
                                 </tr>
@@ -223,41 +215,33 @@
                                         @if(isset($novedades))
                                         <button type="button" class="btn btn-sm btn-primary" title="Novedades" data-toggle="modal" data-target="#modal2"><span class="fas fa-eye"></span></button>
                                         @endif
-                                        @if(is_null(auth()->user()->desarrollos->concepto) || (isset(auth()->user()->desarrollos->concepto) && auth()->user()->desarrollos->concepto->con_nombre != 'APROBADO'))
+                                        @if(is_null(auth()->user()->desarrollosp->concepto) || (isset(auth()->user()->desarrollosp->concepto) && auth()->user()->desarrollosp->concepto->con_nombre != 'APROBADO'))
                                         <button type="button" class="btn btn-sm btn-primary" title="Nueva novedad" data-toggle="modal" data-target="#novedades"><span class="fas fa-plus"></span></button>
                                         @endif
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>Citación</th>
 
-                                    <td>
-                                        @if(isset(auth()->user()->desarrollos->des_citacion))
-                                        {{ auth()->user()->desarrollos->des_citacion }}
-                                        @endif
-                                    </td>
-                                </tr>
                                 <tr>
                                     <th>Acciones</th>
 
                                     <td>
-                                    @if(is_null(auth()->user()->desarrollos->concepto) || (isset(auth()->user()->desarrollos->concepto) && auth()->user()->desarrollos->concepto->con_nombre != 'APROBADO'))
+                                    @if(is_null(auth()->user()->desarrollosp->concepto) || (isset(auth()->user()->desarrollosp->concepto) && auth()->user()->desarrollosp->concepto->con_nombre != 'APROBADO'))
                                         <a href="{{ action('EstudiantesController@desarrolloEdit', auth()->user()->desarrollo) }}" class="btn btn-sm btn-primary ml-3" title="Editar" ><span class="fas fa-edit"></span></a>
                                         <a href="{{ action('EstudiantesController@abandonar') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Dejar trabajo de grado" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
                                     @endif
-                                    @if(isset(auth()->user()->desarrollos->concepto) && auth()->user()->desarrollos->concepto->con_nombre === 'APROBADO')
+                                    @if(isset(auth()->user()->desarrollosp->concepto) && auth()->user()->desarrollosp->concepto->con_nombre === 'APROBADO')
                                         <a href="{{ action('EstudiantesController@finalizar', auth()->user()->desarrollo) }}" class="btn btn-sm btn-success">Finalizar Proceso <span class="fas fa-arrow-right"></span></a>
                                     @endif
                                     </td>
                                 </tr>
-                                @elseif(isset(auth()->user()->propuestas->concepto) && auth()->user()->propuestas->concepto->con_nombre === 'APROBADO')
+                                @elseif(isset(auth()->user()->practicas->concepto) && auth()->user()->practicas->concepto->con_nombre === 'APROBADO')
                                 <div class="jumbotron">
-                                    <h1 class="display-4">Propuesta de Grado Aprobada!!</h1>
+                                    <h1 class="display-4">Propuesta de Practica Aprobada!!</h1>
                                     <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary">Seguir a desarrollo <span class="fas fa-arrow-right"></span></a>
                                 </div>
                                 @else
                                 <div class="jumbotron">
-                                    <h1 class="display-4">Aun tu propuesta de Grado no ha sido Aprobada!!</h1>
+                                    <h1 class="display-4">Aun tu propuesta de Practica no ha sido Aprobada!!</h1>
                                     <hr class="my-4">
                                     <p>cuando tu propuesta de grado sea aprobada aparecerá un boton para seguir con el informe final</p>
 
@@ -289,7 +273,7 @@
                         </div>
                         <form action="{{ action('EstudiantesController@agregarEstudiante') }}" method="post">
                             {{ csrf_field()}}
-                            <input type="hidden" name="propuesta" value="{{ auth()->user()->propuestas->prop_id }}">
+                            <input type="hidden" name="propuesta" value="{{ auth()->user()->practicas->pp_id }}">
                             <label for="documento">Documento</label>
                             <input type="text" name="documento" class="form-control">
 
@@ -345,8 +329,8 @@
                         <form action="{{ action('EstudiantesController@subirFormato') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="des_formato">Formato</label>
-                                <input type="file" name="des_formato" id="des_formato">
+                                <label for="dp_formato">Formato</label>
+                                <input type="file" name="dp_formato" id="dp_formato">
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -385,8 +369,5 @@
         </div>
     </div>
 </div>
-@else
-<center><br><a href="{{route('estudiantes.create')}}" class="btn btn-info ">Propuesta Trabajo de grado</a>
-<a href="{{action ('EstudiantesController@createp')}}" class="btn btn-info "> Propuesta Practica</a><br><br></center>
 @endif
 @endsection

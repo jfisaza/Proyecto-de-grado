@@ -90,6 +90,12 @@ class User extends Authenticatable
     public function desarrollos(){
         return $this->belongsTo(Desarrollo::class,'desarrollo');
     }
+    public function practicas(){
+        return $this->belongsTo(PropuestaPractica::class,'propuesta_practicas');
+    }
+    public function desarrollosp(){
+        return $this->belongsTo(DesarrolloPractica::class,'desarrollo_practicas');
+    }
     
 
 }

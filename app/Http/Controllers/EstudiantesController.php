@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Modalidades;
 use App\Propuesta;
+use App\PropuestaPractica;
 use App\Desarrollo;
 use App\Novedades;
 use App\Programas;
@@ -25,8 +26,10 @@ class EstudiantesController extends Controller
         $request->user()->authorizeRoles('estudiante');
         $estudiantes=User::all()->where('propuesta',$request->user()->propuesta);
         $estudiantesd=User::all()->where('desarrollo',$request->user()->desarrollo);
+        $estudiantesp=User::all()->where('propuesta_practicas',$request->user()->propuesta_practicas);
+
         $novedades=Novedades::all()->where('nov_des_id',$request->user()->desarrollo);
-        return view("estudiantes.index", compact("estudiantes","estudiantesd","novedades"));
+        return view("estudiantes.index", compact("estudiantes","estudiantesd","novedades","estudiantesp"));
     }
     //redirige al formulario para crear una propuesta
     public function create(Request $request){
@@ -38,6 +41,46 @@ class EstudiantesController extends Controller
         $modalidades=Modalidades::all();
         $programas=Programas::all();
         return view("estudiantes.create", compact("usuarios","modalidades","programas"));
+    }
+    //redirecciona al formulario para crear una propuesta de practica
+    public function createp(Request $request){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('estudiante');
+        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        return view("estudiantes.createpractica", compact("usuarios"));
+    }
+    //crear Propuesta Practica
+    public function storep(Request $request)
+    {
+        if($request->hasFile('pp_formato')){
+            $file = $request->file('pp_formato');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/files/propuesta/',$name);
+        }
+        
+        $this->validate($request,['pp_titulo'=>'required',
+        'prop_dir_usu_id'=>'required',
+        'pp_numconvenio'=>'required']);
+        $propuesta=new PropuestaPractica();
+        $propuesta->pp_titulo=strtoupper($request->input('pp_titulo'));
+        $propuesta->pp_numconvenio=$request->input('pp_numconvenio');
+        $propuesta->pp_fechaconvenio=$request->input('pp_fechaconvenio');
+        $propuesta->pp_asesorempresa=$request->input('pp_asesorempresa');
+        $propuesta->pp_dir_usu_id=$request->input('pp_dir_usu_id');
+        $propuesta->pp_formato=$name;
+        $propuesta->save();
+        return $this->enlazarPropuestaPracUser($request,$propuesta);
+    }
+    //enlazar Propuesta practica
+    public function enlazarPropuestaPracUser(Request $request, $pro){
+        $propuesta=DB::table('propuesta_practicas')->max('pp_id');
+        $userid=$request->user()->id;
+        $user=User::find($userid);
+        $user->propuesta=$propuesta;
+        $user->save();
+        return redirect()->route("home");
     }
     //crea la propuesta
     public function store(Request $request)
