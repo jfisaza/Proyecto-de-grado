@@ -22,41 +22,31 @@
     <div id="formulario">
         <h2>Edicion Desarrollo practica</h2>
         <p>"La manera de empezar algo es dejar de hablar y empezar a hacerlo"</p>
-        <form method="post" action="{{action('EstudiantesController@desarrolloUpdate', $desarrollo->des_id)}}" role="form" class="form" enctype="multipart/form-data">
+        <form method="post" action="{{action('EstudiantesController@desarrolloPracticaUpdate', $desarrollo->dp_id)}}" role="form" class="form" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group">
 
                 <label for="pp_titulo">Titulo de Propuesta</label>
-                <input type="text" class="form-control" name="pp_titulo" id="pp_titulo" placeholder="" required value="{{ $desarrollop->practica->pp_titulo }}">
+                <input type="text" class="form-control" name="dp_titulo" id="dp_titulo" placeholder="" required value="{{ $desarrollo->dp_titulo }}">
             </div>
             <div class="form-row">
 
-                <div class="form-group">
-
-                    <label for="pp_numconvenio">Numero de convenio</label>
-                    <input type="number" min="0" class="form-control" name="pp_numconvenio" id="pp_numconvenio" placeholder="" required value="{{ $desarrollop->practica->pp_numconvenio }}">
-                </div>
-                <div class="form-group">
-
-                    <label for="pp_fechaconvenio">Fecha Convenio</label>
-                    <input type="date" class="form-control" name="pp_fechaconvenio" id="pp_fechaconvenio" placeholder="" required value="{{ $desarrollop->practica->pp_fechaconvenio }}">
-                </div>
             </div>
             <div class="form-group">
-                <label for="prop_dir_usu_id">Director</label>
-                <select id="prop_dir_usu_id" name="pp_dir_usu_id" class="form-control" required>
-                    <option selected value="{{ $desarrollo->practica->director->id }}">{{ $desarrollo->practica->director->nombres }} {{ $desarrollo->practica->director->apellidos }}</option>
+                <label for="dp_dir_usu_id">Director</label>
+                <select id="dp_dir_usu_id" name="dp_dir_usu_id" class="form-control" required>
+                    <option selected value="{{ $desarrollo->director->id }}">{{ $desarrollo->director->nombres }} {{ $desarrollo->director->apellidos }}</option>
                     @foreach($usuarios as $usr)
                     <option value="{{ $usr->id }}">{{ $usr->nombres }} {{ $usr->apellidos }}</option>
                     @endforeach
                 </select>
             </div>
 
-    </div>
+    
 
     <div class="form-group">
         <div class="custom-file col-md-14">
-            <input type="file" class="form-control" id="customFileLangHTML" name="pp_formato" required>
+            <input type="file" class="form-control" id="customFileLangHTML" name="dp_formato">
         </div>
     </div>
 

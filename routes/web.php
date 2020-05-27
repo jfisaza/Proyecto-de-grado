@@ -30,7 +30,17 @@ Route::get('/propuestaa/{id}','AdministrativosController@downloadPropuesta')->na
 Route::get('/desarrolloa/{id}','AdministrativosController@downloadDesarrollo')->name('desarrolloa');
 Route::post('/estudiante','EstudiantesController@agregarEstudiante')->name('estudiante');
 //practica
-Route::post('/estudiante','EstudiantesController@createp')->name('estudiante');
+Route::get('/estudiantep','EstudiantesController@createp')->name('estudiantep');
+Route::post('/estudiantesp','EstudiantesController@storep')->name('estudiantesp');
+Route::get('/estudiantepedit/{id}','EstudiantesController@editp')->name('estudiantepedit');
+Route::post('/estudiantepupdate/{id}','EstudiantesController@updatep')->name('estudiantepupdate');
+Route::get('/creardesarrollop/{id}','EstudiantesController@crearDesarrolloPractica')->name('creardesarrollop');
+Route::post('/formatop/{id}','EstudiantesController@subirFormatoPractica')->name('/formatop');
+Route::get('/propuestap/{id}','EstudiantesController@propuestaPracticaDownload')->name('propuestap');
+Route::get('/desarrollop/{id}','EstudiantesController@desarrolloPracticaDownload')->name('desarrollop');
+Route::post('/novedadesp/{id}','EstudiantesController@novedadesPractica')->name('novedadesp');
+Route::get('/estudiantepdedit/{id}','EstudiantesController@desarrolloPracticaEdit')->name('estudiantepdedit');
+Route::post('/estudiantepdupdate/{id}','EstudiantesController@desarrolloPracticaUpdate')->name('estudiantepdupdate');
 //fin practica
 Route::get('/estudiante','EstudiantesController@abandonar')->name('estudiante');
 Route::get('/creardesarrollo','EstudiantesController@crearDesarrollo')->name('creardesarrollo');

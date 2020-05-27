@@ -8,7 +8,7 @@ class PropuestaPractica extends Model
 {
     protected $table = 'propuesta_practicas';
     protected $primaryKey = 'pp_id';
-    protected $fillable = ['pp_titulo','pp_numconvenio','pp_fechaconvenio'
+    protected $fillable = ['pp_titulo','pp_usu_id','pp_emp_id','pp_numconvenio','pp_fechaconvenio'
     ,'pp_asesorempresa','pp_dir_usu_id','pp_pro_id','pp_con_id','pp_formato',
     'pp_fecha_entrega','pp_fecha_calificacion'];
 
@@ -17,5 +17,11 @@ class PropuestaPractica extends Model
     }
     public function concepto(){
         return $this->belongsTo(Conceptos::class,'pp_con_id');
+    }
+    public function empresa(){
+        return $this->belongsTo(Empresas::class, 'pp_emp_id');
+    }
+    public function desarrollo(){
+        return $this->hasOne(DesarrolloPractica::class,'dp_pp_id');
     }
 }

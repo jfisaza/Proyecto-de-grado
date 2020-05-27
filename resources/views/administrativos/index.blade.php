@@ -325,6 +325,7 @@
                                     </tr>
                                     @endforeach
                                     @endif
+                                    
                                     </tbody>
                                 </table>
                                 <a href="{{ route('administrativos.create') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>

@@ -10,11 +10,17 @@ use App\Modalidades;
 use App\Propuesta;
 use App\PropuestaPractica;
 use App\Desarrollo;
+use App\DesarrolloPractica;
 use App\Novedades;
+use App\Novedades_practicas;
 use App\Programas;
 use App\Auditoria_propuesta;
 use App\Auditoria_desarrollo;
 use App\Auditoria_novedades;
+use App\Auditoria_propuesta_practicas;
+use App\Auditoria_desarrollo_practicas;
+use App\Auditoria_novedades_practicas;
+use App\Empresas;
 
 class EstudiantesController extends Controller
 {
@@ -26,10 +32,15 @@ class EstudiantesController extends Controller
         $request->user()->authorizeRoles('estudiante');
         $estudiantes=User::all()->where('propuesta',$request->user()->propuesta);
         $estudiantesd=User::all()->where('desarrollo',$request->user()->desarrollo);
-        $estudiantesp=User::all()->where('propuesta_practicas',$request->user()->propuesta_practicas);
-
         $novedades=Novedades::all()->where('nov_des_id',$request->user()->desarrollo);
-        return view("estudiantes.index", compact("estudiantes","estudiantesd","novedades","estudiantesp"));
+
+        $practicas=PropuestaPractica::where('pp_usu_id',$request->user()->id)->first();
+        $desarrollo=DesarrolloPractica::where('dp_usu_id',$request->user()->id)->first();
+        $novedadesp=Novedades_practicas::all()->where('np_dp_id',$request->user()->practicas->dp_id);
+        if(isset($practicas)){
+            return view('estudiantes.indexpractica',compact('practicas','desarrollo','novedadesp'));
+        }
+        return view("estudiantes.index", compact("estudiantes","estudiantesd","novedades"));
     }
     //redirige al formulario para crear una propuesta
     public function create(Request $request){
@@ -42,46 +53,7 @@ class EstudiantesController extends Controller
         $programas=Programas::all();
         return view("estudiantes.create", compact("usuarios","modalidades","programas"));
     }
-    //redirecciona al formulario para crear una propuesta de practica
-    public function createp(Request $request){
-        if(empty($request->user())){
-            return view("auth.login");
-        }
-        $request->user()->authorizeRoles('estudiante');
-        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
-        return view("estudiantes.createpractica", compact("usuarios"));
-    }
-    //crear Propuesta Practica
-    public function storep(Request $request)
-    {
-        if($request->hasFile('pp_formato')){
-            $file = $request->file('pp_formato');
-            $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/files/propuesta/',$name);
-        }
-        
-        $this->validate($request,['pp_titulo'=>'required',
-        'prop_dir_usu_id'=>'required',
-        'pp_numconvenio'=>'required']);
-        $propuesta=new PropuestaPractica();
-        $propuesta->pp_titulo=strtoupper($request->input('pp_titulo'));
-        $propuesta->pp_numconvenio=$request->input('pp_numconvenio');
-        $propuesta->pp_fechaconvenio=$request->input('pp_fechaconvenio');
-        $propuesta->pp_asesorempresa=$request->input('pp_asesorempresa');
-        $propuesta->pp_dir_usu_id=$request->input('pp_dir_usu_id');
-        $propuesta->pp_formato=$name;
-        $propuesta->save();
-        return $this->enlazarPropuestaPracUser($request,$propuesta);
-    }
-    //enlazar Propuesta practica
-    public function enlazarPropuestaPracUser(Request $request, $pro){
-        $propuesta=DB::table('propuesta_practicas')->max('pp_id');
-        $userid=$request->user()->id;
-        $user=User::find($userid);
-        $user->propuesta=$propuesta;
-        $user->save();
-        return redirect()->route("home");
-    }
+    
     //crea la propuesta
     public function store(Request $request)
     {
@@ -150,6 +122,77 @@ class EstudiantesController extends Controller
         $user->save();
         return redirect()->route("estudiantes.index");
     }
+
+    //redirecciona al formulario para crear una propuesta de practica
+    public function createp(Request $request){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('estudiante');
+        $empresas=Empresas::all();
+        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        return view("estudiantes.createpractica", compact("usuarios","empresas"));
+    }
+    //crear Propuesta Practica
+    public function storep(Request $request)
+    {
+        if($request->hasFile('pp_formato')){
+            $file = $request->file('pp_formato');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/files/propuesta/',$name);
+        }
+        
+        $this->validate($request,['pp_titulo'=>'required',
+        'pp_dir_usu_id'=>'required',
+        'pp_numconvenio'=>'required']);
+        $propuesta=new PropuestaPractica();
+        $propuesta->pp_titulo=strtoupper($request->input('pp_titulo'));
+        $propuesta->pp_usu_id=$request->user()->id;
+        $propuesta->pp_emp_id=$request->input('pp_emp_id');
+        $propuesta->pp_numconvenio=$request->input('pp_numconvenio');
+        $propuesta->pp_fechaconvenio=$request->input('pp_fechaconvenio');
+        $propuesta->pp_dir_usu_id=$request->input('pp_dir_usu_id');
+        $propuesta->pp_pro_id=$request->user()->programa;
+        $propuesta->pp_formato=$name;
+        $propuesta->save();
+        return redirect()->route('estudiantes.index');
+    }
+    //redirigir al formulario para editar propuesta Practica
+    public function editp(Request $request,$id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('estudiante');
+        $practica=PropuestaPractica::find($id);
+        $empresas=Empresas::all();
+        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        return view("estudiantes.editpractica", compact("usuarios","empresas","practica"));
+    }
+    //editar propuesta practica
+    public function updatep(Request $request,$id)
+    {
+        $propuesta=PropuestaPractica::find($id);
+        if($request->hasFile('pp_formato')){
+            $file = $request->file('pp_formato');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/files/propuesta/',$name);
+            $propuesta->pp_formato=$name;
+        }
+        
+        $this->validate($request,['pp_titulo'=>'required',
+        'pp_dir_usu_id'=>'required',
+        'pp_numconvenio'=>'required']);
+        
+        $propuesta->pp_titulo=strtoupper($request->input('pp_titulo'));
+        $propuesta->pp_usu_id=$request->user()->id;
+        $propuesta->pp_emp_id=$request->input('pp_emp_id');
+        $propuesta->pp_numconvenio=$request->input('pp_numconvenio');
+        $propuesta->pp_fechaconvenio=$request->input('pp_fechaconvenio');
+        $propuesta->pp_dir_usu_id=$request->input('pp_dir_usu_id');
+        
+        $propuesta->save();
+        return redirect()->route('estudiantes.index');
+    }
     //crea el registro en la tabla desarrollo
     public function crearDesarrollo(Request $request){
         $user=User::all()->where('propuesta',$request->user()->propuesta);
@@ -189,6 +232,38 @@ class EstudiantesController extends Controller
         $user=User::where('propuesta',$request->user()->propuesta)->update(['desarrollo'=>$desarrollo->des_id]);
         return redirect()->route("estudiantes.index");
     }
+    //crear desarrollo practica
+    public function crearDesarrolloPractica(Request $request,$id){
+        $propuesta=PropuestaPractica::find($id);
+        $desarrollo=new DesarrolloPractica();
+        $app=new Auditoria_propuesta_practicas();
+
+        $app->app_id=$propuesta->pp_id;
+        $app->app_id=$propuesta->pp_id;
+        $app->app_titulo=$propuesta->pp_titulo;
+        $app->app_usu_id=$propuesta->pp_usu_id;
+        $app->app_emp_id=$propuesta->pp_emp_id;
+        $app->app_numconvenio=$propuesta->pp_numconvenio;
+        $app->app_fechaconvenio=$propuesta->pp_fechaconvenio;
+        $app->app_dir_usu_id=$propuesta->pp_dir_usu_id;
+        $app->app_pro_id=$propuesta->pp_pro_id;
+        $app->app_con_id=$propuesta->pp_con_id;
+        $app->save();
+
+        $desarrollo->dp_id=$propuesta->pp_id;
+        $desarrollo->dp_titulo=$propuesta->pp_titulo;
+        $desarrollo->dp_usu_id=$propuesta->pp_usu_id;
+        $desarrollo->dp_emp_id=$propuesta->pp_emp_id;
+        $desarrollo->dp_numconvenio=$propuesta->pp_numconvenio;
+        $desarrollo->dp_fechaconvenio=$propuesta->pp_fechaconvenio;
+        $desarrollo->dp_dir_usu_id=$propuesta->pp_dir_usu_id;
+        $desarrollo->dp_pro_id=$propuesta->pp_pro_id;
+        $desarrollo->dp_pp_id=$propuesta->pp_id;
+        $desarrollo->save();
+
+        return redirect()->route('estudiantes.index');
+    }
+
     //redirige al formulario para editar la fase de desarrollo
     public function show(Request $request,$id){
         return $this->desarrolloEdit($request,$id);
@@ -207,6 +282,19 @@ class EstudiantesController extends Controller
         $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         
         return view("estudiantes.editar", compact("desarrollo","usuarios","programas","modalidades"));
+    }
+    public function desarrolloPracticaEdit(Request $request, $id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('estudiante');
+        if($request->user()->practicas->dp_id != $id){
+            return abort(401,'Página no autorizada');
+        }
+        $desarrollo=DesarrolloPractica::find($id);
+        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        
+        return view("estudiantes.editarPractica", compact("desarrollo","usuarios"));
     }
     //actualizar datos en fase de desarrollo
     public function desarrolloUpdate(Request $request,$id){
@@ -230,6 +318,24 @@ class EstudiantesController extends Controller
         $desarrollo->save();
         return redirect()->route("estudiantes.index");
     }
+    public function desarrolloPracticaUpdate(Request $request,$id){
+        $desarrollo=DesarrolloPractica::find($id);
+        $this->validate($request,['dp_titulo'=>'required',
+        'dp_dir_usu_id'=>'required']);
+
+        if($request->hasFile('dp_formato')){
+            $file = $request->file('dp_formato');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/files/desarrollo/',$name);
+            unlink(public_path().'/files/desarrollo/'.$desarrollo->des_formato);
+            $desarrollo->dp_formato=$name;
+        }
+        
+        $desarrollo->dp_titulo=strtoupper($request->input('dp_titulo'));
+        $desarrollo->dp_dir_usu_id=$request->input('dp_dir_usu_id');
+        $desarrollo->save();
+        return redirect()->route("estudiantes.index");
+    }
     //agrega estudiantes al trabajo de grado
     public function agregarEstudiante(Request $request){
         $user=User::where('documento',$request->input('documento'))->first();
@@ -250,11 +356,23 @@ class EstudiantesController extends Controller
         return response()->download(public_path()."/files/propuesta/$ruta");
         
     }
+    public function propuestaPracticaDownload(Request $request,$id){
+        $propuesta=PropuestaPractica::find($id);
+        $ruta=$propuesta->pp_formato;
+        return response()->download(public_path()."/files/propuesta/$ruta");
+        
+    }
     //descarga el formato de la fase de desarrollo
     public function desarrolloDownload(Request $request){
         $desarrollo=Desarrollo::where('des_prop_id',$request->user()->propuesta)->first();
         $ruta=$desarrollo->des_formato;
-        return response()->download(public_path()."/files/final/$ruta");
+        return response()->download(public_path()."/files/desarrollo/$ruta");
+        
+    }
+    public function desarrolloPracticaDownload(Request $request,$id){
+        $desarrollo=DesarrolloPractica::where('dp_id',$id)->first();
+        $ruta=$desarrollo->dp_formato;
+        return response()->download(public_path()."/files/desarrollo/$ruta");
         
     }
     //sube el formato en la fase de desarrollo
@@ -266,6 +384,17 @@ class EstudiantesController extends Controller
         }
         $desarrollo=Desarrollo::find($request->user()->propuesta)->first();
         $desarrollo->des_formato=$name;
+        $desarrollo->save();
+        return redirect()->route("estudiantes.index");
+    }
+    public function subirFormatoPractica(Request $request,$id){
+        if($request->hasFile('dp_formato')){
+            $file = $request->file('dp_formato');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/files/desarrollo/',$name);
+        }
+        $desarrollo=DesarrolloPractica::find($id)->first();
+        $desarrollo->dp_formato=$name;
         $desarrollo->save();
         return redirect()->route("estudiantes.index");
     }
@@ -344,6 +473,14 @@ class EstudiantesController extends Controller
         $novedad->nov_des_id=$request->user()->desarrollo;
         $novedad->nov_descripcion=$request->input('nov_descripcion');
         $novedad->nov_fecha=date('Y-m-d');
+        $novedad->save();
+        return redirect()->route("estudiantes.index");
+    }
+    public function novedadesPractica(Request $request,$id){
+        $novedad=new Novedades_practicas();
+        $novedad->np_dp_id=$id;
+        $novedad->np_descripcion=$request->input('np_descripcion');
+        $novedad->np_fecha=date('Y-m-d');
         $novedad->save();
         return redirect()->route("estudiantes.index");
     }

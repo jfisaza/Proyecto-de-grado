@@ -22,7 +22,7 @@
     <div id="formulario">
         <h2>Propuesta practica</h2>
         <p>"La manera de empezar algo es dejar de hablar y empezar a hacerlo"</p>
-        <form method="POST" action="{{route('estudiantes.storep')}}" role="form" class="form" enctype="multipart/form-data">
+        <form method="POST" action="{{action('EstudiantesController@storep')}}" role="form" class="form" enctype="multipart/form-data">
             {{ csrf_field()}}
 
 
@@ -31,6 +31,16 @@
                 <label for="pp_titulo">Titulo practica propuesta</label>
                 <input type="text" class="form-control" name="pp_titulo" id="pp_titulo" placeholder="" required>
             </div>
+            <div class="form-group">
+                    <label for="pp_emp_id"></label>
+                    <select id="pp_emp_id" name="pp_emp_id" class="form-control" required>
+                        <option value="" selected> Empresa</option>
+                        @foreach($empresas as $emp)
+                        <option value="{{ $emp->emp_id }}">{{ $emp->emp_nombre }}</option>
+                        @endforeach
+                    </select>
+
+                </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="pp_numconvenio">Numero de convenio</label>
@@ -41,13 +51,9 @@
                     <input type="date" class="form-control" name="pp_fechaconvenio" id="pp_fechaconvenio" placeholder="" required>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="pp_asesorempresa">Asesor Empresa</label>
-                    <input type="text" class="form-control" name="pp_asesorempresa" id="pp_asesorempresa" placeholder="" required>
-                </div>
+            
 
-                <div class="form-group col-md-6">
+                <div class="form-group">
                     <label for="pp_dir_usu_id"></label>
                     <select id="pp_dir_usu_id" name="pp_dir_usu_id" class="form-control" required>
                         <option value="" selected> Docente Director</option>
@@ -57,8 +63,6 @@
                     </select>
 
                 </div>
-            </div>
-
             <div class="form-group">
                 <div class="custom-file col-md-14">
                     <input type="file" class="form-control" id="customFileLangHTML" name="pp_formato" required>
