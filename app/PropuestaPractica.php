@@ -21,7 +21,13 @@ class PropuestaPractica extends Model
     public function empresa(){
         return $this->belongsTo(Empresas::class, 'pp_emp_id');
     }
+    public function estudiante(){
+        return $this->belongsTo(User::class, 'pp_usu_id');
+    }
     public function desarrollo(){
         return $this->hasOne(DesarrolloPractica::class,'dp_pp_id');
     }
-}
+    public function programas(){
+        return $this->belongsTo(Programas::class,'pp_pro_id');
+    }
+} 

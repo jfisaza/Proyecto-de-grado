@@ -1,10 +1,15 @@
 @extends('layout')
 
 @section('content')
-<div id="pagina">
-    <div class="container"></div>
-<h1>Banco de ideas</h1>
-
+<div class="pagina-info">
+<div class="container">
+<div class="card">
+<div class="card-header p-3 mb-2 bg-success text-white">
+                        <h1>
+                            <center><strong>Banco de ideas </strong></center>
+                        </h1>
+                    </div>
+<div class="card-body">
 <section class="tablas">
     <div class="tabs">
         <ul class="nav nav-tabs">
@@ -94,7 +99,8 @@
         </table>
     </article>
 </section>
-
 </div>
-
+</div>
+</div>
+</div>
 @endsection

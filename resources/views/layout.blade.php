@@ -84,9 +84,9 @@
     <div class="contenedor">
         @yield('content')
     </div>
+    <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/main.js"></script>
 
 </body>

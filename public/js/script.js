@@ -3,7 +3,5 @@ window.onload = function(){
 
     contenedor.style.visibility = 'hidden';
     contenedor.style.opacity='0';
-    
 }
 
-   

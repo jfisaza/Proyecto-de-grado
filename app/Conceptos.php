@@ -8,7 +8,7 @@ class Conceptos extends Model
 {
     protected $table = 'conceptos';
     protected $primaryKey = 'con_id';
-    protected $fillable = ['con_id','con_nombre','con_usu_id','con_fecha'];
+    protected $fillable = ['con_id','con_nombre','con_acta','con_usu_id','con_fecha'];
 
     public function calificador(){
         return $this->belongsTo(User::class,'con_usu_id');
@@ -19,4 +19,12 @@ class Conceptos extends Model
     public function desarrollos(){
         return $this->hasOne(Desarrollo::class,'des_con_id');
     }
+
+    public function propuestasP(){
+        return $this->hasOne(PropuestaPractica::class,'pp_con_id');
+    }
+    public function desarrollosP(){
+        return $this->hasOne(DesarrolloPractica::class,'dp_con_id');
+    }
+
 }

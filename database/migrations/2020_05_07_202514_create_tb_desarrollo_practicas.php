@@ -14,7 +14,7 @@ class CreateTbDesarrolloPracticas extends Migration
     public function up()
     {
         Schema::create('desarrollo_practicas', function (Blueprint $table) {
-            $table->integer('dp_id')->unique();
+            $table->bigIncrements('dp_id')->unique();
             $table->string('dp_titulo');
             $table->integer('dp_usu_id')->unsigned();
             $table->foreign('dp_usu_id')->references('id')->on('users');

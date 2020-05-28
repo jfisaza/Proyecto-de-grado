@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Modalidades;
 use App\Propuesta;
+use App\PropuestaPractica;
+use App\DesarrolloPractica;
 use App\Desarrollo;
 use App\Novedades;
 use App\Banco;
@@ -25,8 +27,10 @@ class DocentesController extends Controller
         $desarrollo=Desarrollo::all()->where('des_dir_usu_id',$request->user()->id);
         $desarrolloc=Desarrollo::all()->where('des_codir_usu_id',$request->user()->id);
         $banco=Banco::all()->where('ban_usu_id',$request->user()->id);
+        $propPractica=PropuestaPractica::all()->where('pp_dir_usu_id',$request->user()->id);
+        $desPractica=DesarrolloPractica::all()->where('dp_dir_usu_id',$request->user()->id);
         $calificar=Conceptos::all()->where('con_usu_id',$request->user()->id);
-        return view("docentes.index",compact('propuestas','propuestasc','desarrollo','desarrolloc','banco','calificar'));
+        return view("docentes.index",compact('propuestas','propuestasc','desarrollo','desarrolloc','banco','calificar','propPractica','desPractica'));
     }
 
     public function edit(Request $request, $id){

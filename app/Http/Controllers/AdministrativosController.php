@@ -9,6 +9,8 @@ use App\Exports\DesarrollosExport;
 use App\Exports\AuditoriaPropuestaExport;
 use App\Exports\AuditoriaDesarrolloExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\PropuestaPractica;
+use App\DesarrolloPractica;
 use App\Propuesta;
 use App\Desarrollo;
 use App\Conceptos;
@@ -30,10 +32,12 @@ class AdministrativosController extends Controller
         $ap=Auditoria_propuesta::codigo($request->get('ap_id'))->paginate();
         $ad=Auditoria_desarrollo::codigo($request->get('ad_id'))->paginate();
         $empresas=Empresas::paginate();
+        $pp=PropuestaPractica::paginate();
+        $pd=DesarrolloPractica::paginate();
         $solicitudes=Solicitudes::paginate();
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','2')->get();
         $administrativos=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','1')->get();
-        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos"));
+        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos","pp","pd"));
     }
 
     public function create(Request $request){

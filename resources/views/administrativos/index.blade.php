@@ -29,6 +29,9 @@
                                     <a href="#practicas" class="nav-link">Prácticas</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="#practicaFinal" class="nav-link">Prácticas Final</a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="#solicitudes" class="nav-link">Solicitudes</a>
                                 </li>
                                 <li class="nav-item">
@@ -143,6 +146,7 @@
                                         @endif
                                     </tbody>
                                 </table>
+
                                 <a href="{{ action('AdministrativosController@exportPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
                             </div>
                         </article>
@@ -158,7 +162,7 @@
                                 <table class="table">
                                     <thead class="table-success">
                                         <th>Código</th>
-                                        <th>Nombre del trabajo</th>
+                                        <th>Titulo</th>
                                         <th>Estudiantes</th>
                                         <th>Director</th>
                                         <th>Codirector</th>
@@ -229,6 +233,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+
                                 <a href="{{ action('AdministrativosController@exportDesarrollo') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
 
                             </div>
@@ -245,17 +250,151 @@
                                 <table class="table">
                                     <thead class="table-success">
                                         <th>Código</th>
+                                        <th>Titulo</th>
+                                        <th>Programa</th>
+                                        <th># Convenio</th>
+                                        <th>Estudiante</th>
+                                        <th>Director</th>
+                                        <th>Empresa</th>
+                                        <th>Formato RDC</th>
+                                        <th>Fecha Entrega</th>
+                                        <th>Calificador</th>
+                                        <th>Estado</th>
+                                        <th>Fecha Calificacion</th>
+                                        <th>Número Acta</th>
+                                        <th>Acciones</th>
+                                    </thead>
+                                    <tbody>@if($pp->count())
+                                        @foreach($pp as $pr)
+                                        @if($pr->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
+                                        <tr>
+                                            <td>{{$pr->pp_id}}</td>
+                                            <td>{{$pr->pp_titulo }}</td>
+                                            <td>{{$pr->programas->pro_nombre }}</td>
+                                            <td>{{$pr->pp_numconvenio}}</td>
+                                            <td>{{$pr->estudiante->nombres}} {{$pr->estudiante->apellidos}}</td>
+                                            <td>{{$pr->director->nombres}} {{ $pr->director->apellidos }}</td>
+                                            <td>{{$pr->empresa->emp_nombre}}</td>
+                                            <td>
+                                                @if(isset($pr->pp_formato))
+                                                <a href="{{ action('AdministrativosController@downloadPropuesta', $pr->pp_id) }}">{{$pr->pp_formato}} <span class="fas fa-download"></span></a>
+                                                @endif
+                                            </td>
+                                            <td>{{$pr->created_at}}</td>
+
+                                            <td>@if(isset ($pr->concepto->calificador))
+                                                {{$pr->concepto->calificador->nombres}}{{$pr->concepto->calificador->apellidos}}
+                                                @endif
+                                            </td>
+                                            <td>@if(isset($pr->concepto->con_nombre))
+                                                {{$pr->concepto->con_nombre}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($pr->concepto->con_fecha))
+                                                {{$pr->concepto->con_fecha}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($pr->concepto->con_acta))
+                                                {{ $pr->concepto->con_acta }}
+                                                @endif
+                                            </td>
+                                            
+                                            <td>
+                                            @if(is_null($pr->pp_con_id))
+                                            <a href="{{ action('AdministrativosController@asignarPropuesta', $pr->pp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                            @endif
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="8">No hay registro !!</td>
+                                        </tr>
+                                        @endif</tbody>
+                                </table>
+
+                            </div>
+                        </article>
+                        <article id="practicaFinal">
+                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                                <input type="text" name="pra_id" class="form-control" placeholder="Código">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
+                                </div>
+                            </form>
+                            <div class="table-responsive mt-3">
+
+                                <table class="table">
+                                    <thead class="table-success">
+                                        <th>Código</th>
+                                        <th>Titulo</th>
                                         <th>Programa</th>
                                         <th>Estudiante</th>
                                         <th>Director</th>
                                         <th>Empresa</th>
                                         <th>Formato RDC</th>
+                                        <th>Fecha Entrega</th>
                                         <th>Calificador</th>
                                         <th>Estado</th>
+                                        <th>Fecha Calificacion</th>
+                                        <th>Número Acta</th>
                                         <th>Acciones</th>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>@if($pd->count())
+                                        @foreach($pd as $pr)
+                                        @if($pr->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
+                                        <tr>
+                                            <td>{{$pr->dp_id}}</td>
+                                            <td>{{$pr->dp_titulo }}</td>
+                                            <td>{{$pr->programas->pro_nombre }}</td>
+
+                                            <td>{{$pr->estudiante->nombres}} {{$pr->estudiante->apellidos}}</td>
+                                            <td>{{$pr->director->nombres}} {{ $pr->director->apellidos }}</td>
+                                            <td>{{$pr->empresa->emp_nombre}}</td>
+                                            <td>
+                                                @if(isset($pr->pp_formato))
+                                                <a href="{{ action('AdministrativosController@downloadPropuesta', $pr->pp_id) }}">{{$pr->pp_formato}} <span class="fas fa-download"></span></a>
+                                                @endif
+                                            </td>
+                                            <td>{{$pr->created_at}}</td>
+
+                                            <td>@if(isset ($pr->concepto->calificador))
+                                                {{$pr->concepto->calificador->nombres}}{{$pr->concepto->calificador->apellidos}}
+                                                @endif
+                                            </td>
+                                            <td>@if(isset($pr->concepto->con_nombre))
+                                                {{$pr->concepto->con_nombre}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($pr->concepto->con_fecha))
+                                                {{$pr->concepto->con_fecha}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($pr->concepto->con_acta))
+                                                {{ $pr->concepto->con_acta }}
+                                                @endif
+                                            </td>
+                                            
+                                            <td>
+                                            @if(is_null($pr->pp_con_id))
+                                            <a href="{{ action('AdministrativosController@asignarPropuesta', $pr->pp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                            @endif
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="8">No hay registro !!</td>
+                                        </tr>
+                                        @endif</tbody>
                                 </table>
+
                             </div>
                         </article>
                         <article id="solicitudes">
@@ -292,6 +431,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+
                                 <a href="{{ action('BancoController@createSolicitud') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>
                             </div>
                         </article>
@@ -325,9 +465,9 @@
                                     </tr>
                                     @endforeach
                                     @endif
-                                    
                                     </tbody>
                                 </table>
+                                {{$empresas->links()}}
                                 <a href="{{ route('administrativos.create') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>
                             </div>
                         </article>
@@ -420,6 +560,7 @@
                                         @endif
                                     </tbody>
                                 </table>
+
                                 <a href="{{ action('AdministrativosController@exportAuditoriaPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
 
                             </div>
@@ -436,7 +577,7 @@
                                 <table class="table">
                                     <thead class="table-success">
                                         <th>Código</th>
-                                        <th>Nombre del trabajo</th>
+                                        <th>Titulo</th>
                                         <th>Estudiantes</th>
                                         <th>Director</th>
                                         <th>Codirector</th>
@@ -506,6 +647,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+
                                 <a href="{{ action('AdministrativosController@exportAuditoriaPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
 
                             </div>
@@ -538,6 +680,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+
                                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal" title="Nuevo"><span class="fas fa-plus"></span></button>
                             </div>
                         </article>
@@ -568,6 +711,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+
                                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal2" title="Nuevo"><span class="fas fa-plus"></span></button>
                             </div>
                         </article>
