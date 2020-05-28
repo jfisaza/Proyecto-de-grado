@@ -301,7 +301,7 @@
                                         <td>{{$pro->pp_numconvenio}}</td>
                                         <td>{{$pro->estudiante->nombres}}</td>
                                         <td>{{$pro->empresa->emp_nombre}} </td>
-                                        <td><a href="{{ action('DocentesController@downloadPropuesta',$pro->pp_id) }}">{{ $pro->pp_formato }} <span class="fas fa-download"></span></a></td>
+                                        <td><a href="{{ action('DocentesController@downloadPropuestaPractica',$pro->pp_id) }}">{{ $pro->pp_formato }} <span class="fas fa-download"></span></a></td>
                                         <td>
                                             @if(isset($pro->pp_con_id))
                                             {{ $pro->concepto->calificador->nombres }} {{ $pro->concepto->calificador->apellidos }}
@@ -349,7 +349,7 @@
                                         <td>{{$des->dp_numconvenio}}</td>
                                         <td>{{$des->estudiante->nombres}}</td>
                                         <td>{{$des->empresa->emp_nombre}} </td>
-                                        <td><a href="{{ action('DocentesController@downloadPropuesta',$des->dp_id) }}">{{ $des->dp_formato }} <span class="fas fa-download"></span></a></td>
+                                        <td><a href="{{ action('DocentesController@downloadDesarrolloPractica',$des->dp_id) }}">{{ $des->dp_formato }} <span class="fas fa-download"></span></a></td>
                                         <td>
                                             @if(isset($des->dp_con_id))
                                             {{ $des->concepto->calificador->nombres }} {{ $des->concepto->calificador->apellidos }}
@@ -431,7 +431,7 @@
                                     @if(isset($cal->propuestas))
 
                                     <tr>
-                                        <td>Propuesta</td>
+                                        <td>PROPUESTA</td>
                                         <td>{{ $cal->propuestas->prop_id }}</td>
                                         <td>{{ $cal->propuestas->prop_titulo }}</td>
                                         <td>{{ $cal->propuestas->modalidad->mod_nombre }}</td>
@@ -459,7 +459,7 @@
                                     @endif
                                     @if(isset($cal->desarrollos))
                                     <tr>
-                                        <td>Trabajo</td>
+                                        <td>TRABAJO</td>
                                         <td>{{ $cal->desarrollos->des_id }}</td>
                                         <td>{{ $cal->desarrollos->des_titulo }}</td>
                                         <td>{{ $cal->desarrollos->modalidad->mod_nombre }}</td>
@@ -487,29 +487,31 @@
                                     @endif
                                     @if(isset($cal->propuestasP))
                                     <tr>
-                                        <td>Propuesta Practica</td>
+                                        <td>PROPUESTA PRACTICA</td>
                                         <td>{{ $cal->propuestasP->pp_id }}</td>
                                         <td>{{ $cal->propuestasP->pp_titulo }}</td>
-                                        <td>Practica</td>
+                                        <td>PRACTICA</td>
                                         <td>{{ $cal->propuestasP->programas->pro_nombre }}</td>
-                                        <td>{{ $cal->propuestasP->$estudiante->nombres }} {{ $cal->propuestasP->$estudiante->apellidos}}</td>
+                                        <td>{{ $cal->propuestasP->estudiante->nombres }} {{ $cal->propuestasP->estudiante->apellidos}}</td>
                                         <td>{{ $cal->propuestasP->director->nombres }} {{ $cal->propuestasP->director->apellidos }}</td>
-                                        <td><a href="{{ action('DocentesController@downloadDesarrollo', $cal->propuestasP->pp_id) }}">{{ $cal->propuestasP->pp_formato }}</a></td>
+                                        <td></td>
+                                        <td><a href="{{ action('DocentesController@downloadPropuestaPractica', $cal->propuestasP->pp_id) }}">{{ $cal->propuestasP->pp_formato }}</a></td>
                                         <td>
                                             <a href="{{ route('docentes.edit', $cal->con_id) }}" class="btn btn-primary btn-sm" title="Calificar"><span class="fas fa-pen-alt"></span></a>
                                         </td>
                                     </tr>
                                     @endif
-                                    @if(isset($cal->desPractica))
+                                    @if(isset($cal->desarrollosP))
                                     <tr>
-                                        <td>Trabajo Final Practica</td>
-                                        <td>{{ $cal->desPractica->dp_id }}</td>
-                                        <td>{{ $cal->desPractica->dp_titulo }}</td>
-                                        <td>Practica</td>
-                                        <td>{{ $cal->desPractica->programas->pro_nombre }}</td>
-                                        <td>{{ $cal->desPractica->$estudiante->nombres }} {{ $cal->desPractica->$estudiante->apellidos}}</td>
-                                        <td>{{ $cal->desPractica->director->nombres }} {{ $cal->desPractica->director->apellidos }}</td>
-                                        <td><a href="{{ action('DocentesController@downloadDesarrollo', $cal->desPractica->dp_id) }}">{{ $cal->desPractica->dp_formato }}</a></td>
+                                        <td>TRABAJO FINAL PRACTICA</td>
+                                        <td>{{ $cal->desarrollosP->dp_id }}</td>
+                                        <td>{{ $cal->desarrollosP->dp_titulo }}</td>
+                                        <td>PRACTICA</td>
+                                        <td>{{ $cal->desarrollosP->programas->pro_nombre }}</td>
+                                        <td>{{ $cal->desarrollosP->estudiante->nombres }} {{ $cal->desarrollosP->estudiante->apellidos}}</td>
+                                        <td>{{ $cal->desarrollosP->director->nombres }} {{ $cal->desarrollosP->director->apellidos }}</td>
+                                        <td></td>
+                                        <td><a href="{{ action('DocentesController@downloadDesarrolloPractica', $cal->desarrollosP->dp_id) }}">{{ $cal->desarrollosP->dp_formato }}</a></td>
                                         <td>
                                             <a href="{{ route('docentes.edit', $cal->con_id) }}" class="btn btn-primary btn-sm" title="Calificar"><span class="fas fa-pen-alt"></span></a>
                                         </td>

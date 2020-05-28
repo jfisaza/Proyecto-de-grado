@@ -277,13 +277,13 @@
                                             <td>{{$pr->empresa->emp_nombre}}</td>
                                             <td>
                                                 @if(isset($pr->pp_formato))
-                                                <a href="{{ action('AdministrativosController@downloadPropuesta', $pr->pp_id) }}">{{$pr->pp_formato}} <span class="fas fa-download"></span></a>
+                                                <a href="{{ action('AdministrativosController@downloadPropuestaPractica', $pr->pp_id) }}">{{$pr->pp_formato}} <span class="fas fa-download"></span></a>
                                                 @endif
                                             </td>
                                             <td>{{$pr->created_at}}</td>
 
                                             <td>@if(isset ($pr->concepto->calificador))
-                                                {{$pr->concepto->calificador->nombres}}{{$pr->concepto->calificador->apellidos}}
+                                                {{$pr->concepto->calificador->nombres}} {{$pr->concepto->calificador->apellidos}}
                                                 @endif
                                             </td>
                                             <td>@if(isset($pr->concepto->con_nombre))
@@ -303,7 +303,7 @@
                                             
                                             <td>
                                             @if(is_null($pr->pp_con_id))
-                                            <a href="{{ action('AdministrativosController@asignarPropuesta', $pr->pp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                            <a href="{{ action('AdministrativosController@asignarPropuestaPractica',$pr->pp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
                                             @endif
                                             </td>
                                         </tr>
@@ -315,6 +315,7 @@
                                         </tr>
                                         @endif</tbody>
                                 </table>
+                                <a href="{{ action('AdministrativosController@exportPropuestaPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
 
                             </div>
                         </article>
@@ -336,7 +337,6 @@
                                         <th>Director</th>
                                         <th>Empresa</th>
                                         <th>Formato RDC</th>
-                                        <th>Fecha Entrega</th>
                                         <th>Calificador</th>
                                         <th>Estado</th>
                                         <th>Fecha Calificacion</th>
@@ -355,14 +355,13 @@
                                             <td>{{$pr->director->nombres}} {{ $pr->director->apellidos }}</td>
                                             <td>{{$pr->empresa->emp_nombre}}</td>
                                             <td>
-                                                @if(isset($pr->pp_formato))
-                                                <a href="{{ action('AdministrativosController@downloadPropuesta', $pr->pp_id) }}">{{$pr->pp_formato}} <span class="fas fa-download"></span></a>
+                                                @if(isset($pr->dp_formato))
+                                                <a href="{{ action('AdministrativosController@downloadDesarrolloPractica', $pr->dp_id) }}">{{$pr->dp_formato}} <span class="fas fa-download"></span></a>
                                                 @endif
                                             </td>
-                                            <td>{{$pr->created_at}}</td>
 
                                             <td>@if(isset ($pr->concepto->calificador))
-                                                {{$pr->concepto->calificador->nombres}}{{$pr->concepto->calificador->apellidos}}
+                                                {{$pr->concepto->calificador->nombres}} {{$pr->concepto->calificador->apellidos}}
                                                 @endif
                                             </td>
                                             <td>@if(isset($pr->concepto->con_nombre))
@@ -381,8 +380,8 @@
                                             </td>
                                             
                                             <td>
-                                            @if(is_null($pr->pp_con_id))
-                                            <a href="{{ action('AdministrativosController@asignarPropuesta', $pr->pp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                            @if(is_null($pr->dp_con_id))
+                                            <a href="{{ action('AdministrativosController@asignarDesarrolloPractica',$pr->dp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
                                             @endif
                                             </td>
                                         </tr>
@@ -394,6 +393,7 @@
                                         </tr>
                                         @endif</tbody>
                                 </table>
+                                <a href="{{ action('AdministrativosController@exportDesarrolloPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
 
                             </div>
                         </article>

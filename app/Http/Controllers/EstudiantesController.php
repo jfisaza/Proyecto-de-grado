@@ -36,7 +36,10 @@ class EstudiantesController extends Controller
 
         $practicas=PropuestaPractica::where('pp_usu_id',$request->user()->id)->first();
         $desarrollo=DesarrolloPractica::where('dp_usu_id',$request->user()->id)->first();
-        $novedadesp=Novedades_practicas::all()->where('np_dp_id',$request->user()->practicas->dp_id);
+        $novedadesp=NULL;
+        if(isset($desarrollo)){
+            $novedadesp=Novedades_practicas::all()->where('np_dp_id',$request->user()->practicas->dp_id);
+        }
         if(isset($practicas)){
             return view('estudiantes.indexpractica',compact('practicas','desarrollo','novedadesp'));
         }
@@ -419,15 +422,15 @@ class EstudiantesController extends Controller
         if(count($countu)===1 && is_null($ad_exist)){
             $ad=new Auditoria_desarrollo();
             $ad->ad_id=$request->user()->propuesta;
-            $ad->ad_titulo=$request->user()->propuestas->prop_titulo;
+            $ad->ad_titulo=$request->user()->desarrollos->des_titulo;
             $ad->ad_est1=$request->user()->id;
             $ad->ad_ap_id=$request->user()->propuesta;
-            $ad->ad_dir_usu_id=$request->user()->propuestas->prop_dir_usu_id;
-            $ad->ad_codir_usu_id=$request->user()->propuestas->prop_codir_usu_id;
-            $ad->ad_mod_id=$request->user()->propuestas->prop_mod_id;
-            $ad->ad_pro_id=$request->user()->propuestas->prop_pro_id;
-            $ad->ad_con_id=$request->user()->propuestas->prop_con_id;
-            $ad->ad_formato=$request->user()->propuestas->prop_formato;
+            $ad->ad_dir_usu_id=$request->user()->desarrollos->des_dir_usu_id;
+            $ad->ad_codir_usu_id=$request->user()->desarrollos->des_codir_usu_id;
+            $ad->ad_mod_id=$request->user()->desarrollos->des_mod_id;
+            $ad->ad_pro_id=$request->user()->desarrollos->des_pro_id;
+            $ad->ad_con_id=$request->user()->desarrollos->des_con_id;
+            $ad->ad_formato=$request->user()->desarrollos->des_formato;
             $ad->save();
             $nov=Novedades::all()->where('nov_des_id',$desarrollo->des_id);
             if(isset($nov)){
@@ -464,6 +467,67 @@ class EstudiantesController extends Controller
         if(count($vacio) === 0){
             Propuesta::find($id)->delete();
         }
+        
+        return redirect()->route("estudiantes.index");
+    }
+
+    public function abandonarPractica(Request $request){
+        $desarrollo=DesarrolloPractica::where('dp_usu_id',$request->user()->id)->first();
+        
+        if(isset($desarrollo)){
+            $adp_exist=Auditoria_desarrollo_practicas::find($request->user()->practicas->dp_id);
+            if(is_null($adp_exist)){
+                $adp=new Auditoria_desarrollo_practicas();
+                $adp->adp_id=$request->user()->practicas->dp_id;
+                $adp->adp_titulo=$request->user()->practicas->dp_titulo;
+                $adp->adp_usu_id=$request->user()->id;
+                $adp->adp_emp_id=$request->user()->practicas->dp_emp_id;
+                $adp->adp_numconvenio=$request->user()->practicas->dp_numconvenio;
+                $adp->adp_fechaconvenio=$request->user()->practicas->dp_fechaconvenio;
+                $adp->adp_dir_usu_id=$request->user()->practicas->dp_dir_usu_id;
+                $adp->adp_pro_id=$request->user()->practicas->dp_pro_id;
+                $adp->adp_app_id=$request->user()->practicas->dp_pp_id;
+                $adp->adp_con_id=$request->user()->practicas->dp_con_id;
+                $adp->adp_formato=$request->user()->practicas->dp_formato;
+                $adp->adp_fecha_entrega=$request->user()->practicas->dp_fecha_entrega;
+                $adp->adp_fecha_calificacion=$request->user()->practicas->dp_fecha_calificaion;
+                $adp->save();
+                $nov=Novedades_practicas::all()->where('np_dp_id',$desarrollo->dp_id);
+                if(isset($nov)){
+                    foreach($nov as $n){
+                        $an=new Auditoria_novedades_practicas();
+                        $an->anp_id=$n->np_id;
+                        $an->anp_adp_id=$n->np_dp_id;
+                        $an->anp_descripcion=$n->np_descripcion;
+                        $an->anp_fecha=$n->np_fecha;
+                        $an->save();
+                    }
+                    $nov=Novedades_practicas::where('np_dp_id',$desarrollo->dp_id)->delete();
+                }
+            }
+            DesarrolloPractica::find($request->user()->practicas->dp_id)->delete();
+        }
+        
+        $ap_exist=Auditoria_propuesta_practicas::find($request->user()->practicasp->pp_id);
+        if(is_null($ap_exist)){
+            $app=new Auditoria_propuesta_practicas();
+            $app->app_id=$request->user()->practicasp->pp_id;
+            $app->app_titulo=$request->user()->practicasp->pp_titulo;
+            $app->app_usu_id=$request->user()->id;
+            $app->app_emp_id=$request->user()->practicasp->pp_emp_id;
+            $app->app_numconvenio=$request->user()->practicasp->pp_numconvenio;
+            $app->app_fechaconvenio=$request->user()->practicasp->pp_fechaconvenio;
+            $app->app_dir_usu_id=$request->user()->practicasp->pp_dir_usu_id;
+            $app->app_pro_id=$request->user()->practicasp->pp_pro_id;
+            $app->app_con_id=$request->user()->practicasp->pp_con_id;
+            $app->app_formato=$request->user()->practicasp->pp_formato;
+            $app->app_fecha_entrega=$request->user()->practicasp->pp_fechaentrega;
+            $app->app_fecha_calificacion=$request->user()->practicasp->pp_fechacalificaion;
+            $app->save();
+            
+        }
+        PropuestaPractica::find($request->user()->practicasp->pp_id)->delete();
+        
         
         return redirect()->route("estudiantes.index");
     }
@@ -532,6 +596,41 @@ class EstudiantesController extends Controller
         
         $desarrollo=Desarrollo::find($id)->delete();
         $propuesta=Propuesta::find($id)->delete();
+        return redirect()->route('estudiantes.index')->with('success','Felicidades, Terminaste tu proceso de trabajo de grado.');
+    }
+
+    public function finalizarPractica(Request $request,$id){
+        $desarrollo=DesarrolloPractica::find($id);
+        $adp=new Auditoria_desarrollo_practicas();
+        $adp->adp_id=$desarrollo->dp_id;
+        $adp->adp_titulo=$desarrollo->dp_titulo;
+        $adp->adp_usu_id=$request->user()->id;
+        $adp->adp_emp_id=$desarrollo->dp_emp_id;
+        $adp->adp_numconvenio=$desarrollo->dp_numconvenio;
+        $adp->adp_fechaconvenio=$desarrollo->dp_fechaconvenio;
+        $adp->adp_dir_usu_id=$desarrollo->dp_dir_usu_id;
+        $adp->adp_pro_id=$desarrollo->dp_pro_id;
+        $adp->adp_app_id=$desarrollo->dp_pp_id;
+        $adp->adp_con_id=$desarrollo->dp_con_id;
+        $adp->adp_formato=$desarrollo->dp_formato;
+        $adp->adp_fecha_entrega=$desarrollo->dp_fecha_entrega;
+        $adp->adp_fecha_calificacion=$desarrollo->dp_fecha_calificaion;
+        $adp->save();
+
+        $nov=Novedades_practicas::all()->where('np_dp_id',$desarrollo->dp_id);
+        if(isset($nov)){
+            foreach($nov as $n){
+                $an=new Auditoria_novedades_practicas();
+                $an->anp_id=$n->np_id;
+                $an->anp_adp_id=$n->np_dp_id;
+                $an->anp_descripcion=$n->np_descripcion;
+                $an->anp_fecha=$n->np_fecha;
+                $an->save();
+            }
+            $nov=Novedades_practicas::where('np_dp_id',$desarrollo->dp_id)->delete();
+        }
+        $desarrollo=DesarrolloPractica::find($id)->delete();
+        $propuesta=PropuestaPractica::find($id)->delete();
         return redirect()->route('estudiantes.index')->with('success','Felicidades, Terminaste tu proceso de trabajo de grado.');
     }
 }

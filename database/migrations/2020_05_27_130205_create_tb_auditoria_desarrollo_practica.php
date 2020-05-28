@@ -26,9 +26,9 @@ class CreateTbAuditoriaDesarrolloPractica extends Migration
             $table->date('adp_fechaconvenio');
             $table->integer('adp_pro_id')->unsigned();
             $table->foreign('adp_pro_id')->references('pro_id')->on('programas');
-            $table->integer('adp_pp_id');
-            $table->foreign('adp_pp_id')->references('pp_id')->on('propuesta_practicas');
-            $table->integer('adp_con_id');
+            $table->integer('adp_app_id');
+            $table->foreign('adp_app_id')->references('app_id')->on('auditoria_propuesta_practica');
+            $table->integer('adp_con_id')->nullable();
             $table->foreign('adp_con_id')->references('con_id')->on('conceptos');
             $table->string('adp_formato')->nullable();
             $table->date('adp_fecha_entrega')->nullable();

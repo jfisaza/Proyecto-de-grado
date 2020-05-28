@@ -93,6 +93,9 @@ class User extends Authenticatable
     public function practicas(){
         return $this->hasOne(DesarrolloPractica::class,'dp_usu_id');
     }
+    public function practicasp(){
+        return $this->hasOne(PropuestaPractica::class,'pp_usu_id');
+    }
     
 
 }

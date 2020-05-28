@@ -53,6 +53,7 @@ class DocentesController extends Controller
         $concepto->save();
         return redirect()->route('docentes.index');
     }
+    
 
     public function downloadPropuesta($id){
         $propuesta=Propuesta::find($id);
@@ -62,6 +63,16 @@ class DocentesController extends Controller
     public function downloadDesarrollo($id){
         $desarrollo=Desarrollo::find($id);
         $ruta=$desarrollo->des_formato;
+        return response()->download(public_path()."/files/desarrollo/$ruta");
+    }
+    public function downloadPropuestaPractica($id){
+        $propuesta=PropuestaPractica::find($id);
+        $ruta=$propuesta->pp_formato;
+        return response()->download(public_path()."/files/propuesta/$ruta");
+    }
+    public function downloadDesarrolloPractica($id){
+        $desarrollo=DesarrolloPractica::find($id);
+        $ruta=$desarrollo->dp_formato;
         return response()->download(public_path()."/files/desarrollo/$ruta");
     }
 }

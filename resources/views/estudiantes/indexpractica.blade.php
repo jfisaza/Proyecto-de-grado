@@ -102,7 +102,7 @@
                                     <td>
                                     @if(is_null($practicas->desarrollo))
                                         @if(is_null($practicas->pp_con_id) || (isset($practicas->concepto->con_nombre) && $practicas->concepto->con_nombre != 'APROBADO'))
-                                        <a href="" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Abandonar propuesta" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
+                                        <a href="{{ action('EstudiantesController@abandonarPractica') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Abandonar propuesta" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
                                         <a href="{{ action('EstudiantesController@editp',$practicas->pp_id) }}" class="btn btn-sm btn-primary ml-3" title="Editar"><span class="fas fa-edit"></span></a>
                                         @endif
                                         @endif
@@ -192,17 +192,17 @@
                                     <td>
                                     @if(is_null($desarrollo->concepto) || (isset($desarrollo->concepto) && $desarrollo->concepto->con_nombre != 'APROBADO'))
                                         <a href="{{ action('EstudiantesController@desarrolloPracticaEdit',$desarrollo->dp_id) }}" class="btn btn-sm btn-primary ml-3" title="Editar" ><span class="fas fa-edit"></span></a>
-                                        <a href="" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Dejar trabajo de grado" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
+                                        <a href="{{ action('EstudiantesController@abandonarPractica') }}" onclick="return confirm('¿Esta seguro de abandonar el trabajo de grado?')" title="Dejar trabajo de grado" class="btn btn-sm btn-danger"><span class="fas fa-arrow-left"></span></a>
                                     @endif
                                     @if(isset($desarrollo->concepto) && $desarrollo->concepto->con_nombre === 'APROBADO')
-                                        <a href="" class="btn btn-sm btn-success">Finalizar Proceso <span class="fas fa-arrow-right"></span></a>
+                                        <a href="{{ action('EstudiantesController@finalizarPractica',$desarrollo->dp_id) }}" class="btn btn-sm btn-success">Finalizar Proceso <span class="fas fa-arrow-right"></span></a>
                                     @endif
                                     </td>
                                 </tr>
                                 @elseif(isset($practicas->concepto) && $practicas->concepto->con_nombre === 'APROBADO')
                                 <div class="jumbotron">
                                     <h1 class="display-4">Propuesta de Practica Aprobada!!</h1>
-                                    <a href="{{ action('EstudiantesController@crearDesarrollo') }}" class="btn btn-sm btn-primary">Seguir a desarrollo <span class="fas fa-arrow-right"></span></a>
+                                    <a href="{{ action('EstudiantesController@crearDesarrolloPractica',$practicas->pp_id) }}" class="btn btn-sm btn-primary">Seguir a desarrollo <span class="fas fa-arrow-right"></span></a>
                                 </div>
                                 @else
                                 <div class="jumbotron">

@@ -8,6 +8,10 @@ use App\Exports\PropuestasExport;
 use App\Exports\DesarrollosExport;
 use App\Exports\AuditoriaPropuestaExport;
 use App\Exports\AuditoriaDesarrolloExport;
+use App\Exports\PropuestasPracticaExport;
+use App\Exports\DesarrollosPracticaExport;
+use App\Exports\AuditoriaPropuestaPracticaExport;
+use App\Exports\AuditoriaDesarrolloPracticaExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\PropuestaPractica;
 use App\DesarrolloPractica;
@@ -109,6 +113,27 @@ class AdministrativosController extends Controller
         return redirect()->route('administrativos.index');
 
     }
+    public function asignarPropuestaPractica(Request $request,$id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        $propuesta=PropuestaPractica::find($id);
+        $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        return view('administrativos.asignarPropuestaPractica',compact('propuesta','docentes'));
+    }
+
+    public function asignarCalificadorPropuestaPractica(Request $request){
+        
+        $concepto=new Conceptos();
+        $concepto->con_nombre='ESPERA';
+        $concepto->con_usu_id=$request->input('con_usu_id');
+        $concepto->save();
+        $id=DB::table('conceptos')->max('con_id');
+        $propuesta=PropuestaPractica::find($request->pp_id)->update(['pp_con_id'=>$id]);
+        return redirect()->route('administrativos.index');
+
+    }
 
     public function asignarDesarrollo(Request $request,$id){
         if(empty($request->user())){
@@ -132,15 +157,47 @@ class AdministrativosController extends Controller
 
     }
 
+    public function asignarDesarrolloPractica(Request $request,$id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        $desarrollo=DesarrolloPractica::find($id);
+        $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        return view('administrativos.asignarDesarrolloPractica',compact('desarrollo','docentes'));
+    }
+
+    public function asignarCalificadorDesarrolloPractica(Request $request){
+        
+        $concepto=new Conceptos();
+        $concepto->con_nombre='ESPERA';
+        $concepto->con_usu_id=$request->input('con_usu_id');
+        $concepto->save();
+        $id=DB::table('conceptos')->max('con_id');
+        $desarrollo=DesarrolloPractica::find($request->dp_id)->update(['dp_con_id'=>$id]);
+        return redirect()->route('administrativos.index');
+
+    }
+
     public function downloadPropuesta($id){
         $propuesta=Propuesta::find($id);
         $ruta=$propuesta->prop_formato;
+        return response()->download(public_path()."/files/propuesta/$ruta");
+    }
+    public function downloadPropuestaPractica($id){
+        $propuesta=PropuestaPractica::find($id);
+        $ruta=$propuesta->pp_formato;
         return response()->download(public_path()."/files/propuesta/$ruta");
     }
 
     public function downloadDesarrollo($id){
         $desarrollo=Desarrollo::find($id);
         $ruta=$desarrollo->des_formato;
+        return response()->download(public_path()."/files/desarrollo/$ruta");
+    }
+    public function downloadDesarrolloPractica($id){
+        $desarrollo=DesarrolloPractica::find($id);
+        $ruta=$desarrollo->dp_formato;
         return response()->download(public_path()."/files/desarrollo/$ruta");
     }
 
@@ -195,6 +252,22 @@ class AdministrativosController extends Controller
         $request->user()->authorizeRoles('administrativo');
         return Excel::download(new DesarrollosExport, 'trabajos.xlsx');
     }
+    public function exportPropuestaPractica(Request $request) 
+    {
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return Excel::download(new PropuestasPracticaExport, 'propuestas-practicas.xlsx');
+    }
+    public function exportDesarrolloPractica(Request $request) 
+    {
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return Excel::download(new DesarrollosPracticaExport, 'trabajos-practicas.xlsx');
+    }
     public function exportAuditoriaPropuesta(Request $request) 
     {
         if(empty($request->user())){
@@ -210,6 +283,22 @@ class AdministrativosController extends Controller
         }
         $request->user()->authorizeRoles('administrativo');
         return Excel::download(new AuditoriaDesarrolloExport, 'AuditoriaTrabajos.xlsx');
+    }
+    public function exportAuditoriaPropuestaPractica(Request $request) 
+    {
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return Excel::download(new AuditoriaPropuestasPracticaExport, 'AuditoriaPropuestasPracticas.xlsx');
+    }
+    public function exportAuditoriaDesarrolloPractica(Request $request) 
+    {
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+        return Excel::download(new AuditoriaDesarrollosPracticaExport, 'AuditoriaTrabajosPracticas.xlsx');
     }
 
 }

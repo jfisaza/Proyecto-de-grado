@@ -30,9 +30,15 @@
                     @if(isset($concepto->desarrollos))
                     <strong>Código: </strong><p>{{ $concepto->desarrollos->des_id }}</p>
                     <strong>Titulo: </strong><p>{{ $concepto->desarrollos->des_titulo }}</p>
-                    @else
+                    @elseif(isset($concepto->propuestas))
                     <strong>Código: </strong><p>{{ $concepto->propuestas->prop_id }}</p>
                     <strong>Titulo: </strong><p>{{ $concepto->propuestas->prop_titulo }}</p>
+                    @elseif(isset($concepto->desarrollosP))
+                    <strong>Código: </strong><p>{{ $concepto->desarrollosP->dp_id }}</p>
+                    <strong>Titulo: </strong><p>{{ $concepto->desarrollosP->dp_titulo }}</p>
+                    @else
+                    <strong>Código: </strong><p>{{ $concepto->propuestasP->pp_id }}</p>
+                    <strong>Titulo: </strong><p>{{ $concepto->propuestasP->pp_titulo }}</p>
                     @endif
                     
                 </div>
