@@ -21,7 +21,10 @@ use App\Conceptos;
 use App\User;
 use App\Auditoria_propuesta;
 use App\Auditoria_desarrollo;
+use App\Auditoria_propuesta_practicas;
+use App\Auditoria_desarrollo_practicas;
 use App\Empresas;
+use App\Exports\AuditoriaPropuestasPracticaExport;
 use App\Solicitudes;
 
 class AdministrativosController extends Controller
@@ -35,13 +38,15 @@ class AdministrativosController extends Controller
         $desarrollo=Desarrollo::codigo($request->get('des_id'))->paginate();
         $ap=Auditoria_propuesta::codigo($request->get('ap_id'))->paginate();
         $ad=Auditoria_desarrollo::codigo($request->get('ad_id'))->paginate();
+        $app=Auditoria_propuesta_practicas::codigo($request->get('app_id'));
+        $apd=Auditoria_desarrollo_practicas::codigo($request->get('adp_id'));
         $empresas=Empresas::paginate();
         $pp=PropuestaPractica::paginate();
         $pd=DesarrolloPractica::paginate();
         $solicitudes=Solicitudes::paginate();
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','2')->get();
         $administrativos=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','1')->get();
-        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos","pp","pd"));
+        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos","pp","pd","app","apd"));
     }
 
     public function create(Request $request){

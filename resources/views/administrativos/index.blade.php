@@ -2,10 +2,8 @@
 
 @section('content')
 <div class="pagina-info">
-
     <div class="container">
         <div class="row justify-content-center">
-
             <div class="card">
                 <div class="card-header p-3 mb-2 bg-success text-white ">
                     <br>
@@ -43,6 +41,14 @@
                                 <li class="nav-item">
                                     <a href="#ad" class="nav-link">Auditoria Desarrollo</a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a href="#apracticas" class="nav-link">Auditoria Practicas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#apracticasf" class="nav-link">Auditoria Practicas Final</a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a href="#docentes" class="nav-link">Docentes</a>
                                 </li>
@@ -91,11 +97,11 @@
                                             <td>{{$prop->prop_titulo }}</td>
                                             <td>
                                                 @foreach($prop->estudiantes as $est)
-                                                    <table>
-                                                        <tr>
+                                                <table>
+                                                    <tr>
                                                         <td>{{ $est->nombres }} {{ $est->apellidos }}</td>
-                                                        </tr>
-                                                    </table>
+                                                    </tr>
+                                                </table>
                                                 @endforeach
                                             </td>
                                             <td>{{$prop->director->nombres}} {{ $prop->director->apellidos }}</td>
@@ -130,18 +136,18 @@
                                                 {{ $prop->concepto->con_acta }}
                                                 @endif
                                             </td>
-                                            
+
                                             <td>
-                                            @if(is_null($prop->prop_con_id))
-                                            <a href="{{ action('AdministrativosController@asignarPropuesta', $prop->prop_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
-                                            @endif
+                                                @if(is_null($prop->prop_con_id))
+                                                <a href="{{ action('AdministrativosController@asignarPropuesta', $prop->prop_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endif
                                         @endforeach
                                         @else
                                         <tr>
-                                            <td colspan="8">No hay registro !!</td>
+                                            <td colspan="14">No hay registro !!</td>
                                         </tr>
                                         @endif
                                     </tbody>
@@ -151,7 +157,7 @@
                             </div>
                         </article>
                         <article id="trabajos">
-                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                            <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="des_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
@@ -176,7 +182,7 @@
                                         <th>Acciones</th>
                                     </thead>
                                     <tbody>
-                                    @if($desarrollo->count())
+                                        @if($desarrollo->count())
                                         @foreach($desarrollo as $des)
                                         @if($des->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
                                         <tr>
@@ -184,11 +190,11 @@
                                             <td>{{ $des->des_titulo }}</td>
                                             <td>
                                                 @foreach($des->estudiantes as $est)
-                                                    <table>
-                                                        <tr>
+                                                <table>
+                                                    <tr>
                                                         <td>{{ $est->nombres }} {{ $est->apellidos }}</td>
-                                                        </tr>
-                                                    </table>
+                                                    </tr>
+                                                </table>
                                                 @endforeach
                                             </td>
                                             <td>{{$des->director->nombres}} {{ $des->director->apellidos }}</td>
@@ -223,14 +229,18 @@
                                                 @endif
                                             </td>
                                             <td>
-                                            @if(is_null($des->des_con_id))
-                                            <a href="{{ action('AdministrativosController@asignarDesarrollo', $des->des_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
-                                            @endif
+                                                @if(is_null($des->des_con_id))
+                                                <a href="{{ action('AdministrativosController@asignarDesarrollo', $des->des_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endif
                                         @endforeach
-                                    @endif
+                                        @else
+                                        <tr>
+                                            <td colspan="13">No hay registro !!</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
 
@@ -239,7 +249,7 @@
                             </div>
                         </article>
                         <article id="practicas">
-                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                            <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="pra_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
@@ -300,18 +310,18 @@
                                                 {{ $pr->concepto->con_acta }}
                                                 @endif
                                             </td>
-                                            
+
                                             <td>
-                                            @if(is_null($pr->pp_con_id))
-                                            <a href="{{ action('AdministrativosController@asignarPropuestaPractica',$pr->pp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
-                                            @endif
+                                                @if(is_null($pr->pp_con_id))
+                                                <a href="{{ action('AdministrativosController@asignarPropuestaPractica',$pr->pp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endif
                                         @endforeach
                                         @else
                                         <tr>
-                                            <td colspan="8">No hay registro !!</td>
+                                            <td colspan="14">No hay registro !!</td>
                                         </tr>
                                         @endif</tbody>
                                 </table>
@@ -320,7 +330,7 @@
                             </div>
                         </article>
                         <article id="practicaFinal">
-                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                            <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="pra_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
@@ -378,18 +388,18 @@
                                                 {{ $pr->concepto->con_acta }}
                                                 @endif
                                             </td>
-                                            
+
                                             <td>
-                                            @if(is_null($pr->dp_con_id))
-                                            <a href="{{ action('AdministrativosController@asignarDesarrolloPractica',$pr->dp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
-                                            @endif
+                                                @if(is_null($pr->dp_con_id))
+                                                <a href="{{ action('AdministrativosController@asignarDesarrolloPractica',$pr->dp_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endif
                                         @endforeach
                                         @else
                                         <tr>
-                                            <td colspan="8">No hay registro !!</td>
+                                            <td colspan="12">No hay registro !!</td>
                                         </tr>
                                         @endif</tbody>
                                 </table>
@@ -411,24 +421,28 @@
                                         <th>Acciones</th>
                                     </thead>
                                     <tbody>
-                                    @if(isset($solicitudes))
-                                    @foreach($solicitudes as $sol)
-                                    @if($sol->programa->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
-                                    <tr>
-                                        <td>{{ $sol->programa->pro_nombre }}</td>
-                                        <td>{{ $sol->empresa->emp_nombre }}</td>
-                                        <td>{{ $sol->empresa->emp_representante }}</td>
-                                        <td>{{ $sol->empresa->emp_telefono }}</td>
-                                        <td>{{ $sol->empresa->emp_correo }}</td>
-                                        <td>{{ $sol->empresa->emp_direccion }}</td>
-                                        <td>
-                                            <a href="{{ action('BancoController@editSolicitud',$sol->sol_id) }}" class="btn btn-sm btn-primary"><span class="fas fa-edit"></span></a>
-                                            <a href="{{ action('BancoController@destroySolicitud',$sol->sol_id) }}" class="btn btn-sm btn-primary"><span class="fas fa-trash" onclick="return confirm('¿Está seguro de eliminar?')"></span></a>
-                                        </td>
-                                    </tr>
-                                    @endif
-                                    @endforeach
-                                    @endif
+                                        @if(isset($solicitudes))
+                                        @foreach($solicitudes as $sol)
+                                        @if($sol->programa->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
+                                        <tr>
+                                            <td>{{ $sol->programa->pro_nombre }}</td>
+                                            <td>{{ $sol->empresa->emp_nombre }}</td>
+                                            <td>{{ $sol->empresa->emp_representante }}</td>
+                                            <td>{{ $sol->empresa->emp_telefono }}</td>
+                                            <td>{{ $sol->empresa->emp_correo }}</td>
+                                            <td>{{ $sol->empresa->emp_direccion }}</td>
+                                            <td>
+                                                <a href="{{ action('BancoController@editSolicitud',$sol->sol_id) }}" class="btn btn-sm btn-primary"><span class="fas fa-edit"></span></a>
+                                                <a href="{{ action('BancoController@destroySolicitud',$sol->sol_id) }}" class="btn btn-sm btn-primary"><span class="fas fa-trash" onclick="return confirm('¿Está seguro de eliminar?')"></span></a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="7">No hay registro !!</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
 
@@ -449,22 +463,26 @@
                                         <th>Acciones</th>
                                     </thead>
                                     <tbody>
-                                    @if(isset($empresas))
-                                    @foreach($empresas as $emp)
-                                    <tr>
-                                        <td>{{ $emp->emp_nombre }}</td>
-                                        <td>{{ $emp->emp_sector }}</td>
-                                        <td>{{ $emp->emp_representante }}</td>
-                                        <td>{{ $emp->emp_telefono }}</td>
-                                        <td>{{ $emp->emp_correo }}</td>
-                                        <td>{{ $emp->emp_direccion }}</td>
-                                        <td>
-                                        <a href="{{ route('administrativos.edit',$emp->emp_id) }}" class="btn btn-sm btn-primary" title="Editar"><span class="fas fa-edit"></span></a>
-                                        <a href="{{ route('administrativos.destroy',$emp->emp_id) }}" class="btn btn-sm btn-primary" onclick="return confirm('¿Esta seguro de eliminar?')" title="Eliminar"><span class="fas fa-trash"></span></a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
+                                        @if(isset($empresas))
+                                        @foreach($empresas as $emp)
+                                        <tr>
+                                            <td>{{ $emp->emp_nombre }}</td>
+                                            <td>{{ $emp->emp_sector }}</td>
+                                            <td>{{ $emp->emp_representante }}</td>
+                                            <td>{{ $emp->emp_telefono }}</td>
+                                            <td>{{ $emp->emp_correo }}</td>
+                                            <td>{{ $emp->emp_direccion }}</td>
+                                            <td>
+                                                <a href="{{ route('administrativos.edit',$emp->emp_id) }}" class="btn btn-sm btn-primary" title="Editar"><span class="fas fa-edit"></span></a>
+                                                <a href="{{ route('administrativos.destroy',$emp->emp_id) }}" class="btn btn-sm btn-primary" onclick="return confirm('¿Esta seguro de eliminar?')" title="Eliminar"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="7">No hay registro !!</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                                 {{$empresas->links()}}
@@ -472,7 +490,7 @@
                             </div>
                         </article>
                         <article id="ap">
-                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                            <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="ap_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
@@ -508,13 +526,13 @@
                                             <td>
                                                 <table>
                                                     <tr>
-                                                    <td>{{ $a->est1->nombres }} {{ $a->est1->apellidos }}</td>
-                                                    @if(isset($a->est2))
-                                                    <td>{{ $a->est2->nombres }} {{ $a->est2->apellidos }}</td>
-                                                    @endif
-                                                    @if(isset($a->est3))
-                                                    <td>{{ $a->est3->nombres }} {{ $a->est3->apellidos }}</td>
-                                                    @endif
+                                                        <td>{{ $a->est1->nombres }} {{ $a->est1->apellidos }}</td>
+                                                        @if(isset($a->est2))
+                                                        <td>{{ $a->est2->nombres }} {{ $a->est2->apellidos }}</td>
+                                                        @endif
+                                                        @if(isset($a->est3))
+                                                        <td>{{ $a->est3->nombres }} {{ $a->est3->apellidos }}</td>
+                                                        @endif
                                                     </tr>
                                                 </table>
                                             </td>
@@ -555,7 +573,7 @@
                                         @endforeach
                                         @else
                                         <tr>
-                                            <td colspan="8">No hay registro !!</td>
+                                            <td colspan="14">No hay registro !!</td>
                                         </tr>
                                         @endif
                                     </tbody>
@@ -566,7 +584,7 @@
                             </div>
                         </article>
                         <article id="ad">
-                        <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                            <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="ad_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
@@ -591,7 +609,7 @@
                                         <th>Acciones</th>
                                     </thead>
                                     <tbody>
-                                    @if($ad->count())
+                                        @if($ad->count())
                                         @foreach($ad as $des)
                                         @if($des->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
                                         <tr>
@@ -600,13 +618,13 @@
                                             <td>
                                                 <table>
                                                     <tr>
-                                                    <td>{{ $des->est1->nombres }} {{ $des->est1->apellidos }}</td>
-                                                    @if(isset($des->est2))
-                                                    <td>{{ $des->est2->nombres }} {{ $des->est2->apellidos }}</td>
-                                                    @endif
-                                                    @if(isset($des->est3))
-                                                    <td>{{ $des->est3->nombres }} {{ $des->est3->apellidos }}</td>
-                                                    @endif
+                                                        <td>{{ $des->est1->nombres }} {{ $des->est1->apellidos }}</td>
+                                                        @if(isset($des->est2))
+                                                        <td>{{ $des->est2->nombres }} {{ $des->est2->apellidos }}</td>
+                                                        @endif
+                                                        @if(isset($des->est3))
+                                                        <td>{{ $des->est3->nombres }} {{ $des->est3->apellidos }}</td>
+                                                        @endif
                                                     </tr>
                                                 </table>
                                             </td>
@@ -644,7 +662,11 @@
                                         </tr>
                                         @endif
                                         @endforeach
-                                    @endif
+                                        @else
+                                        <tr>
+                                            <td colspan="13">No hay registro !!</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
 
@@ -652,6 +674,168 @@
 
                             </div>
                         </article>
+
+
+                        <article id="apracticas">
+                            <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                                <input type="text" name="ap_id" class="form-control" placeholder="Código">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
+                                </div>
+                            </form>
+                            <div class="table-responsive mt-3">
+                                <table class="table">
+                                    <thead class="table-success">
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Titulo</th>
+                                            <th>Estudiante</th>
+                                            <th>Director</th>
+                                            <th>Programa</th>
+                                            <th>Empresa</th>
+                                            <th># convenio</th>
+                                            <th>Fecha convenio</th>
+                                            <th>Formato RDC</th>
+                                            <th>Fecha Entrega</th>
+                                            <th>Calificador</th>
+                                            <th>Estado</th>
+                                            <th>Fecha Calificación</th>
+                                            <th>Número Acta</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if($app->count())
+                                        @foreach($app as $a)
+                                        @if($a->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
+                                        <tr>
+                                            <td>{{$a->app_id}}</td>
+                                            <td>{{$a->app_titulo }}</td>
+                                            <td> {{ $a->estudiante->nombres }} {{ $a->estudiante->apellidos }}</td>
+                                            <td>{{ $a->director->nombres}}</td>
+                                            <td>{{ $a->programas->pro_nombre }}</td>
+                                            <td>{{ $a->empresa->emp_nombre}}</td>
+                                            <td>{{ $a->app_numconvenio}}</td>
+                                            <td>{{ $a->app_fechaconvenio}}</td>
+                                            <td>
+                                                @if(isset($a->app_formato))
+                                                <a href="{{ action('AdministrativosController@downloadAuditoriaPropuesta', $a->app_id) }}">{{$a->app_formato}} <span class="fas fa-download"></span></a>
+                                                @endif
+                                            </td>
+                                            <td>{{$a->created_at}}</td>
+                                            <td>@if(isset ($a->concepto->calificador))
+                                                {{$a->concepto->calificador->nombres}}
+                                                @endif
+                                            </td>
+                                            <td>@if(isset($a->concepto->con_nombre))
+                                                {{$a->concepto->con_nombre}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($a->concepto->con_fecha))
+                                                {{$a->concepto->con_fecha}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($a->concepto->con_acta))
+                                                {{ $a->concepto->con_acta }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="15">No hay registro !!</td>
+                                        </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+
+                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuestaPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
+
+                            </div>
+                        </article>
+                        <article id="apracticasf">
+                            <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
+                                <input type="text" name="ad_id" class="form-control" placeholder="Código">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
+                                </div>
+                            </form>
+                            <div class="table-responsive mt-3">
+
+                                <table class="table">
+                                    <thead class="table-success">
+                                        <th>Código</th>
+                                        <th>Titulo</th>
+                                        <th>Estudiante</th>
+                                        <th>Director</th>
+                                        <th>Programa</th>
+                                        <th>Empresa</th>
+                                        <th># convenio</th>
+                                        <th>Fecha convenio</th>
+                                        <th>Formato RDC</th>
+                                        <th>Fecha Entrega</th>
+                                        <th>Calificador</th>
+                                        <th>Estado</th>
+                                        <th>Fecha Calificación</th>
+                                        <th>Número Acta</th>
+                                        <th>Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                        @if($ad->count())
+                                        @foreach($apd as $des)
+                                        @if($des->programas->coordinacion->coo_nombre === auth()->user()->programas->coordinacion->coo_nombre)
+                                        <tr>
+                                            <td>{{ $des->adp_id }}</td>
+                                            <td>{{ $des->adp_titulo }}</td>
+                                            <td> {{ $des->estudiante->nombres }} {{ $des->estudiante->apellidos }}</td>
+                                            <td>{{$des->director->nombres}} {{ $des->director->apellidos }}</td>
+                                            <td>{{ $des->programas->pro_nombre }}</td>
+                                            <td>{{$des->adp_numconvenio}}</td>
+                                            <td>{{$des->adp_fechaconvenio}}</td>
+                                            <td>
+                                                @if(isset($des->adp_formato))
+                                                <a href="{{ action('AdministrativosController@downloadAuditoriaDesarrollo', $des->adp_id) }}">{{$des->adp_formato}} <span class="fas fa-download"></span></a>
+                                                @endif
+                                            </td>
+                                            <td>@if(isset ($des->concepto->calificador))
+                                                {{$des->concepto->calificador->nombres}}
+                                                @endif
+                                            </td>
+                                            <td>@if(isset($des->concepto->con_nombre))
+                                                {{$des->concepto->con_nombre}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($des->concepto->con_fecha))
+                                                {{$des->concepto->con_fecha}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($des->concepto->con_acta))
+                                                {{ $des->concepto->con_acta }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="15">No hay registro !!</td>
+                                        </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+
+                                <a href="{{ action('AdministrativosController@exportAuditoriaDesarrolloPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
+
+                            </div>
+                        </article>
+
+
+
                         <article id="docentes">
                             <div class="table-responsive">
 
@@ -665,19 +849,23 @@
                                         <th>Acciones</th>
                                     </thead>
                                     <tbody>
-                                    @if(isset($docentes))
-                                    @foreach($docentes as $doc)
-                                    
-                                    <tr>
-                                        <td>{{ $doc->documento }}</td>
-                                        <td>{{ $doc->nombres }}</td>
-                                        <td>{{ $doc->apellidos }}</td>
-                                        <td>{{ $doc->telefono }}</td>
-                                        <td>{{ $doc->email }}</td>
-                                        <td><a href="{{ action('AdministrativosController@setRolEstudiante',$doc->id) }}" class="btn btn-sm btn-primary" title="Remover Rol" onclick="return confirm('¿Esta seguro de quitar el rol a este usuario?')"><span class="fas fa-arrow-down"></span></a></td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
+                                        @if(isset($docentes))
+                                        @foreach($docentes as $doc)
+
+                                        <tr>
+                                            <td>{{ $doc->documento }}</td>
+                                            <td>{{ $doc->nombres }}</td>
+                                            <td>{{ $doc->apellidos }}</td>
+                                            <td>{{ $doc->telefono }}</td>
+                                            <td>{{ $doc->email }}</td>
+                                            <td><a href="{{ action('AdministrativosController@setRolEstudiante',$doc->id) }}" class="btn btn-sm btn-primary" title="Remover Rol" onclick="return confirm('¿Esta seguro de quitar el rol a este usuario?')"><span class="fas fa-arrow-down"></span></a></td>
+                                        </tr>
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="6">No hay registro !!</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
 
@@ -697,18 +885,22 @@
                                         <th>Acciones</th>
                                     </thead>
                                     <tbody>
-                                    @if(isset($administrativos))
-                                    @foreach($administrativos as $admin)
-                                    <tr>
-                                        <td>{{ $admin->documento }}</td>
-                                        <td>{{ $admin->nombres }}</td>
-                                        <td>{{ $admin->apellidos }}</td>
-                                        <td>{{ $admin->telefono }}</td>
-                                        <td>{{ $admin->email }}</td>
-                                        <td><a href="{{ action('AdministrativosController@setRolEstudiante',$admin->id) }}" class="btn btn-sm btn-primary" title="Remover Rol" onclick="return confirm('¿Esta seguro de quitar el rol a este usuario?')"><span class="fas fa-arrow-down"></span></a></td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
+                                        @if(isset($administrativos))
+                                        @foreach($administrativos as $admin)
+                                        <tr>
+                                            <td>{{ $admin->documento }}</td>
+                                            <td>{{ $admin->nombres }}</td>
+                                            <td>{{ $admin->apellidos }}</td>
+                                            <td>{{ $admin->telefono }}</td>
+                                            <td>{{ $admin->email }}</td>
+                                            <td><a href="{{ action('AdministrativosController@setRolEstudiante',$admin->id) }}" class="btn btn-sm btn-primary" title="Remover Rol" onclick="return confirm('¿Esta seguro de quitar el rol a este usuario?')"><span class="fas fa-arrow-down"></span></a></td>
+                                        </tr>
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="6">No hay registro !!</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
 
@@ -723,53 +915,53 @@
     </div>
 </div>
 <div class="modal" tabindex="-1" role="dialog" id="modal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Asignar Docente</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Asignar Docente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ action('AdministrativosController@setRolDocente') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="documento">Documento</label>
+                        <input type="text" name="documento" class="form-control">
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ action('AdministrativosController@setRolDocente') }}" method="post">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <label for="documento">Documento</label>
-                                <input type="text" name="documento" class="form-control">
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <input type="submit" class="btn btn-primary" value="Asignar">
-                        </form>
-                    </div>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <input type="submit" class="btn btn-primary" value="Asignar">
+                </form>
             </div>
         </div>
-        <div class="modal" tabindex="-1" role="dialog" id="modal2">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Asignar Administrativo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="modal2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Asignar Administrativo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ action('AdministrativosController@setRolAdministrativo') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="documento">Documento</label>
+                        <input type="text" name="documento" class="form-control">
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ action('AdministrativosController@setRolAdministrativo') }}" method="post">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <label for="documento">Documento</label>
-                                <input type="text" name="documento" class="form-control">
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <input type="submit" class="btn btn-primary" value="Asignar">
-                        </form>
-                    </div>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <input type="submit" class="btn btn-primary" value="Asignar">
+                </form>
             </div>
         </div>
+    </div>
+</div>
 @endsection

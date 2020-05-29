@@ -21,4 +21,15 @@ class Auditoria_desarrollo_practicas extends Model
     public function empresa(){
         return $this->belongsTo(Empresas::class, 'adp_emp_id');
     }
+    public function estudiante(){
+        return $this->belongsTo(User::class, 'adp_usu_id');
+    }
+    public function programas(){
+        return $this->belongsTo(Programas::class,'adp_pro_id');
+    }
+    public function scopeCodigo($query, $id){
+        if($id != ""){
+            $query->where('adp_id',$id);
+        }
+    }
 }

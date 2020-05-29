@@ -12,6 +12,9 @@ class Auditoria_propuesta_practicas extends Model
     ,'app_asesorempresa','app_dir_usu_id','app_pro_id','app_con_id','app_formato',
     'app_fecha_entrega','app_fecha_calificacion'];
 
+    public function estudiante(){
+        return $this->belongsTo(User::class, 'app_usu_id');
+    }
     public function director(){
         return $this->belongsTo(User::class,'app_dir_usu_id');
     }
@@ -23,5 +26,14 @@ class Auditoria_propuesta_practicas extends Model
     }
     public function desarrollo(){
         return $this->hasOne(Auditoria_desarrollo_practicas::class,'adp_app_id');
+    }
+    public function programas(){
+        return $this->belongsTo(Programas::class,'app_pro_id');
+    }
+
+    public function scopeCodigo($query, $id){
+        if($id != ""){
+            $query->where('app_id',$id);
+        }
     }
 }
