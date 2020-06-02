@@ -161,7 +161,11 @@ header section label:hover{
     font-size: 0.9rem;
     line-height: 1.6;
 }
-
+.art{
+    width:100% !important;
+    height:500px !important; 
+    overflow: scroll !important;
+}
 @media(max-width:978px){
 
     header label{

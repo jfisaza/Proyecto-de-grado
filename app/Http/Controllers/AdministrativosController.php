@@ -40,7 +40,7 @@ class AdministrativosController extends Controller
         $ad=Auditoria_desarrollo::codigo($request->get('ad_id'))->paginate();
         $app=Auditoria_propuesta_practicas::codigo($request->get('app_id'));
         $apd=Auditoria_desarrollo_practicas::codigo($request->get('adp_id'));
-        $empresas=Empresas::paginate();
+        $empresas=Empresas::all();
         $pp=PropuestaPractica::paginate();
         $pd=DesarrolloPractica::paginate();
         $solicitudes=Solicitudes::paginate();

@@ -37,10 +37,11 @@
                             </ul>
                         </div>
 
-                        <article id="propuestas">
+                        <article id="propuestas"  >
                           <center><h3>Eres director de estas propuestas:</h3></center>  
-                            <div class="table-responsive">
-                            <table class="table">
+                          <div class="art">
+
+                            <table class="table table-hover" class="art">
                                 <thead class="table-success">
                                     <th>Código</th>
                                     <th>Titulo</th>
@@ -94,9 +95,10 @@
                                     @endif
                                 </tbody>
                             </table>
-                            </div>
+                          </div>
                             <center><h3>Eres codirector de estas propuestas:</h3></center>
-                            <div class="table-responsive">
+                            <div class="art">
+
                             <table class="table">
                                 <thead class="table-success">
                                     <th>Código</th>
@@ -153,9 +155,9 @@
                             </table>
                             </div>
                         </article>
-                        <article id="trabajos">
+                        <article id="trabajos"  >
                            <center> <h3>Eres director de estos Trabajos de grado:</h3></center>
-                            <div class="table-responsive">
+                            <div class="art">
 
                             <table class="table">
                                 <thead class="table-success">
@@ -215,7 +217,7 @@
                             </table>
                             </div>
                            <center> <h3>Eres codirector de estos Trabajos de grado:</h3></center>
-                            <div class="table-responsive">
+                           <div class="art">
 
                             <table class="table">
                                 <thead class="table-success">
@@ -276,9 +278,9 @@
                             </table>
                             </div>
                         </article>
-                        <article id="practicas">
+                        <article id="practicas" >
                           <center><h3>Eres director de estas practicas:</h3></center>  
-                            <div class="table-responsive">
+                          <div class="art">
                             <table class="table">
                                 <thead class="table-success">
                                     <th>Código</th>
@@ -324,11 +326,12 @@
                             </div>
                             
                         </article>
-                        <article id="practicasFinal">
+                        <article id="practicasFinal" >
                           <center><h3>Eres director de estas practicas de Informe Final:</h3></center>  
-                            <div class="table-responsive">
+                          <div class="art">
+
                             <table class="table">
-                                <thead class="table-success">
+                                <thead class="table-success table-hover">
                                     <th>Código</th>
                                     <th>Titulo</th>
                                     <th>Programa</th>
@@ -369,12 +372,12 @@
                                     @endif
                                 </tbody>
                             </table>
-                            </div>
+                          </div>
                             
                         </article>
-                        <article id="banco">
+                        <article id="banco" >
                             <br>
-                        <div class="table-responsive">
+                            <div class="art">
 
                             <table class="table">
                                 <thead class="table-success">
@@ -403,13 +406,14 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            
+                            </div>
+                            <div>
                             <a href="{{ route('banco.create') }}" class="btn btn-primary mt-3">Agregar</a>
                             </div>
                         </article>
 
-                        <article id="calificar">
-                        <div class="table-responsive">
+                        <article id="calificar"  >
+                        <div class="art">
                         <br>
                             <table class="table">
                                 <thead class="table-success">

@@ -1,6 +1,13 @@
 @extends('layout')
 
 @section('content')
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <div class="pagina-info">
 <div class="container">
 <div class="card">
@@ -9,8 +16,8 @@
                             <center><strong>Banco de ideas </strong></center>
                         </h1>
                     </div>
-<div class="card-body">
-<section class="tablas">
+<div class="card-body" >
+<section class="tablas" >
     <div class="tabs">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -30,16 +37,16 @@
                     <option value="{{ $pro->pro_id }}">{{ $pro->pro_nombre }}</option>
                     @endforeach
                 </select>
-                <div class="input-group-append">
+                 <div class="input-group-append">
                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                 </div>
         </form>
 
 
 
-    <article class="ideas" id="ideas">
-        <table class="table-bordered table-hover">
-            <thead>
+    <article class="art ideas" id="ideas"  >
+        <table class="table table-hover data-table" id="example" >
+            <thead class="table-success">
                 <th>Nombre</th>
                 <th>Modalidad</th>
                 <th>Programa</th>
@@ -68,9 +75,9 @@
         </table>    
     </article>
 
-    <article class="solicitudes" id="solicitudes">
-        <table class="table-bordered table-hover">
-            <thead>
+    <article class="solicitudes art" id="solicitudes"  >
+        <table class="table table-hover">
+            <thead class="table-success">
                 <th>Programa</th>
                 <th>Empresa</th>
                 <th>Representante</th>
@@ -103,4 +110,11 @@
 </div>
 </div>
 </div>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> -->
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
 @endsection

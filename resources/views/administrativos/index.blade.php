@@ -61,14 +61,14 @@
                         </div>
                         <br>
                         <br>
-                        <article id="propuestas">
+                        <article id="propuestas" >
                             <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="prop_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive mt-3">
+                            <div class="art">
                                 <table class="table">
                                     <thead class="table-success">
                                         <tr>
@@ -152,18 +152,18 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <a href="{{ action('AdministrativosController@exportPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
-                            </div>
+                                </div>
+                             <div>   <a href="{{ action('AdministrativosController@exportPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a></div>
+                            
                         </article>
-                        <article id="trabajos">
+                        <article id="trabajos"  >
                             <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="des_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive mt-3">
+                            <div class="art">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -243,19 +243,20 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <a href="{{ action('AdministrativosController@exportDesarrollo') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
-
                             </div>
+                            <div>
+                                <a href="{{ action('AdministrativosController@exportDesarrollo') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a></div>
+
+                            
                         </article>
-                        <article id="practicas">
+                        <article id="practicas" >
                             <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="pra_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive mt-3">
+                            <div class="art">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -325,18 +326,20 @@
                                         </tr>
                                         @endif</tbody>
                                 </table>
-                                <a href="{{ action('AdministrativosController@exportPropuestaPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
-
                             </div>
+                            <div>
+                                <a href="{{ action('AdministrativosController@exportPropuestaPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a></div>
+
+                            
                         </article>
-                        <article id="practicaFinal">
+                        <article id="practicaFinal"  >
                             <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="pra_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive mt-3">
+                            <div class="art">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -403,12 +406,13 @@
                                         </tr>
                                         @endif</tbody>
                                 </table>
-                                <a href="{{ action('AdministrativosController@exportDesarrolloPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
-
                             </div>
+                            <div>
+                                <a href="{{ action('AdministrativosController@exportDesarrolloPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a></div>
+
                         </article>
-                        <article id="solicitudes">
-                            <div class="table-responsive">
+                        <article id="solicitudes" >
+                        <div class="art">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -445,14 +449,15 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <a href="{{ action('BancoController@createSolicitud') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>
-                            </div>
+                        </div>
+                        <div>
+                                <a href="{{ action('BancoController@createSolicitud') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a></div>
+                            
                         </article>
-                        <article id="empresas">
-                            <div class="table-responsive">
+                        <article id="empresas"  >
+                        <div class="art">
 
-                                <table class="table">
+                                <table class="table table-hover" >
                                     <thead class="table-success">
                                         <th>Nombre</th>
                                         <th>Sector</th>
@@ -485,18 +490,19 @@
                                         @endif
                                     </tbody>
                                 </table>
-                                {{$empresas->links()}}
-                                <a href="{{ route('administrativos.create') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a>
-                            </div>
+                                    </div>
+                               <div> <a href="{{ route('administrativos.create') }}" class="btn btn-sm btn-success" title="Nuevo"><span class="fas fa-plus"></span></a></div>
+                            
                         </article>
-                        <article id="ap">
+                        <article id="ap" >
                             <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="ap_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive mt-3">
+                            <div class="art">
+
                                 <table class="table">
                                     <thead class="table-success">
                                         <tr>
@@ -578,19 +584,20 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
-
                             </div>
+                            <div>
+                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a></div>
+
+                            
                         </article>
-                        <article id="ad">
+                        <article id="ad"  >
                             <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="ad_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive mt-3">
+                            <div class="art">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -669,21 +676,23 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
-
                             </div>
+                            <div>
+                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuesta') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a></div>
+
+                            
                         </article>
 
 
-                        <article id="apracticas">
+                        <article id="apracticas"  >
                             <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="ap_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive mt-3">
+                            <div class="art">
+
                                 <table class="table">
                                     <thead class="table-success">
                                         <tr>
@@ -751,19 +760,20 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuestaPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
-
                             </div>
+                            <div>
+                                <a href="{{ action('AdministrativosController@exportAuditoriaPropuestaPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a></div>
+
+                            
                         </article>
-                        <article id="apracticasf">
+                        <article id="apracticasf" >
                             <form action="{{ action('AdministrativosController@index') }}" method="get" id="filtro">
                                 <input type="text" name="ad_id" class="form-control" placeholder="Código">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn-primary"><span class="fas fa-search"></span></button>
                                 </div>
                             </form>
-                            <div class="table-responsive mt-3">
+                            <div class="art">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -828,16 +838,17 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <a href="{{ action('AdministrativosController@exportAuditoriaDesarrolloPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a>
-
                             </div>
+                            <div>
+                            
+                                <a href="{{ action('AdministrativosController@exportAuditoriaDesarrolloPractica') }}" title="Exportar"><img src="{{ asset('img/excel.png') }}" width="25px"></a></div>
+                            
                         </article>
 
 
 
-                        <article id="docentes">
-                            <div class="table-responsive">
+                        <article id="docentes"  >
+                        <div class="art">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -868,12 +879,14 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal" title="Nuevo"><span class="fas fa-plus"></span></button>
-                            </div>
+                        </div>
+                        <div>
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal" title="Nuevo"><span class="fas fa-plus"></span></button></div>
+                            
                         </article>
-                        <article id="administrativos">
-                            <div class="table-responsive">
+                        <article id="administrativos" >
+                        
+                            <div  class="art">
 
                                 <table class="table">
                                     <thead class="table-success">
@@ -903,9 +916,11 @@
                                         @endif
                                     </tbody>
                                 </table>
-
-                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal2" title="Nuevo"><span class="fas fa-plus"></span></button>
+                                
                             </div>
+                            
+                            <div><button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal2" title="Nuevo"><span class="fas fa-plus"></span></button></div>
+    
                         </article>
                 </div>
 
