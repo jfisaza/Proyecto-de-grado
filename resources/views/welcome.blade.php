@@ -153,7 +153,7 @@ to{transform: rotate(360deg);}
                     <a href="https://www.dropbox.com/sh/op8bmnpioxnutkq/AAA3aYa4B9loRyLJkkcaX3Sma/DOCUMENTOS%20DE%20GRADO?dl=0&subfolder_nav_tracking=1">Documentos de grado</a>
                     <a href="http://www.uts.edu.co/sitio/">UTS</a>
                     <a href="http://www.uts.edu.co/sitio/wp-content/uploads/normatividad/reglamento_trabajo_grado.pdf">Reglamento Trabajos de grado</a>
-                    <a href="http://www.uts.edu.co/sitio/wp-content/uploads/2019/10/listado-practicas-vigentes.pdf">Practicas</a>
+                    <a href="{{ action('BancoController@index') }}">Banco de ideas y prácticas</a>
                 </div>
             </div>
         </div>

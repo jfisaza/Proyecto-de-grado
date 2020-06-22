@@ -65,7 +65,6 @@
 
                     </div>
                     <div class="form-group">
-<<<<<<< HEAD
                         <label for="des_mod_id"></label>
                         <select id="des_mod_id" name="des_mod_id" class="form-control" required>
                             <option selected value="{{ $desarrollo->modalidad->mod_id }}">{{ $desarrollo->modalidad->mod_nombre }}</option>
@@ -80,10 +79,6 @@
                         <input type="file" class="custom-file-input" id="customFileLangHTML" name="des_formato">
                         <label class="custom-file-label" for="customFileLangHTML" data-browse="">Subir Formato</label>
                     </div>
-=======
-                <div class="custom-file col-md-14">
-                    <input type="file" class="form-control" id="customFileLangHTML" name="prop_formato" required>
->>>>>>> eb5ff86c6887bc8d3a9977f4bfcc16e5585b82b7
                 </div>
             </div>
 

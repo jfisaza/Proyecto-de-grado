@@ -48,7 +48,7 @@ class AdministrativosController extends Controller
         $administrativos=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','1')->get();
         return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos","pp","pd","app","apd"));
     }
-
+    //redirige al formulario para crear una empresa
     public function create(Request $request){
         if(empty($request->user())){
             return view("auth.login");
@@ -56,7 +56,7 @@ class AdministrativosController extends Controller
         $request->user()->authorizeRoles('administrativo');
         return view("administrativos.create");
     }
-
+    //crear una empresa
     public function store(Request $request){
         $empresa=new Empresas();
         $empresa->emp_nombre=strtoupper($request->input('emp_nombre'));
@@ -68,7 +68,7 @@ class AdministrativosController extends Controller
         $empresa->save();
         return redirect()->route('administrativos.index');
     }
-
+    //redirige al formulario para editar los datos de una empresa
     public function edit(Request $request, $id){
         if(empty($request->user())){
             return view("auth.login");
@@ -77,7 +77,7 @@ class AdministrativosController extends Controller
         $empresa=Empresas::find($id);
         return view("administrativos.edit",compact('empresa'));
     }
-
+    //actualizar datos de una empresa
     public function update(Request $request, $id){
         $empresa=Empresas::find($id);
         $empresa->emp_nombre=strtoupper($request->input('emp_nombre'));
@@ -89,6 +89,7 @@ class AdministrativosController extends Controller
         $empresa->save();
         return redirect()->route('administrativos.index');
     }
+    //funciones para eliminar una empresa
     public function show($id){
         return $this->destroy($id);
     }
@@ -96,7 +97,7 @@ class AdministrativosController extends Controller
         $empresa=Empresas::find($id)->delete();
         return redirect()->route('administrativos.index');
     }
-
+    //redirige al formulario para asignar calificador a una propuesta
     public function asignarPropuesta(Request $request,$id){
         if(empty($request->user())){
             return view("auth.login");
@@ -106,7 +107,7 @@ class AdministrativosController extends Controller
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         return view('administrativos.asignarPropuesta',compact('propuesta','docentes'));
     }
-
+    //asigna el calificador a una propuesta creando un concepto
     public function asignarCalificadorPropuesta(Request $request){
         
         $concepto=new Conceptos();
@@ -118,6 +119,7 @@ class AdministrativosController extends Controller
         return redirect()->route('administrativos.index');
 
     }
+    //redirige al formulacio para asignar calificador a propuesta de practica
     public function asignarPropuestaPractica(Request $request,$id){
         if(empty($request->user())){
             return view("auth.login");
@@ -127,7 +129,7 @@ class AdministrativosController extends Controller
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         return view('administrativos.asignarPropuestaPractica',compact('propuesta','docentes'));
     }
-
+    //asigna el calificador a la propuesta practica
     public function asignarCalificadorPropuestaPractica(Request $request){
         
         $concepto=new Conceptos();
@@ -139,7 +141,7 @@ class AdministrativosController extends Controller
         return redirect()->route('administrativos.index');
 
     }
-
+    //redirige al formulario de asignar calificador de trabajo final
     public function asignarDesarrollo(Request $request,$id){
         if(empty($request->user())){
             return view("auth.login");
@@ -149,7 +151,7 @@ class AdministrativosController extends Controller
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         return view('administrativos.asignarDesarrollo',compact('desarrollo','docentes'));
     }
-
+    //asigna el calificador a trabajo final
     public function asignarCalificadorDesarrollo(Request $request){
         
         $concepto=new Conceptos();
@@ -161,7 +163,7 @@ class AdministrativosController extends Controller
         return redirect()->route('administrativos.index');
 
     }
-
+    //redirige al formulario para asignar calificador a trabajo final de practica
     public function asignarDesarrolloPractica(Request $request,$id){
         if(empty($request->user())){
             return view("auth.login");
@@ -171,7 +173,7 @@ class AdministrativosController extends Controller
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         return view('administrativos.asignarDesarrolloPractica',compact('desarrollo','docentes'));
     }
-
+    //asigna el calificador a trabajo final de practica
     public function asignarCalificadorDesarrolloPractica(Request $request){
         
         $concepto=new Conceptos();
@@ -183,7 +185,7 @@ class AdministrativosController extends Controller
         return redirect()->route('administrativos.index');
 
     }
-
+    //funciones para descargar formatos de cada tabla (propuestas,final,practicas y auditorias)
     public function downloadPropuesta($id){
         $propuesta=Propuesta::find($id);
         $ruta=$propuesta->prop_formato;
@@ -217,30 +219,31 @@ class AdministrativosController extends Controller
         $ruta=$desarrollo->ad_formato;
         return response()->download(public_path()."/files/desarrollo/$ruta");
     }
-
+    //asigna el rol de docente a un usuario
     public function setRolDocente(Request $request){
-        $docente=User::where('documento',$request->input('documento'))->first();
-        if(is_null($docente)){
+        $usuario=User::where('documento',$request->input('documento'))->first();
+        if(is_null($usuario)){
             return redirect()->route("administrativos.index")->with('error','Usuario no encontrado.');
         }
-        $rol=DB::table('roles_user')->where('user_id',$docente->id)->update(['roles_rol_id'=>2]);
+        $rol=DB::table('roles_user')->where('user_id',$usuario->id)->update(['roles_rol_id'=>2]);
         return redirect()->route('administrativos.index');
     }
+    //asigna el rol de administrativo a un usuario
     public function setRolAdministrativo(Request $request){
-        $docente=User::where('documento',$request->input('documento'))->first();
-        if(is_null($docente)){
+        $usuario=User::where('documento',$request->input('documento'))->first();
+        if(is_null($usuario)){
             return redirect()->route("administrativos.index")->with('error','Usuario no encontrado.');
         }
-        $rol=DB::table('roles_user')->where('user_id',$docente->id)->update(['roles_rol_id'=>1]);
+        $rol=DB::table('roles_user')->where('user_id',$usuario->id)->update(['roles_rol_id'=>1]);
         return redirect()->route('administrativos.index');
     }
-
+    //asigna el rol de estudiante a un usuario quitando los roles de docente y administrador
     public function setRolEstudiante($id){
         $user=User::find($id);
         $rol=DB::table('roles_user')->where('user_id',$user->id)->update(['roles_rol_id'=>3]);
         return redirect()->route('administrativos.index');
     }
-
+    //funciones para exportar tablas a documento de excel
     public function exportPropuesta(Request $request) 
     {
         if(empty($request->user())){

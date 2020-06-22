@@ -4,6 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Login</title>
+	<link rel="icon" href="{{ asset('img/uts-logo.png') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
 	<link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Marck+Script" rel="stylesheet">
@@ -23,7 +24,7 @@
 
 	<div class="pagina">
 		<div class="formulario">
-			<h2>Login</h2>
+			<h2>Entrar</h2>
 			<p>Trabajo de Grado</p>
 			<form method="POST" action="{{ route('login') }}" class="form">
 				{{ csrf_field() }}

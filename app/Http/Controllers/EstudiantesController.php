@@ -470,7 +470,7 @@ class EstudiantesController extends Controller
         
         return redirect()->route("estudiantes.index");
     }
-
+    //funcion para abandonar una practica
     public function abandonarPractica(Request $request){
         $desarrollo=DesarrolloPractica::where('dp_usu_id',$request->user()->id)->first();
         
@@ -548,7 +548,7 @@ class EstudiantesController extends Controller
         $novedad->save();
         return redirect()->route("estudiantes.index");
     }
-
+    //funcion para pasar el desarrollo finalizado a la tabla de auditoria
     public function finalizar(Request $request,$id){
         $desarrollo=Desarrollo::find($id);
         $ad=new Auditoria_desarrollo();
@@ -598,7 +598,7 @@ class EstudiantesController extends Controller
         $propuesta=Propuesta::find($id)->delete();
         return redirect()->route('estudiantes.index')->with('success','Felicidades, Terminaste tu proceso de trabajo de grado.');
     }
-
+    //funcion para pasar el desarrollo de practica a la tabla de auditoria
     public function finalizarPractica(Request $request,$id){
         $desarrollo=DesarrolloPractica::find($id);
         $adp=new Auditoria_desarrollo_practicas();

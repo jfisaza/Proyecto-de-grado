@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Registrar</title>
+    <link rel="icon" href="{{ asset('img/uts-logo.png') }}">
     <link rel="stylesheet" type="text/css" href="css/registrar.css">
     <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Marck+Script" rel="stylesheet">
@@ -47,11 +48,11 @@
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                     @enderror
                     <select class="ciudad" name="ciudad">
-                        <option value="">Seleccionar Ciudad</option>
-                        <option value="BUCARAMANGA">Bucaramanga</option>
-                        <option value="BOGOTA">Bogota</option>
-                        <option value="CARTAGENA">Cartagena</option>
-                        <option value="SANTA MARTA">Santa Marta</option>
+                        <option value="">Seleccionar Sede</option>
+                        <option value="BUCARAMANGA">BUCARAMANGA</option>
+                        <option value="REGIONAL BARRANCABERMEJA">REGIONAL BARRANCABERMEJA</option>
+                        <option value="REGIONAL VELEZ">REGIONAL VÉLEZ</option>
+                        <option value="REGIONAL PIEDECUESTA">REGIONAL PIEDECUESTA</option>
                     </select>
                     @error('ciudad')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>

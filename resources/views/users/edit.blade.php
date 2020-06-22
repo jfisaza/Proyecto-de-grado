@@ -44,12 +44,13 @@
                 <input type="text" class="form-control" name="telefono" value="{{ $user->telefono }}">
             </div>
             <div class="form-group">
-                <label for="ciudad">Ciudad</label>
+                <label for="ciudad">Sede</label>
                 <select name="ciudad" class="form-control">
                     <option value="{{ auth()->user()->ciudad }}">{{ auth()->user()->ciudad }}</option>
                     <option value="BUCARAMANGA">BUCARAMANGA</option>
-                    <option value="BOGOTA">BOGOTÁ</option>
-                    <option value="MEDELLIN">MEDELLÍN</option>
+                    <option value="REGIONAL BARRANCABERMEJA">REGIONAL BARRANCABERMEJA</option>
+                    <option value="REGIONAL VELEZ">REGIONAL VÉLEZ</option>
+                    <option value="REGIONAL PIEDECUESTA">REGIONAL PIEDECUESTA</option>
                 </select>
             </div>
             <div class="form-group">

@@ -32,7 +32,7 @@ class DocentesController extends Controller
         $calificar=Conceptos::all()->where('con_usu_id',$request->user()->id);
         return view("docentes.index",compact('propuestas','propuestasc','desarrollo','desarrolloc','banco','calificar','propPractica','desPractica'));
     }
-
+    //redirige al formulario para calificar
     public function edit(Request $request, $id){
         if(empty($request->user())){
             return view("auth.login");
@@ -44,6 +44,7 @@ class DocentesController extends Controller
         }
         return view('docentes.edit',compact('concepto'));
     }
+    //actualiza el concepto
     public function update(Request $request, $id){
         
         $concepto=Conceptos::find($id);
@@ -54,22 +55,25 @@ class DocentesController extends Controller
         return redirect()->route('docentes.index');
     }
     
-
+    //descargar el formato de la propuesta seleccionada
     public function downloadPropuesta($id){
         $propuesta=Propuesta::find($id);
         $ruta=$propuesta->prop_formato;
         return response()->download(public_path()."/files/propuesta/$ruta");
     }
+    //descargar el formato final seleccionado
     public function downloadDesarrollo($id){
         $desarrollo=Desarrollo::find($id);
         $ruta=$desarrollo->des_formato;
         return response()->download(public_path()."/files/desarrollo/$ruta");
     }
+    //descargar el formato de la propuesta de practica seleccionada
     public function downloadPropuestaPractica($id){
         $propuesta=PropuestaPractica::find($id);
         $ruta=$propuesta->pp_formato;
         return response()->download(public_path()."/files/propuesta/$ruta");
     }
+    //descargar el formato final de practica seleccionado
     public function downloadDesarrolloPractica($id){
         $desarrollo=DesarrolloPractica::find($id);
         $ruta=$desarrollo->dp_formato;

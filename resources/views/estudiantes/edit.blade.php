@@ -40,25 +40,6 @@
                         @endforeach
                     </select>
 
-<<<<<<< HEAD
-                    </div>
-                    <div class="form-group">
-                        <label for="prop_mod_id"></label>
-                        <select id="prop_mod_id" name="prop_mod_id" class="form-control" required>
-                            <option selected value="{{ $propuesta->modalidad->mod_id }}">{{ $propuesta->modalidad->mod_nombre }}</option>
-                            @foreach($modalidades as $mod)
-                            <option value="{{ $mod->mod_id }}">{{ $mod->mod_nombre }}</option>
-                            @endforeach
-                        </select>
-
-                    </div>
-                <div class="form-row">
-                    <div class="custom-file col-md-4">
-                        <input type="file" class="custom-file-input" id="customFileLangHTML" name="prop_formato">
-                        <label class="custom-file-label" for="customFileLangHTML" data-browse="">Subir Formato</label>
-                    </div>
-=======
->>>>>>> eb5ff86c6887bc8d3a9977f4bfcc16e5585b82b7
                 </div>
                 <div class="form-group col-md-6">
                     <label for="prop_codir_usu_id"></label>
@@ -73,7 +54,18 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
+                </div>
+                <div class="form-group">
+                    <label for="prop_mod_id"></label>
+                    <select id="prop_mod_id" name="prop_mod_id" class="form-control" required>
+                        <option selected value="{{ $propuesta->modalidad->mod_id }}">{{ $propuesta->modalidad->mod_nombre }}</option>
+                        @foreach($modalidades as $mod)
+                        <option value="{{ $mod->mod_id }}">{{ $mod->mod_nombre }}</option>
+                        @endforeach
+                    </select>
+
+                </div>
+
             <div class="form-group">
                 <label for="prop_pro_id"></label>
                 <select id="prop_pro_id" name="prop_pro_id" class="form-control" required>

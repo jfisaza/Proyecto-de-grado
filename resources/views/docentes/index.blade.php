@@ -408,7 +408,7 @@
                             </table>
                             </div>
                             <div>
-                            <a href="{{ route('banco.create') }}" class="btn btn-primary mt-3">Agregar</a>
+                            <a href="{{ route('banco.create') }}" class="btn btn-sm btn-success mt-3"><span class="fas fa-plus"></span></a>
                             </div>
                         </article>
 
