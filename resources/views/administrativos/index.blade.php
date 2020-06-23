@@ -52,6 +52,11 @@
                                 <li class="nav-item">
                                     <a href="#docentes" class="nav-link">Docentes</a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a href="#limite" class="nav-link">Fecha Limite de Propuestas</a>
+                                </li>
+
                                 @if(auth()->user()->hasRole('super'))
                                 <li class="nav-item">
                                     <a href="#administrativos" class="nav-link">Administrativos</a>
@@ -922,6 +927,17 @@
                             <div><button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal2" title="Nuevo"><span class="fas fa-plus"></span></button></div>
     
                         </article>
+
+                        <article id="limite">
+                            <h3>Fecha límite de registro de propuestas:</h3>
+                            @if(isset($restriccion))
+                            <h1>{{ $restriccion->res_fecha }}</h1>
+                            @endif
+                            <br>
+                            <br>
+                            <br>
+                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal3" title="Cambiar"><span class="fas fa-pen"></span></button>
+                        </article>
                 </div>
 
                 </section>
@@ -974,6 +990,31 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <input type="submit" class="btn btn-primary" value="Asignar">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="modal3">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cambiar fecha límite de entrega de propuestas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ action('AdministrativosController@setFechaLimitePropuestas') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" name="fecha" class="form-control" value="{{ $restriccion->res_fecha }}" required>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <input type="submit" class="btn btn-primary" value="Cambiar">
                 </form>
             </div>
         </div>

@@ -21,6 +21,7 @@ use App\Auditoria_propuesta_practicas;
 use App\Auditoria_desarrollo_practicas;
 use App\Auditoria_novedades_practicas;
 use App\Empresas;
+use App\Restricciones;
 
 class EstudiantesController extends Controller
 {
@@ -43,7 +44,8 @@ class EstudiantesController extends Controller
         if(isset($practicas)){
             return view('estudiantes.indexpractica',compact('practicas','desarrollo','novedadesp'));
         }
-        return view("estudiantes.index", compact("estudiantes","estudiantesd","novedades"));
+        $restriccion=Restricciones::get()->first();
+        return view("estudiantes.index", compact("estudiantes","estudiantesd","novedades","restriccion"));
     }
     //redirige al formulario para crear una propuesta
     public function create(Request $request){

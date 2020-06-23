@@ -26,6 +26,7 @@ use App\Auditoria_desarrollo_practicas;
 use App\Empresas;
 use App\Exports\AuditoriaPropuestasPracticaExport;
 use App\Solicitudes;
+use App\Restricciones;
 
 class AdministrativosController extends Controller
 {
@@ -33,6 +34,7 @@ class AdministrativosController extends Controller
         if(empty($request->user())){
             return view("auth.login");
         }
+        
         $request->user()->authorizeRoles('administrativo');
         $propuestas=Propuesta::codigo($request->get('prop_id'))->paginate();
         $desarrollo=Desarrollo::codigo($request->get('des_id'))->paginate();
@@ -46,7 +48,8 @@ class AdministrativosController extends Controller
         $solicitudes=Solicitudes::paginate();
         $docentes=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','2')->get();
         $administrativos=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.documento','users.nombres','users.apellidos','users.telefono','users.email')->where('roles_user.roles_rol_id','1')->get();
-        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos","pp","pd","app","apd"));
+        $restriccion=Restricciones::get()->first();
+        return view("administrativos.index",compact("propuestas","desarrollo","ap","ad","docentes","empresas","solicitudes","administrativos","pp","pd","app","apd","restriccion"));
     }
     //redirige al formulario para crear una empresa
     public function create(Request $request){
@@ -307,6 +310,11 @@ class AdministrativosController extends Controller
         }
         $request->user()->authorizeRoles('administrativo');
         return Excel::download(new AuditoriaDesarrollosPracticaExport, 'AuditoriaTrabajosPracticas.xlsx');
+    }
+    //funcion para cambiar la fecha limite de registro de propuestas de trabajo de grado
+    public function setFechaLimitePropuestas(Request $request){
+        $restriccion=Restricciones::find(1)->update(['res_fecha'=>$request->input('fecha')]);
+        return redirect()->route('administrativos.index');
     }
 
 }

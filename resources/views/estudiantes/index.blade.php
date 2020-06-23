@@ -386,7 +386,11 @@
     </div>
 </div>
 @else
+@if($restriccion->res_fecha >= date('Y-m-d'))
 <center><br><a href="{{route('estudiantes.create')}}" class="btn btn-info ">Propuesta Trabajo de grado</a>
 <a href="{{action ('EstudiantesController@createp')}}" class="btn btn-info "> Propuesta Practica</a><br><br></center>
+@else
+<h3>El periodo de registro de propuestas ha finalizado.</h3>
+@endif
 @endif
 @endsection

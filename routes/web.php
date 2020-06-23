@@ -90,3 +90,4 @@ Route::get('/exportPropuestaPractica', 'AdministrativosController@exportPropuest
 Route::get('/exportDesarrolloPractica', 'AdministrativosController@exportDesarrolloPractica')->name('exportDesarrolloPractica');
 Route::get('/exportAuditoriaPropuestaPractica', 'AdministrativosController@exportAuditoriaPropuestaPractica')->name('exportAuditoriaPropuestaPractica');
 Route::get('/exportAuditoriaDesarrolloPractica', 'AdministrativosController@exportAuditoriaDesarrolloPractica')->name('exportAuditoriaDesarrolloPractica');
+Route::post('/fechalimite','AdministrativosController@setFechaLimitePropuestas')->name('/fechalimite');
