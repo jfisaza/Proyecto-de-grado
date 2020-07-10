@@ -26,34 +26,10 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     
-                    <label for="prop_titulo">Titulo de Propuesta</label>
-                    <input type="text" class="form-control" name="prop_titulo"  id="prop_titulo" placeholder="" required value="{{ $desarrollo->propuesta->prop_titulo }}">
+                    <label for="des_titulo">Titulo de Propuesta</label>
+                    <textarea class="form-control" name="des_titulo"  id="des_titulo" placeholder="" required>{{ $desarrollo->des_titulo }}</textarea>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="prop_dir_usu_id"></label>
-                        <select id="prop_dir_usu_id" name="prop_dir_usu_id" class="form-control" required>
-                            <option selected value="{{ $desarrollo->propuesta->director->id }}">{{ $desarrollo->propuesta->director->nombres }} {{ $desarrollo->propuesta->director->apellidos }}</option>
-                            @foreach($usuarios as $usr)
-                            <option value="{{ $usr->id }}">{{ $usr->nombres }} {{ $usr->apellidos }}</option>
-                            @endforeach
-                        </select>
-
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="prop_codir_usu_id"></label>
-                        <select id="prop_codir_usu_id" name="prop_codir_usu_id" class="form-control">
-                            @if(isset($desarrollo->propuesta->prop_codir_usu_id))
-                            <option value="{{ $desarrollo->propuesta->codirector->id }}" selected>{{ $desarrollo->propuesta->codirector->nombres }} {{ $desarrollo->propuesta->codirector->apellidos }}</option>
-                            @else
-                            <option value="" selected> Co-Director</option>
-                            @endif
-                            @foreach($usuarios as $usr)
-                            <option value="{{ $usr->id }}">{{ $usr->nombres }} {{ $usr->apellidos }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                
                 <div class="form-group">
                         <label for="des_pro_id"></label>
                         <select id="des_pro_id" name="des_pro_id" class="form-control" required>
@@ -80,7 +56,7 @@
                         <label class="custom-file-label" for="customFileLangHTML" data-browse="">Subir Formato</label>
                     </div>
                 </div>
-            </div>
+            
 
                 <div class="boton">
                     <input id="registrar" type="submit" name="registrar" value="Actualizar">

@@ -22,10 +22,10 @@
                                     <a class="nav-link" href="#trabajos">Informes Finales</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#practicas">Practicas</a>
+                                    <a class="nav-link" href="#practicas">Prácticas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#practicasFinal">Practicas Final</a>
+                                    <a class="nav-link" href="#practicasFinal">Prácticas Final</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#banco" class="nav-link">Banco de ideas</a>
@@ -171,6 +171,7 @@
                                     <th>Formato RDC</th>
                                     <th>Calificador</th>
                                     <th>Estado</th>
+                                    <th>Sustentación</th>
                                 </thead>
                                 <tbody>
                                     @if(isset($desarrollo))
@@ -204,6 +205,14 @@
                                         <td>
                                             @if(isset($des->des_con_id))
                                             {{ $des->concepto->con_nombre }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(isset($des->des_citacion))
+                                            {{ $des->des_citacion }}
+                                            <a href="{{ action('DocentesController@sustentacion',$des->des_id) }}" class="btn btn-sm btn-primary" title="Editar fecha de sustentación"><span class="fas fa-pen"></span></a>
+                                            @else
+                                            <a href="{{ action('DocentesController@sustentacion',$des->des_id) }}" class="btn btn-sm btn-primary" title="Agregar fecha de sustentación"><span class="fas fa-plus"></span></a>
                                             @endif
                                         </td>
                                     </tr>

@@ -29,7 +29,7 @@
             <div class="form-group">
 
                 <label for="prop_titulo">Titulo de Propuesta</label>
-                <input type="text" class="form-control" name="prop_titulo" id="prop_titulo" placeholder="" required>
+                <textarea class="form-control" name="prop_titulo" id="prop_titulo" placeholder="" required></textarea>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -75,7 +75,15 @@
 
             <div class="form-group">
                 <div class="custom-file col-md-14">
+                    <label for="prop_formato">Formato RDC-124</label>
                     <input type="file" class="form-control" id="customFileLangHTML" name="prop_formato" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="custom-file col-md-14">
+                    <label for="prop_liquidacion">Liquidación <br> (Adjunta las liquidaciones en un solo archivo PDF)</label>
+                    <input type="file" class="form-control" id="customFileLangHTML" name="prop_liquidacion" required>
                 </div>
             </div>
 

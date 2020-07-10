@@ -65,7 +65,15 @@
                 </div>
             <div class="form-group">
                 <div class="custom-file col-md-14">
+                    <label for="pp_formato">Formato RDC</label>
                     <input type="file" class="form-control" id="customFileLangHTML" name="pp_formato" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="custom-file col-md-14">
+                    <label for="pp_liquidacion">Liquidación <br> (Adjunta las liquidaciones en un solo archivo PDF)</label>
+                    <input type="file" class="form-control" id="customFileLangHTML" name="pp_liquidacion" required>
                 </div>
             </div>
 

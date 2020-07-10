@@ -54,7 +54,25 @@ class DocentesController extends Controller
         $concepto->save();
         return redirect()->route('docentes.index');
     }
+
+    //redirige al formulario para asignar la fecha de sustentacion
+    public function sustentacion(Request $request, $id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('docente');
+        $desarrollo=Desarrollo::find($id);
+        return view('docentes.sustentacion',compact('desarrollo'));
+    }
     
+    //asigna la fecha de sustentacion
+    public function setSustentacion(Request $request, $id){
+        $desarrollo=Desarrollo::find($id);
+        $desarrollo->des_citacion=$request->input('fecha');
+        $desarrollo->save();
+        return redirect()->route('docentes.index');
+    }
+
     //descargar el formato de la propuesta seleccionada
     public function downloadPropuesta($id){
         $propuesta=Propuesta::find($id);

@@ -97,7 +97,54 @@ class AdministrativosController extends Controller
         return $this->destroy($id);
     }
     public function destroy($id){
-        $empresa=Empresas::find($id)->delete();
+        try {
+            $empresa=Empresas::find($id)->delete();
+        } catch (\Throwable $th) {
+            return redirect()->route('administrativos.index')
+            ->with('error','No se puede eliminar esta empresa debido a que hay solicitudes de practicantes relacionadas a ella');
+        }
+        
+        return redirect()->route('administrativos.index');
+    }
+
+    //redirige al formulario para cambiar el director y codirector de una propuesta
+    public function cambiarDirectoresPropuesta(Request $request, $id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+
+        $propuesta=Propuesta::find($id);
+        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        return view('administrativos.directores',compact('propuesta','usuarios'));
+    }
+    //cambia el director y codirector de una propuesta
+    public function setDirectoresPropuesta(Request $request, $id){
+        $propuesta=Propuesta::find($id);
+        $propuesta->prop_dir_usu_id=$request->input('prop_dir_usu_id');
+        $propuesta->prop_codir_usu_id=$request->input('prop_codir_usu_id');
+        $propuesta->save();
+
+        return redirect()->route('administrativos.index');
+    }
+    //redirige al formulario para cambiar el director y codirector de un desarrollo
+    public function cambiarDirectoresDesarrollo(Request $request, $id){
+        if(empty($request->user())){
+            return view("auth.login");
+        }
+        $request->user()->authorizeRoles('administrativo');
+
+        $desarrollo=Desarrollo::find($id);
+        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
+        return view('administrativos.directoresDesarrollo',compact('desarrollo','usuarios'));
+    }
+    //cambia el director y codirector de un desarrollo
+    public function setDirectoresDesarrollo(Request $request, $id){
+        $desarrollo=Desarrollo::find($id);
+        $desarrollo->des_dir_usu_id=$request->input('des_dir_usu_id');
+        $desarrollo->des_codir_usu_id=$request->input('des_codir_usu_id');
+        $desarrollo->save();
+
         return redirect()->route('administrativos.index');
     }
     //redirige al formulario para asignar calificador a una propuesta
@@ -221,6 +268,17 @@ class AdministrativosController extends Controller
         $desarrollo=Auditoria_desarrollo::find($id);
         $ruta=$desarrollo->ad_formato;
         return response()->download(public_path()."/files/desarrollo/$ruta");
+    }
+    //funciones para descargar liquidaciones
+    public function downloadLiquidacionPropuesta($id){
+        $propuesta=Propuesta::find($id);
+        $ruta=$propuesta->prop_liquidacion;
+        return response()->download(public_path()."/files/liquidaciones/$ruta");
+    }
+    public function downloadLiquidacionPractica($id){
+        $propuesta=PropuestaPractica::find($id);
+        $ruta=$propuesta->pp_liquidacion;
+        return response()->download(public_path()."/files/liquidaciones/$ruta");
     }
     //asigna el rol de docente a un usuario
     public function setRolDocente(Request $request){

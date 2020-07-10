@@ -67,6 +67,11 @@ class EstudiantesController extends Controller
             $name = time().$file->getClientOriginalName();
             $file->move(public_path().'/files/propuesta/',$name);
         }
+        if($request->hasFile('prop_liquidacion')){
+            $file = $request->file('prop_liquidacion');
+            $nombre = time().$file->getClientOriginalName();
+            $file->move(public_path().'/files/liquidaciones/',$nombre);
+        }
         
         $this->validate($request,['prop_titulo'=>'required',
         'prop_dir_usu_id'=>'required',
@@ -78,6 +83,7 @@ class EstudiantesController extends Controller
         $propuesta->prop_mod_id=$request->input('prop_mod_id');
         $propuesta->prop_pro_id=$request->input('prop_pro_id');
         $propuesta->prop_formato=$name;
+        $propuesta->prop_liquidacion=$nombre;
         $propuesta->save();
         return $this->enlazarPropuestaUser($request,$propuesta);
     }
@@ -93,14 +99,12 @@ class EstudiantesController extends Controller
         $propuesta=Propuesta::find($id);
         $programas=Programas::all();
         $modalidades=Modalidades::all();
-        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
-        return view("estudiantes.edit", compact("propuesta","usuarios","programas","modalidades"));
+        return view("estudiantes.edit", compact("propuesta","programas","modalidades"));
     }
     //actualiza la propuesta
     public function update(Request $request, $id){
         $propuesta=Propuesta::find($id);
-        $this->validate($request,['prop_titulo'=>'required',
-        'prop_dir_usu_id'=>'required']);
+        $this->validate($request,['prop_titulo'=>'required']);
 
         if($request->hasFile('prop_formato')){
             $file = $request->file('prop_formato');
@@ -111,8 +115,6 @@ class EstudiantesController extends Controller
         }
 
         $propuesta->prop_titulo=strtoupper($request->input('prop_titulo'));
-        $propuesta->prop_dir_usu_id=$request->input('prop_dir_usu_id');
-        $propuesta->prop_codir_usu_id=$request->input('prop_codir_usu_id');
         $propuesta->prop_pro_id=$request->input('prop_pro_id');
         $propuesta->prop_mod_id=$request->input('prop_mod_id');
         $propuesta->save();
@@ -146,7 +148,11 @@ class EstudiantesController extends Controller
             $name = time().$file->getClientOriginalName();
             $file->move(public_path().'/files/propuesta/',$name);
         }
-        
+        if($request->hasFile('pp_liquidacion')){
+            $file = $request->file('pp_liquidacion');
+            $nombre = time().$file->getClientOriginalName();
+            $file->move(public_path().'/files/liquidaciones/',$nombre);
+        }
         $this->validate($request,['pp_titulo'=>'required',
         'pp_dir_usu_id'=>'required',
         'pp_numconvenio'=>'required']);
@@ -159,6 +165,7 @@ class EstudiantesController extends Controller
         $propuesta->pp_dir_usu_id=$request->input('pp_dir_usu_id');
         $propuesta->pp_pro_id=$request->user()->programa;
         $propuesta->pp_formato=$name;
+        $propuesta->pp_liquidacion=$nombre;
         $propuesta->save();
         return redirect()->route('estudiantes.index');
     }
@@ -284,9 +291,9 @@ class EstudiantesController extends Controller
         $programas=Programas::all();
         $desarrollo=Desarrollo::find($id);
         $modalidades=Modalidades::all();
-        $usuarios=DB::table('users')->join('roles_user', 'users.id','=','roles_user.user_id')->select('users.id','users.nombres','users.apellidos')->where('roles_user.roles_rol_id','2')->get();
         
-        return view("estudiantes.editar", compact("desarrollo","usuarios","programas","modalidades"));
+        
+        return view("estudiantes.editar", compact("desarrollo","programas","modalidades"));
     }
     public function desarrolloPracticaEdit(Request $request, $id){
         if(empty($request->user())){
@@ -304,8 +311,7 @@ class EstudiantesController extends Controller
     //actualizar datos en fase de desarrollo
     public function desarrolloUpdate(Request $request,$id){
         $desarrollo=Desarrollo::find($id);
-        $this->validate($request,['prop_titulo'=>'required',
-        'prop_dir_usu_id'=>'required']);
+        $this->validate($request,['des_titulo'=>'required']);
 
         if($request->hasFile('des_formato')){
             $file = $request->file('des_formato');
@@ -314,9 +320,7 @@ class EstudiantesController extends Controller
             unlink(public_path().'/files/desarrollo/'.$desarrollo->des_formato);
             $desarrollo->des_formato=$name;
         }
-        $desarrollo->des_titulo=strtoupper($request->input('prop_titulo'));
-        $desarrollo->des_dir_usu_id=$request->input('prop_dir_usu_id');
-        $desarrollo->des_codir_usu_id=$request->input('prop_codir_usu_id');
+        $desarrollo->des_titulo=strtoupper($request->input('des_titulo'));
         $desarrollo->des_pro_id=$request->input('des_pro_id');
         $desarrollo->des_mod_id=$request->input('des_mod_id');
         

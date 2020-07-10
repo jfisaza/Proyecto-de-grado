@@ -62,6 +62,8 @@ Route::get('/descargaFormatoP/{id}','DocentesController@downloadPropuesta')->nam
 Route::get('/descargaFormatoD/{id}','DocentesController@downloadDesarrollo')->name('descargaFormatoD');
 Route::get('/descargaFormatoPP/{id}','DocentesController@downloadPropuestaPractica')->name('descargaFormatoPP');
 Route::get('/descargaFormatoDP/{id}','DocentesController@downloadDesarrolloPractica')->name('descargaFormatoDP');
+Route::get('/asigSustentancion/{id}','DocentesController@sustentacion')->name('sustentacion');
+Route::post('/setSustentacion/{id}','DocentesController@setSustentacion')->name('setSustentacion');
 
 //Rutas de administrativos
 Route::resource('/administrativos','AdministrativosController');
@@ -79,6 +81,8 @@ Route::post('/setRolDocente','AdministrativosController@setRolDocente')->name('s
 Route::post('/setRolAdministrativo','AdministrativosController@setRolAdministrativo')->name('setRolAdministrativo');
 Route::get('/setRolEstudiante/{id}','AdministrativosController@setRolEstudiante')->name('setRolEstudiante');
 Route::get('/propuestaa/{id}','AdministrativosController@downloadPropuesta')->name('propuestaa');
+Route::get('/liquidacion/{id}','AdministrativosController@downloadLiquidacionPropuesta')->name('liquidacion');
+Route::get('/liquidacionp/{id}','AdministrativosController@downloadLiquidacionPractica')->name('liquidacionp');
 Route::get('/desarrolloa/{id}','AdministrativosController@downloadDesarrollo')->name('desarrolloa');
 Route::get('/dpropuestap/{id}','AdministrativosController@downloadPropuestaPractica')->name('dpropuestap');
 Route::get('/ddesarrolloap/{id}','AdministrativosController@downloadDesarrolloPractica')->name('ddesarrolloap');
@@ -91,3 +95,7 @@ Route::get('/exportDesarrolloPractica', 'AdministrativosController@exportDesarro
 Route::get('/exportAuditoriaPropuestaPractica', 'AdministrativosController@exportAuditoriaPropuestaPractica')->name('exportAuditoriaPropuestaPractica');
 Route::get('/exportAuditoriaDesarrolloPractica', 'AdministrativosController@exportAuditoriaDesarrolloPractica')->name('exportAuditoriaDesarrolloPractica');
 Route::post('/fechalimite','AdministrativosController@setFechaLimitePropuestas')->name('/fechalimite');
+Route::get('/cambiarDirectoresPropuesta/{id}','AdministrativosController@cambiarDirectoresPropuesta')->name('cambiarDirectoresPropuesta');
+Route::post('/setDirectoresPropuesta/{id}','AdministrativosController@setDirectoresPropuesta')->name('setDirectoresPropuesta');
+Route::get('/cambiarDirectoresDesarrollo/{id}','AdministrativosController@cambiarDirectoresDesarrollo')->name('cambiarDirectoresDesarrollo');
+Route::post('/setDirectoresDesarrollo/{id}','AdministrativosController@setDirectoresDesarrollo')->name('setDirectoresDesarrollo');

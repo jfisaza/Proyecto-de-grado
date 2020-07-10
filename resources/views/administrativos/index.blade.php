@@ -3,6 +3,11 @@
 @section('content')
 <div class="pagina-info">
     <div class="container">
+        @if(session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="card">
                 <div class="card-header p-3 mb-2 bg-success text-white ">
@@ -85,6 +90,7 @@
                                             <th>Modalidad</th>
                                             <th>Programa</th>
                                             <th>Formato RDC</th>
+                                            <th>Liquidación</th>
                                             <th>Fecha Entrega</th>
                                             <th>Calificador</th>
                                             <th>Estado</th>
@@ -122,11 +128,17 @@
                                                 <a href="{{ action('AdministrativosController@downloadPropuesta', $prop->prop_id) }}">{{$prop->prop_formato}} <span class="fas fa-download"></span></a>
                                                 @endif
                                             </td>
+                                            <td>
+                                                @if(isset($prop->prop_liquidacion))
+                                                <a href="{{ action('AdministrativosController@downloadLiquidacionPropuesta', $prop->prop_id) }}">{{$prop->prop_liquidacion}} <span class="fas fa-download"></span></a>
+                                                @endif
+                                            </td>
                                             <td>{{$prop->created_at}}</td>
                                             <td>@if(isset ($prop->concepto->calificador))
                                                 {{$prop->concepto->calificador->nombres}}
                                                 @endif
                                             </td>
+                                            
                                             <td>@if(isset($prop->concepto->con_nombre))
                                                 {{$prop->concepto->con_nombre}}
                                                 @endif
@@ -144,8 +156,9 @@
 
                                             <td>
                                                 @if(is_null($prop->prop_con_id))
-                                                <a href="{{ action('AdministrativosController@asignarPropuesta', $prop->prop_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                                <a href="{{ action('AdministrativosController@asignarPropuesta', $prop->prop_id) }}" class="btn btn-sm btn-primary mb-3" title="Asignar calificador"><span class="fas fa-check"></span></a>
                                                 @endif
+                                                <a href="{{ action('AdministrativosController@cambiarDirectoresPropuesta',$prop->prop_id) }}" class="btn btn-sm btn-primary" title="Cambiar director y coodirector"><span class="fas fa-user-edit"></span></a>
                                             </td>
                                         </tr>
                                         @endif
@@ -235,8 +248,9 @@
                                             </td>
                                             <td>
                                                 @if(is_null($des->des_con_id))
-                                                <a href="{{ action('AdministrativosController@asignarDesarrollo', $des->des_id) }}" class="btn btn-sm btn-primary" title="Asignar calificador"><span class="fas fa-check"></span></a>
+                                                <a href="{{ action('AdministrativosController@asignarDesarrollo', $des->des_id) }}" class="btn btn-sm btn-primary mb-3" title="Asignar calificador"><span class="fas fa-check"></span></a>
                                                 @endif
+                                                <a href="{{ action('AdministrativosController@cambiarDirectoresDesarrollo',$des->des_id) }}" class="btn btn-sm btn-primary" title="Cambiar director y coodirector"><span class="fas fa-user-edit"></span></a>
                                             </td>
                                         </tr>
                                         @endif
@@ -273,6 +287,7 @@
                                         <th>Director</th>
                                         <th>Empresa</th>
                                         <th>Formato RDC</th>
+                                        <th>Liquidación</th>
                                         <th>Fecha Entrega</th>
                                         <th>Calificador</th>
                                         <th>Estado</th>
@@ -294,6 +309,11 @@
                                             <td>
                                                 @if(isset($pr->pp_formato))
                                                 <a href="{{ action('AdministrativosController@downloadPropuestaPractica', $pr->pp_id) }}">{{$pr->pp_formato}} <span class="fas fa-download"></span></a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($pp->pp_liquidacion))
+                                                <a href="{{ action('AdministrativosController@downloadLiquidacionPractica', $pp->pp_id) }}">{{$pp->pp_liquidacion}} <span class="fas fa-download"></span></a>
                                                 @endif
                                             </td>
                                             <td>{{$pr->created_at}}</td>
@@ -932,6 +952,8 @@
                             <h3>Fecha límite de registro de propuestas:</h3>
                             @if(isset($restriccion))
                             <h1>{{ $restriccion->res_fecha }}</h1>
+                            @else
+                            <h1>No se ha asignado una fecha límite para el registro de las propuestas de trabajo de grado.</h1>
                             @endif
                             <br>
                             <br>
@@ -1009,7 +1031,11 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="fecha">Fecha:</label>
+                        @if(isset($restriccion))
                         <input type="date" name="fecha" class="form-control" value="{{ $restriccion->res_fecha }}" required>
+                        @else
+                        <input type="date" name="fecha" class="form-control" value="" required>
+                        @endif
                     </div>
             </div>
             <div class="modal-footer">

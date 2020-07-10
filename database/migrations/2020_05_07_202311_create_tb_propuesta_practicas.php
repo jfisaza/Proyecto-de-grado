@@ -29,6 +29,7 @@ class CreateTbPropuestaPracticas extends Migration
             $table->integer('pp_con_id')->unsigned()->nullable();
             $table->foreign('pp_con_id')->references('con_id')->on('conceptos');
             $table->string('pp_formato')->nullable();
+            $table->string('pp_liquidacion')->nullable();
             $table->date('pp_fecha_entrega')->nullable();
             $table->date('pp_fecha_calificacion')->nullable();
 
