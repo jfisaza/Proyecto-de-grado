@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/ayuda', function(){
+    return view('ayuda');
+});
 
 Route::resource('/usuarios','UsersController');
 Auth::routes();

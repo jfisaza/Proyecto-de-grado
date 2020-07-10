@@ -155,6 +155,11 @@ to{transform: rotate(360deg);}
                     <a href="http://www.uts.edu.co/sitio/wp-content/uploads/normatividad/reglamento_trabajo_grado.pdf">Reglamento Trabajos de grado</a>
                     <a href="{{ action('BancoController@index') }}">Banco de ideas y prácticas</a>
                 </div>
+                <br>
+                <div class="links">
+                    <a href="{{ url('/ayuda') }}">Como realizar tu proceso de trabajo de grado</a>
+                </div>
+                
             </div>
         </div>
     </div>
